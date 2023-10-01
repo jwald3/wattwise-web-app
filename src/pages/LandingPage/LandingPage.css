@@ -1,0 +1,156 @@
+.main-page {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    height: auto;
+    width: 80%;
+    max-width: 1400px;
+    margin: auto;
+    overflow-y: auto;
+}
+
+.main-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    height: 15vh;
+    padding: 0 5%;
+    margin-bottom: 5%;
+}
+
+.main-header-left {
+    display: flex;
+    flex: 1;
+    height: 100%;
+    align-items: center;
+    padding-left: 10px;
+}
+
+.header-logo {
+    display: flex;
+    height: auto;
+}
+
+.header-logo-img {
+    height: auto;
+    width: 200px;
+    max-width: 100%;
+}
+
+.main-header-right {
+    display: flex;
+    flex: 2;
+    gap: 20px;
+    height: 100%;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.landing-page-content {
+    display: flex;
+    flex: 1;
+    flex-direction: row;
+    padding: 0 5%;
+    max-width: 100%;
+}
+
+.landing-page-left-content {
+    display: flex;
+    flex-direction: column;
+    flex: 2;
+    justify-content: space-around;
+    padding: 5% 0;
+    max-height: 800px;
+}
+
+.landing-page-copy {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+}
+
+.landing-page-copy-text {
+    font-weight: 600;
+    font-size: 3.25rem;
+}
+
+.brand-color-main {
+    color: #32C5A4;
+}
+
+.brand-color-dark {
+    color: black;
+}
+
+.call-to-action-container {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    gap: 3rem;
+    width: 100%;
+    max-width: 30vw;
+}
+
+.call-to-action-text {
+    display: flex;
+    width: 100%;
+    font-size: 1.25rem;
+}
+
+.call-to-action-btn-container {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}
+
+.call-to-action-btn {
+    background-color: #635dff;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+}
+
+.landing-page-right-content {
+    display: flex;
+    flex: 3;
+    justify-content: flex-end;
+    min-height: calc(3 * 16rem); /* at least as tall as .image-tiles-container */
+}
+
+
+.image-tiles-container {
+    position: relative;
+    height: calc(3 * 16rem); /* 3 tiles and space for top positioning of #tile-3 */
+}
+
+
+.image-tile {
+    width: 16rem;
+    height: 16rem;
+    border-radius: 20px;
+}
+
+#tile-1 {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 1;
+}
+
+#tile-2 {
+    position: absolute;
+    top: 200px;
+    right: 160px;
+    z-index: 3;
+}
+
+#tile-3 {
+    position: absolute;
+    top: 420px;
+    right: 20px;
+    z-index: 1;
+}
