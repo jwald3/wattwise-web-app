@@ -9,43 +9,6 @@
     overflow-y: auto;
 }
 
-.main-header {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    height: 15vh;
-    padding: 0 5%;
-    margin-bottom: 5%;
-}
-
-.main-header-left {
-    display: flex;
-    flex: 1;
-    height: 100%;
-    align-items: center;
-    padding-left: 10px;
-}
-
-.header-logo {
-    display: flex;
-    height: auto;
-}
-
-.header-logo-img {
-    height: auto;
-    width: 200px;
-    max-width: 100%;
-}
-
-.main-header-right {
-    display: flex;
-    flex: 2;
-    gap: 20px;
-    height: 100%;
-    align-items: center;
-    justify-content: flex-end;
-}
-
 .landing-page-content {
     display: flex;
     flex: 1;

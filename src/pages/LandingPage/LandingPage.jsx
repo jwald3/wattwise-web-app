@@ -1,28 +1,11 @@
 import React from "react";
 import "./LandingPage.css";
+import Header from "../../components/Header/Header";
 
 const LandingPage = () => {
   return (
     <div className="main-page">
-      <div className="main-header">
-        <div className="main-header-left">
-          <div className="header-logo">
-            <img
-              src={process.env.PUBLIC_URL + "/headerLogo.png"}
-              alt="logo"
-              className="header-logo-img"
-            />
-          </div>
-        </div>
-        <div className="main-header-right">
-          <p>Links</p>
-          <p>Links</p>
-          <p>Links</p>
-          <p>Links</p>
-          <p>Links</p>
-          <p>Links</p>
-        </div>
-      </div>
+      <Header />
       <div className="landing-page-content">
         <div className="landing-page-left-content">
           <div className="landing-page-copy">

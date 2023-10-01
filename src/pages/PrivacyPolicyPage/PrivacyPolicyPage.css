@@ -1,0 +1,10 @@
+.main-page {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    height: auto;
+    width: 80%;
+    max-width: 1400px;
+    margin: auto;
+    overflow-y: auto;
+}
