@@ -1,12 +1,13 @@
 import React from "react";
 import Header from "../../components/Header/Header";
 import "./PrivacyPolicyPage.css";
+import Footer from "../../components/Footer/Footer";
 
 const PrivacyPolicyPage = () => {
   return (
-    <div>
+    <div style={{ height: "100vh", display: "flex", flexDirection: "column"}}>
       <Header />
-      <div className="main-page">
+      <div className="main-page"> 
 		<div className="privacy-policy-container">
 			<h1>Privacy Policy</h1>
 			<p>
@@ -38,6 +39,7 @@ const PrivacyPolicyPage = () => {
 			</p>
 			</div>
       </div>
+	  <Footer />
     </div>
   );
 };
