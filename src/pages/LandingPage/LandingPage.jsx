@@ -144,7 +144,7 @@ const LandingPage = () => {
                             <button
                                 className="cta-button"
                                 style={{
-                                    backgroundColor: "#4CAF50", // Or any color you prefer
+                                    backgroundColor: "#635dff", // Or any color you prefer
                                     color: "white", // Text color
                                     padding: "10px 20px",
                                     borderRadius: "5px",
