@@ -1,0 +1,1191 @@
+import React from "react";
+import Header from "../../components/Header/Header";
+import Footer from "../../components/Footer/Footer";
+import "./CompanyDashboard.css";
+import UsageChart from "../../components/UsageChart/UsageChart";
+
+import DropdownMenu from "../../components/DropdownMenu/DropdownMenu";
+import PricingTierTile from "../../components/PricingTierTile/PricingTierTile";
+
+const CompanyDashboard = () => {
+    const [state, setState] = React.useState("");
+    const [region, setRegion] = React.useState("");
+    const [period, setPeriod] = React.useState("Yearly");
+
+    const handleStateChange = (event) => {
+        setState(event.target.value);
+        setRegion("");
+    };
+
+    const handleRegionChange = (event) => {
+        setRegion(event.target.value);
+    };
+
+    const handlePeriodChange = (event) => {
+        setPeriod(event.target.value);
+    };
+
+    const pricingTiers = [
+        {
+            rate: 0.27,
+            pricing_id: 13,
+            provider_id: 1,
+            region_id: 4,
+            pricing_tier_name: "Peak",
+            start_time: "07:30:00",
+            end_time: "18:30:00",
+            pricingTierDays: [
+                {
+                    pricing_tier_day_id: 56,
+                    pricing_id: 13,
+                    day_of_week: 1,
+                },
+                {
+                    pricing_tier_day_id: 57,
+                    pricing_id: 13,
+                    day_of_week: 2,
+                },
+                {
+                    pricing_tier_day_id: 58,
+                    pricing_id: 13,
+                    day_of_week: 3,
+                },
+                {
+                    pricing_tier_day_id: 59,
+                    pricing_id: 13,
+                    day_of_week: 4,
+                },
+            ],
+            pricingTierSpecialDates: [],
+        },
+        {
+            rate: 0.215,
+            pricing_id: 14,
+            provider_id: 1,
+            region_id: 4,
+            pricing_tier_name: "Off-Peak",
+            start_time: "18:30:00",
+            end_time: "07:30:00",
+            pricingTierDays: [
+                {
+                    pricing_tier_day_id: 60,
+                    pricing_id: 14,
+                    day_of_week: 1,
+                },
+                {
+                    pricing_tier_day_id: 61,
+                    pricing_id: 14,
+                    day_of_week: 2,
+                },
+                {
+                    pricing_tier_day_id: 62,
+                    pricing_id: 14,
+                    day_of_week: 3,
+                },
+                {
+                    pricing_tier_day_id: 63,
+                    pricing_id: 14,
+                    day_of_week: 4,
+                },
+            ],
+            pricingTierSpecialDates: [],
+        },
+        {
+            rate: 0.215,
+            pricing_id: 15,
+            provider_id: 1,
+            region_id: 4,
+            pricing_tier_name: "Weekend",
+            start_time: "00:00:00",
+            end_time: "23:59:59",
+            pricingTierDays: [
+                {
+                    pricing_tier_day_id: 64,
+                    pricing_id: 15,
+                    day_of_week: 5,
+                },
+                {
+                    pricing_tier_day_id: 65,
+                    pricing_id: 15,
+                    day_of_week: 6,
+                },
+                {
+                    pricing_tier_day_id: 66,
+                    pricing_id: 15,
+                    day_of_week: 7,
+                },
+            ],
+            pricingTierSpecialDates: [],
+        },
+        {
+            rate: 0.215,
+            pricing_id: 16,
+            provider_id: 1,
+            region_id: 4,
+            pricing_tier_name: "Holiday",
+            start_time: "00:00:00",
+            end_time: "23:59:59",
+            pricingTierDays: [
+                {
+                    pricing_tier_day_id: 67,
+                    pricing_id: 16,
+                    day_of_week: 1,
+                },
+                {
+                    pricing_tier_day_id: 68,
+                    pricing_id: 16,
+                    day_of_week: 2,
+                },
+                {
+                    pricing_tier_day_id: 69,
+                    pricing_id: 16,
+                    day_of_week: 3,
+                },
+                {
+                    pricing_tier_day_id: 70,
+                    pricing_id: 16,
+                    day_of_week: 4,
+                },
+                {
+                    pricing_tier_day_id: 71,
+                    pricing_id: 16,
+                    day_of_week: 5,
+                },
+                {
+                    pricing_tier_day_id: 72,
+                    pricing_id: 16,
+                    day_of_week: 6,
+                },
+                {
+                    pricing_tier_day_id: 73,
+                    pricing_id: 16,
+                    day_of_week: 7,
+                },
+            ],
+            pricingTierSpecialDates: [
+                {
+                    pricing_special_date_id: 54,
+                    pricing_id: 16,
+                    special_date: "2023-01-01",
+                },
+                {
+                    pricing_special_date_id: 55,
+                    pricing_id: 16,
+                    special_date: "2023-01-16",
+                },
+                {
+                    pricing_special_date_id: 56,
+                    pricing_id: 16,
+                    special_date: "2023-02-20",
+                },
+                {
+                    pricing_special_date_id: 57,
+                    pricing_id: 16,
+                    special_date: "2023-04-10",
+                },
+                {
+                    pricing_special_date_id: 58,
+                    pricing_id: 16,
+                    special_date: "2023-05-29",
+                },
+                {
+                    pricing_special_date_id: 59,
+                    pricing_id: 16,
+                    special_date: "2023-06-19",
+                },
+                {
+                    pricing_special_date_id: 60,
+                    pricing_id: 16,
+                    special_date: "2023-07-04",
+                },
+                {
+                    pricing_special_date_id: 61,
+                    pricing_id: 16,
+                    special_date: "2023-09-04",
+                },
+                {
+                    pricing_special_date_id: 62,
+                    pricing_id: 16,
+                    special_date: "2023-10-09",
+                },
+                {
+                    pricing_special_date_id: 63,
+                    pricing_id: 16,
+                    special_date: "2023-10-31",
+                },
+                {
+                    pricing_special_date_id: 64,
+                    pricing_id: 16,
+                    special_date: "2023-11-11",
+                },
+                {
+                    pricing_special_date_id: 65,
+                    pricing_id: 16,
+                    special_date: "2023-11-23",
+                },
+                {
+                    pricing_special_date_id: 66,
+                    pricing_id: 16,
+                    special_date: "2023-12-24",
+                },
+                {
+                    pricing_special_date_id: 67,
+                    pricing_id: 16,
+                    special_date: "2023-12-25",
+                },
+                {
+                    pricing_special_date_id: 68,
+                    pricing_id: 16,
+                    special_date: "2023-12-31",
+                },
+            ],
+        },
+    ];
+
+    const states = [
+        "Alabama",
+        "Alaska",
+        "Arizona",
+        "Arkansas",
+        "California",
+        "Colorado",
+        "Connecticut",
+    ];
+
+    const regions = ["North", "South", "East", "West"];
+
+    const periods = ["Daily", "Weekly", "Monthly", "Yearly"];
+
+    const energyUsage = [
+        {
+            start_date: "2023-01-01",
+            end_date: "2023-01-06",
+            energy_usage: 23.008349999999997,
+            count: 6,
+        },
+        {
+            start_date: "2023-01-02",
+            end_date: "2023-01-07",
+            energy_usage: 22.904799999999998,
+            count: 6,
+        },
+        {
+            start_date: "2023-01-03",
+            end_date: "2023-01-08",
+            energy_usage: 22.051699999999997,
+            count: 6,
+        },
+        {
+            start_date: "2023-01-04",
+            end_date: "2023-01-09",
+            energy_usage: 22.114583333333332,
+            count: 6,
+        },
+        {
+            start_date: "2023-01-05",
+            end_date: "2023-01-10",
+            energy_usage: 22.088066666666663,
+            count: 6,
+        },
+        {
+            start_date: "2023-01-06",
+            end_date: "2023-01-11",
+            energy_usage: 22.019383333333334,
+            count: 6,
+        },
+        {
+            start_date: "2023-01-07",
+            end_date: "2023-01-12",
+            energy_usage: 21.820916666666665,
+            count: 6,
+        },
+        {
+            start_date: "2023-01-08",
+            end_date: "2023-01-13",
+            energy_usage: 22.6991,
+            count: 6,
+        },
+        {
+            start_date: "2023-01-09",
+            end_date: "2023-01-14",
+            energy_usage: 22.655183333333337,
+            count: 6,
+        },
+        {
+            start_date: "2023-01-10",
+            end_date: "2023-01-15",
+            energy_usage: 21.68071666666667,
+            count: 6,
+        },
+        {
+            start_date: "2023-01-11",
+            end_date: "2023-01-16",
+            energy_usage: 21.983766666666668,
+            count: 6,
+        },
+        {
+            start_date: "2023-01-12",
+            end_date: "2023-01-17",
+            energy_usage: 21.658466666666666,
+            count: 6,
+        },
+        {
+            start_date: "2023-01-13",
+            end_date: "2023-01-18",
+            energy_usage: 21.916,
+            count: 6,
+        },
+        {
+            start_date: "2023-01-14",
+            end_date: "2023-01-19",
+            energy_usage: 22.020016666666663,
+            count: 6,
+        },
+        {
+            start_date: "2023-01-15",
+            end_date: "2023-01-20",
+            energy_usage: 22.71313333333333,
+            count: 6,
+        },
+        {
+            start_date: "2023-01-16",
+            end_date: "2023-01-21",
+            energy_usage: 22.830749999999995,
+            count: 6,
+        },
+        {
+            start_date: "2023-01-17",
+            end_date: "2023-01-22",
+            energy_usage: 21.83945,
+            count: 6,
+        },
+        {
+            start_date: "2023-01-18",
+            end_date: "2023-01-23",
+            energy_usage: 22.2111,
+            count: 6,
+        },
+        {
+            start_date: "2023-01-19",
+            end_date: "2023-01-24",
+            energy_usage: 22.129450000000002,
+            count: 6,
+        },
+        {
+            start_date: "2023-01-20",
+            end_date: "2023-01-25",
+            energy_usage: 22.3176,
+            count: 6,
+        },
+        {
+            start_date: "2023-01-21",
+            end_date: "2023-01-26",
+            energy_usage: 22.509966666666667,
+            count: 6,
+        },
+        {
+            start_date: "2023-01-22",
+            end_date: "2023-01-27",
+            energy_usage: 23.108633333333334,
+            count: 6,
+        },
+        {
+            start_date: "2023-01-23",
+            end_date: "2023-01-28",
+            energy_usage: 22.9083,
+            count: 6,
+        },
+        {
+            start_date: "2023-01-24",
+            end_date: "2023-01-29",
+            energy_usage: 22.2465,
+            count: 6,
+        },
+        {
+            start_date: "2023-01-25",
+            end_date: "2023-01-30",
+            energy_usage: 22.2212,
+            count: 6,
+        },
+        {
+            start_date: "2023-01-26",
+            end_date: "2023-01-31",
+            energy_usage: 21.697550000000003,
+            count: 6,
+        },
+        {
+            start_date: "2023-01-27",
+            end_date: "2023-02-01",
+            energy_usage: 21.474500000000003,
+            count: 6,
+        },
+        {
+            start_date: "2023-01-28",
+            end_date: "2023-02-02",
+            energy_usage: 22.027800000000003,
+            count: 6,
+        },
+        {
+            start_date: "2023-01-29",
+            end_date: "2023-02-03",
+            energy_usage: 22.890183333333336,
+            count: 6,
+        },
+        {
+            start_date: "2023-01-30",
+            end_date: "2023-02-04",
+            energy_usage: 22.864433333333334,
+            count: 6,
+        },
+        {
+            start_date: "2023-01-31",
+            end_date: "2023-02-05",
+            energy_usage: 22.35265,
+            count: 6,
+        },
+        {
+            start_date: "2023-02-01",
+            end_date: "2023-02-06",
+            energy_usage: 22.736183333333333,
+            count: 6,
+        },
+        {
+            start_date: "2023-02-02",
+            end_date: "2023-02-07",
+            energy_usage: 23.083133333333336,
+            count: 6,
+        },
+        {
+            start_date: "2023-02-03",
+            end_date: "2023-02-08",
+            energy_usage: 22.876516666666664,
+            count: 6,
+        },
+        {
+            start_date: "2023-02-04",
+            end_date: "2023-02-09",
+            energy_usage: 23.142566666666664,
+            count: 6,
+        },
+        {
+            start_date: "2023-02-05",
+            end_date: "2023-02-10",
+            energy_usage: 23.64633333333333,
+            count: 6,
+        },
+        {
+            start_date: "2023-02-06",
+            end_date: "2023-02-11",
+            energy_usage: 23.511016666666666,
+            count: 6,
+        },
+        {
+            start_date: "2023-02-07",
+            end_date: "2023-02-12",
+            energy_usage: 22.332116666666668,
+            count: 6,
+        },
+        {
+            start_date: "2023-02-08",
+            end_date: "2023-02-13",
+            energy_usage: 22.02685,
+            count: 6,
+        },
+        {
+            start_date: "2023-02-09",
+            end_date: "2023-02-14",
+            energy_usage: 22.116333333333333,
+            count: 6,
+        },
+        {
+            start_date: "2023-02-10",
+            end_date: "2023-02-15",
+            energy_usage: 21.703833333333336,
+            count: 6,
+        },
+        {
+            start_date: "2023-02-11",
+            end_date: "2023-02-16",
+            energy_usage: 21.986833333333333,
+            count: 6,
+        },
+        {
+            start_date: "2023-02-12",
+            end_date: "2023-02-17",
+            energy_usage: 22.709183333333332,
+            count: 6,
+        },
+        {
+            start_date: "2023-02-13",
+            end_date: "2023-02-18",
+            energy_usage: 22.897983333333332,
+            count: 6,
+        },
+        {
+            start_date: "2023-02-14",
+            end_date: "2023-02-19",
+            energy_usage: 22.194816666666668,
+            count: 6,
+        },
+        {
+            start_date: "2023-02-15",
+            end_date: "2023-02-20",
+            energy_usage: 22.408649999999998,
+            count: 6,
+        },
+        {
+            start_date: "2023-02-16",
+            end_date: "2023-02-21",
+            energy_usage: 22.727666666666668,
+            count: 6,
+        },
+        {
+            start_date: "2023-02-17",
+            end_date: "2023-02-22",
+            energy_usage: 22.487650000000002,
+            count: 6,
+        },
+        {
+            start_date: "2023-02-18",
+            end_date: "2023-02-23",
+            energy_usage: 22.5445,
+            count: 6,
+        },
+        {
+            start_date: "2023-02-19",
+            end_date: "2023-02-24",
+            energy_usage: 23.316,
+            count: 6,
+        },
+        {
+            start_date: "2023-02-20",
+            end_date: "2023-02-25",
+            energy_usage: 23.323333333333327,
+            count: 6,
+        },
+        {
+            start_date: "2023-02-21",
+            end_date: "2023-02-26",
+            energy_usage: 22.380866666666662,
+            count: 6,
+        },
+        {
+            start_date: "2023-02-22",
+            end_date: "2023-02-27",
+            energy_usage: 22.206499999999995,
+            count: 6,
+        },
+        {
+            start_date: "2023-02-23",
+            end_date: "2023-02-28",
+            energy_usage: 22.541483333333332,
+            count: 6,
+        },
+        {
+            start_date: "2023-02-24",
+            end_date: "2023-03-01",
+            energy_usage: 22.36675,
+            count: 6,
+        },
+        {
+            start_date: "2023-02-25",
+            end_date: "2023-03-02",
+            energy_usage: 22.531866666666662,
+            count: 6,
+        },
+        {
+            start_date: "2023-02-26",
+            end_date: "2023-03-03",
+            energy_usage: 23.650916666666664,
+            count: 6,
+        },
+        {
+            start_date: "2023-02-27",
+            end_date: "2023-03-04",
+            energy_usage: 23.434233333333335,
+            count: 6,
+        },
+        {
+            start_date: "2023-02-28",
+            end_date: "2023-03-05",
+            energy_usage: 22.81873333333333,
+            count: 6,
+        },
+        {
+            start_date: "2023-03-01",
+            end_date: "2023-03-06",
+            energy_usage: 22.4366,
+            count: 6,
+        },
+        {
+            start_date: "2023-03-02",
+            end_date: "2023-03-07",
+            energy_usage: 22.458333333333332,
+            count: 6,
+        },
+        {
+            start_date: "2023-03-03",
+            end_date: "2023-03-08",
+            energy_usage: 22.429416666666665,
+            count: 6,
+        },
+        {
+            start_date: "2023-03-04",
+            end_date: "2023-03-09",
+            energy_usage: 22.10123333333333,
+            count: 6,
+        },
+        {
+            start_date: "2023-03-05",
+            end_date: "2023-03-10",
+            energy_usage: 22.58371666666667,
+            count: 6,
+        },
+        {
+            start_date: "2023-03-06",
+            end_date: "2023-03-11",
+            energy_usage: 22.718149999999998,
+            count: 6,
+        },
+        {
+            start_date: "2023-03-07",
+            end_date: "2023-03-12",
+            energy_usage: 22.135683333333333,
+            count: 6,
+        },
+        {
+            start_date: "2023-03-08",
+            end_date: "2023-03-13",
+            energy_usage: 22.385683333333333,
+            count: 6,
+        },
+        {
+            start_date: "2023-03-09",
+            end_date: "2023-03-14",
+            energy_usage: 22.294983333333338,
+            count: 6,
+        },
+        {
+            start_date: "2023-03-10",
+            end_date: "2023-03-15",
+            energy_usage: 22.202183333333338,
+            count: 6,
+        },
+        {
+            start_date: "2023-03-11",
+            end_date: "2023-03-16",
+            energy_usage: 22.655716666666667,
+            count: 6,
+        },
+        {
+            start_date: "2023-03-12",
+            end_date: "2023-03-17",
+            energy_usage: 22.982266666666664,
+            count: 6,
+        },
+        {
+            start_date: "2023-03-13",
+            end_date: "2023-03-18",
+            energy_usage: 23.18001666666667,
+            count: 6,
+        },
+        {
+            start_date: "2023-03-14",
+            end_date: "2023-03-19",
+            energy_usage: 22.408150000000003,
+            count: 6,
+        },
+        {
+            start_date: "2023-03-15",
+            end_date: "2023-03-20",
+            energy_usage: 22.503283333333332,
+            count: 6,
+        },
+        {
+            start_date: "2023-03-16",
+            end_date: "2023-03-21",
+            energy_usage: 22.8255,
+            count: 6,
+        },
+        {
+            start_date: "2023-03-17",
+            end_date: "2023-03-22",
+            energy_usage: 22.544566666666668,
+            count: 6,
+        },
+        {
+            start_date: "2023-03-18",
+            end_date: "2023-03-23",
+            energy_usage: 22.765916666666666,
+            count: 6,
+        },
+        {
+            start_date: "2023-03-19",
+            end_date: "2023-03-24",
+            energy_usage: 23.369466666666664,
+            count: 6,
+        },
+        {
+            start_date: "2023-03-20",
+            end_date: "2023-03-25",
+            energy_usage: 23.295566666666662,
+            count: 6,
+        },
+        {
+            start_date: "2023-03-21",
+            end_date: "2023-03-26",
+            energy_usage: 22.174616666666665,
+            count: 6,
+        },
+        {
+            start_date: "2023-03-22",
+            end_date: "2023-03-27",
+            energy_usage: 21.98145,
+            count: 6,
+        },
+        {
+            start_date: "2023-03-23",
+            end_date: "2023-03-28",
+            energy_usage: 22.1331,
+            count: 6,
+        },
+        {
+            start_date: "2023-03-24",
+            end_date: "2023-03-29",
+            energy_usage: 22.152833333333334,
+            count: 6,
+        },
+        {
+            start_date: "2023-03-25",
+            end_date: "2023-03-30",
+            energy_usage: 22.111583333333332,
+            count: 6,
+        },
+        {
+            start_date: "2023-03-26",
+            end_date: "2023-03-31",
+            energy_usage: 23.14678333333333,
+            count: 6,
+        },
+        {
+            start_date: "2023-03-27",
+            end_date: "2023-04-01",
+            energy_usage: 23.43948333333333,
+            count: 6,
+        },
+        {
+            start_date: "2023-03-28",
+            end_date: "2023-04-02",
+            energy_usage: 22.86803333333333,
+            count: 6,
+        },
+        {
+            start_date: "2023-03-29",
+            end_date: "2023-04-03",
+            energy_usage: 23.0167,
+            count: 6,
+        },
+        {
+            start_date: "2023-03-30",
+            end_date: "2023-04-04",
+            energy_usage: 23.092233333333336,
+            count: 6,
+        },
+        {
+            start_date: "2023-03-31",
+            end_date: "2023-04-05",
+            energy_usage: 23.180899999999998,
+            count: 6,
+        },
+        {
+            start_date: "2023-04-01",
+            end_date: "2023-04-06",
+            energy_usage: 22.74808333333333,
+            count: 6,
+        },
+        {
+            start_date: "2023-04-02",
+            end_date: "2023-04-07",
+            energy_usage: 23.425283333333336,
+            count: 6,
+        },
+        {
+            start_date: "2023-04-03",
+            end_date: "2023-04-08",
+            energy_usage: 23.29035,
+            count: 6,
+        },
+        {
+            start_date: "2023-04-04",
+            end_date: "2023-04-09",
+            energy_usage: 22.125466666666668,
+            count: 6,
+        },
+        {
+            start_date: "2023-04-05",
+            end_date: "2023-04-10",
+            energy_usage: 22.058116666666667,
+            count: 6,
+        },
+        {
+            start_date: "2023-04-06",
+            end_date: "2023-04-11",
+            energy_usage: 22.048,
+            count: 6,
+        },
+        {
+            start_date: "2023-04-07",
+            end_date: "2023-04-12",
+            energy_usage: 22.186333333333334,
+            count: 6,
+        },
+        {
+            start_date: "2023-04-08",
+            end_date: "2023-04-13",
+            energy_usage: 22.540399999999995,
+            count: 6,
+        },
+        {
+            start_date: "2023-04-09",
+            end_date: "2023-04-14",
+            energy_usage: 23.21313333333333,
+            count: 6,
+        },
+        {
+            start_date: "2023-04-10",
+            end_date: "2023-04-15",
+            energy_usage: 23.226733333333332,
+            count: 6,
+        },
+        {
+            start_date: "2023-04-11",
+            end_date: "2023-04-16",
+            energy_usage: 22.223583333333334,
+            count: 6,
+        },
+        {
+            start_date: "2023-04-12",
+            end_date: "2023-04-17",
+            energy_usage: 21.979083333333335,
+            count: 6,
+        },
+        {
+            start_date: "2023-04-13",
+            end_date: "2023-04-18",
+            energy_usage: 21.923816666666667,
+            count: 6,
+        },
+        {
+            start_date: "2023-04-14",
+            end_date: "2023-04-19",
+            energy_usage: 21.41365,
+            count: 6,
+        },
+        {
+            start_date: "2023-04-15",
+            end_date: "2023-04-20",
+            energy_usage: 21.1512,
+            count: 6,
+        },
+        {
+            start_date: "2023-04-16",
+            end_date: "2023-04-21",
+            energy_usage: 22.16316666666667,
+            count: 6,
+        },
+        {
+            start_date: "2023-04-17",
+            end_date: "2023-04-22",
+            energy_usage: 22.385883333333336,
+            count: 6,
+        },
+        {
+            start_date: "2023-04-18",
+            end_date: "2023-04-23",
+            energy_usage: 21.8704,
+            count: 6,
+        },
+        {
+            start_date: "2023-04-19",
+            end_date: "2023-04-24",
+            energy_usage: 22.16765,
+            count: 6,
+        },
+        {
+            start_date: "2023-04-20",
+            end_date: "2023-04-25",
+            energy_usage: 22.439416666666663,
+            count: 6,
+        },
+        {
+            start_date: "2023-04-21",
+            end_date: "2023-04-26",
+            energy_usage: 22.70245,
+            count: 6,
+        },
+        {
+            start_date: "2023-04-22",
+            end_date: "2023-04-27",
+            energy_usage: 22.883749999999996,
+            count: 6,
+        },
+        {
+            start_date: "2023-04-23",
+            end_date: "2023-04-28",
+            energy_usage: 23.636299999999995,
+            count: 6,
+        },
+        {
+            start_date: "2023-04-24",
+            end_date: "2023-04-29",
+            energy_usage: 23.449149999999992,
+            count: 6,
+        },
+        {
+            start_date: "2023-04-25",
+            end_date: "2023-04-30",
+            energy_usage: 22.531666666666666,
+            count: 6,
+        },
+        {
+            start_date: "2023-04-26",
+            end_date: "2023-05-01",
+            energy_usage: 22.33301666666667,
+            count: 6,
+        },
+        {
+            start_date: "2023-04-27",
+            end_date: "2023-05-02",
+            energy_usage: 22.407383333333332,
+            count: 6,
+        },
+        {
+            start_date: "2023-04-28",
+            end_date: "2023-05-03",
+            energy_usage: 22.02905,
+            count: 6,
+        },
+        {
+            start_date: "2023-04-29",
+            end_date: "2023-05-04",
+            energy_usage: 22.17685,
+            count: 6,
+        },
+        {
+            start_date: "2023-04-30",
+            end_date: "2023-05-05",
+            energy_usage: 23.10078333333333,
+            count: 6,
+        },
+        {
+            start_date: "2023-05-01",
+            end_date: "2023-05-06",
+            energy_usage: 23.110566666666667,
+            count: 6,
+        },
+        {
+            start_date: "2023-05-02",
+            end_date: "2023-05-07",
+            energy_usage: 22.69425,
+            count: 6,
+        },
+        {
+            start_date: "2023-05-03",
+            end_date: "2023-05-08",
+            energy_usage: 22.68478333333333,
+            count: 6,
+        },
+        {
+            start_date: "2023-05-04",
+            end_date: "2023-05-09",
+            energy_usage: 22.715616666666666,
+            count: 6,
+        },
+        {
+            start_date: "2023-05-05",
+            end_date: "2023-05-10",
+            energy_usage: 22.48958333333333,
+            count: 6,
+        },
+        {
+            start_date: "2023-05-06",
+            end_date: "2023-05-11",
+            energy_usage: 22.019000000000002,
+            count: 6,
+        },
+        {
+            start_date: "2023-05-07",
+            end_date: "2023-05-12",
+            energy_usage: 23.001566666666665,
+            count: 6,
+        },
+        {
+            start_date: "2023-05-08",
+            end_date: "2023-05-13",
+            energy_usage: 22.86108333333333,
+            count: 6,
+        },
+        {
+            start_date: "2023-05-09",
+            end_date: "2023-05-14",
+            energy_usage: 22.006766666666667,
+            count: 6,
+        },
+        {
+            start_date: "2023-05-10",
+            end_date: "2023-05-15",
+            energy_usage: 22.10931666666667,
+            count: 6,
+        },
+        {
+            start_date: "2023-05-11",
+            end_date: "2023-05-16",
+            energy_usage: 22.54925,
+            count: 6,
+        },
+        {
+            start_date: "2023-05-12",
+            end_date: "2023-05-17",
+            energy_usage: 22.918050000000004,
+            count: 6,
+        },
+        {
+            start_date: "2023-05-13",
+            end_date: "2023-05-18",
+            energy_usage: 22.374183333333335,
+            count: 6,
+        },
+        {
+            start_date: "2023-05-14",
+            end_date: "2023-05-19",
+            energy_usage: 23.091183333333333,
+            count: 6,
+        },
+        {
+            start_date: "2023-05-15",
+            end_date: "2023-05-20",
+            energy_usage: 23.022000000000002,
+            count: 6,
+        },
+        {
+            start_date: "2023-05-16",
+            end_date: "2023-05-21",
+            energy_usage: 22.559249999999995,
+            count: 6,
+        },
+        {
+            start_date: "2023-05-17",
+            end_date: "2023-05-22",
+            energy_usage: 22.153366666666667,
+            count: 6,
+        },
+    ];
+
+    return (
+        <div>
+            <Header />
+            <div className="main-page">
+                <div style={{ display: "flex", flex: 1 }}>
+                    <div
+                        className="chart-menu"
+                        style={{
+                            display: "flex",
+                            flex: 2,
+                            flexDirection: "column",
+                        }}
+                    >
+                        <div
+                            style={{
+                                display: "flex",
+                                flexDirection: "row",
+                                alignItems: "center",
+                                margin: "4% 5%",
+                            }}
+                        >
+                            <div
+                                style={{
+                                    display: "flex",
+                                    gap: 12,
+                                    flex: 1,
+                                    flexDirection: "row",
+                                    alignItems: "center",
+                                }}
+                            >
+                                <DropdownMenu
+                                    label="State"
+                                    value={state}
+                                    options={states}
+                                    handleChange={handleStateChange}
+                                    nullable={true}
+                                />
+                                <DropdownMenu
+                                    label="Region"
+                                    value={region}
+                                    options={regions}
+                                    handleChange={handleRegionChange}
+                                    nullable={true}
+                                />
+                            </div>
+                            <div>
+                                <DropdownMenu
+                                    label="Period"
+                                    value={period}
+                                    options={periods}
+                                    handleChange={handlePeriodChange}
+                                    nullable={false}
+                                />
+                            </div>
+                        </div>
+                        <div style={{ flex: 4 }}>
+                            <UsageChart data={energyUsage} />
+							<div>
+								Content
+							</div>
+                        </div>
+                    </div>
+                    <div
+                        className="pricing-menu"
+                        style={{
+                            display: "flex",
+                            flex: 1,
+                            flexDirection: "column",
+                        }}
+                    >
+                        <div
+                            style={{
+                                display: "flex",
+                                flex: 1,
+                                justifyContent: "space-between",
+                            }}
+                        >
+                            <div style={{ fontFamily: "roboto" }}>
+                                Pricing Tiers
+                            </div>
+                            <div style={{ fontFamily: "roboto" }}>Edit</div>
+                        </div>
+                        <div
+                            style={{
+                                display: "flex",
+                                flex: 7,
+                                flexDirection: "column",
+                                width: "100%",
+                                gap: 12,
+                                padding: "0 2%",
+                            }}
+                        >
+                            {pricingTiers.map((tier) => (
+                                <PricingTierTile
+                                    key={tier}
+                                    pricingData={tier}
+                                />
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <Footer />
+        </div>
+    );
+};
+
+export default CompanyDashboard;

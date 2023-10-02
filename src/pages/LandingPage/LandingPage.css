@@ -1,12 +1,10 @@
-.main-page {
+.main-page-landing {
     display: flex;
     flex: 1;
     flex-direction: column;
-    height: auto;
     width: 80%;
     max-width: 1400px;
     margin: auto;
-    overflow-y: auto;
 }
 
 .landing-page-content {
@@ -39,16 +37,18 @@
 
 .brand-color-main {
     color: #32C5A4;
+    font-family: 'Roboto', sans-serif;
 }
 
 .brand-color-dark {
-    color: black;
+    color: rgb(51, 51, 51);
+    font-family: 'Roboto', sans-serif;
 }
 
 .call-to-action-container {
     display: flex;
     flex-direction: column;
-    flex: 1;
+    flex: 2;
     gap: 3rem;
     width: 100%;
     max-width: 30vw;
@@ -58,6 +58,7 @@
     display: flex;
     width: 100%;
     font-size: 1.25rem;
+    font-family: 'Roboto', sans-serif;
 }
 
 .call-to-action-btn-container {
@@ -75,6 +76,7 @@
     cursor: pointer;
     font-size: 16px;
     box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+    font-family: 'Roboto', sans-serif;
 }
 
 .landing-page-right-content {
