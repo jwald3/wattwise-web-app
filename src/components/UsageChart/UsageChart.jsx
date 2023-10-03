@@ -11,10 +11,11 @@ const UsageChart = ({ data }) => {
                 >
                     <XAxis
                         dataKey="start_date"
-                        textAnchor="end"
+                        textAnchor="middle"
                         interval={20}
-                        angle={-30}
                         height={60}
+                        // add space between axis and label
+                        tickMargin={10}
                     />
                     <YAxis domain={["auto", "auto"]} />
                     <CartesianGrid stroke="#eee" />

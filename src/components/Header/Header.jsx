@@ -17,12 +17,11 @@ const Header = () => {
         </div>
       </div>
       <div className="main-header-right">
-        <p>Links</p>
-        <p>Links</p>
-        <p>Links</p>
-        <p>Links</p>
-        <p>Links</p>
-        <p>Links</p>
+        <Link to="/dashboard">Dashboard</Link>
+        <Link to="/privacy">Privacy</Link>
+        <Link to="/#">About</Link>
+        <Link to="/#">Contact Us</Link>
+        <Link to="/#">Logout</Link>
       </div>
     </div>
   );
