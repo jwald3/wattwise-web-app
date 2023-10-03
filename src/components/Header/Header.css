@@ -2,9 +2,9 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    height: 15vh;
+    height: 10vh;
     padding: 0 5%;
-    margin-bottom: 5%;
+    /* margin-bottom: 5%; */
 }
 
 .main-header-left {

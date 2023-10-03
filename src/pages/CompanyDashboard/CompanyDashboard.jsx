@@ -3,7 +3,6 @@ import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
 import "./CompanyDashboard.css";
 import UsageChart from "../../components/UsageChart/UsageChart";
-
 import DropdownMenu from "../../components/DropdownMenu/DropdownMenu";
 import PricingTierTile from "../../components/PricingTierTile/PricingTierTile";
 
@@ -1084,102 +1083,56 @@ const CompanyDashboard = () => {
     return (
         <div>
             <Header />
-            <div className="main-page">
-                <div style={{ display: "flex", flex: 1 }}>
-                    <div
-                        className="chart-menu"
-                        style={{
-                            display: "flex",
-                            flex: 2,
-                            flexDirection: "column",
-                        }}
-                    >
-                        <div
-                            style={{
-                                display: "flex",
-                                flexDirection: "row",
-                                alignItems: "center",
-                                margin: "4% 5%",
-                            }}
-                        >
-                            <div
-                                style={{
-                                    display: "flex",
-                                    gap: 12,
-                                    flex: 1,
-                                    flexDirection: "row",
-                                    alignItems: "center",
-                                }}
-                            >
-                                <DropdownMenu
-                                    label="State"
-                                    value={state}
-                                    options={states}
-                                    handleChange={handleStateChange}
-                                    nullable={true}
-                                />
-                                <DropdownMenu
-                                    label="Region"
-                                    value={region}
-                                    options={regions}
-                                    handleChange={handleRegionChange}
-                                    nullable={true}
-                                />
-                            </div>
-                            <div>
-                                <DropdownMenu
-                                    label="Period"
-                                    value={period}
-                                    options={periods}
-                                    handleChange={handlePeriodChange}
-                                    nullable={false}
-                                />
-                            </div>
+            <div className="mainPage">
+                <div className="chartMenu flex2">
+                    <div className="filterContainer">
+                        <div className="dropdownContainer">
+                            <DropdownMenu
+                                label="State"
+                                value={state}
+                                options={states}
+                                handleChange={handleStateChange}
+                                nullable={true}
+                            />
+                            <DropdownMenu
+                                label="Region"
+                                value={region}
+                                options={regions}
+                                handleChange={handleRegionChange}
+                                nullable={true}
+                            />
+							<DropdownMenu
+                                label="Region"
+                                value={region}
+                                options={regions}
+                                handleChange={handleRegionChange}
+                                nullable={true}
+                            />
                         </div>
-                        <div style={{ flex: 4 }}>
-                            <UsageChart data={energyUsage} />
-							<div>
-								Content
-							</div>
+                        <div>
+                            <DropdownMenu
+                                label="Period"
+                                value={period}
+                                options={periods}
+                                handleChange={handlePeriodChange}
+                                nullable={false}
+                            />
                         </div>
                     </div>
-                    <div
-                        className="pricing-menu"
-                        style={{
-                            display: "flex",
-                            flex: 1,
-                            flexDirection: "column",
-                        }}
-                    >
-                        <div
-                            style={{
-                                display: "flex",
-                                flex: 1,
-                                justifyContent: "space-between",
-                            }}
-                        >
-                            <div style={{ fontFamily: "roboto" }}>
-                                Pricing Tiers
-                            </div>
-                            <div style={{ fontFamily: "roboto" }}>Edit</div>
-                        </div>
-                        <div
-                            style={{
-                                display: "flex",
-                                flex: 7,
-                                flexDirection: "column",
-                                width: "100%",
-                                gap: 12,
-                                padding: "0 2%",
-                            }}
-                        >
-                            {pricingTiers.map((tier) => (
-                                <PricingTierTile
-                                    key={tier}
-                                    pricingData={tier}
-                                />
-                            ))}
-                        </div>
+                    <div className="contentContainer">
+                        <UsageChart data={energyUsage} />
+                        <div>Content</div>
+                    </div>
+                </div>
+                <div className="pricingMenu">
+                    <div className="titleContainer">
+                        <div className="headerText">Pricing Tiers</div>
+                        <div className="headerText">Edit</div>
+                    </div>
+                    <div className="pricingContent">
+                        {pricingTiers.map((tier) => (
+                            <PricingTierTile key={tier} pricingData={tier} />
+                        ))}
                     </div>
                 </div>
             </div>
