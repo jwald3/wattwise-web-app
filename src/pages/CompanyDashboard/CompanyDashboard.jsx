@@ -11,7 +11,6 @@ const CompanyDashboard = () => {
     const [region, setRegion] = React.useState("");
     const [household, setHousehold] = React.useState("");
     const [period, setPeriod] = React.useState("Yearly");
-    
 
     const handleStateChange = (event) => {
         setState(event.target.value);
@@ -249,35 +248,35 @@ const CompanyDashboard = () => {
 
     const states = [
         {
-        state_id: 1,
-        state_territory: "Alabama",
-        state_code: "AL"
+            state_id: 1,
+            state_territory: "Alabama",
+            state_code: "AL",
         },
         {
-        state_id: 2,
-        state_territory: "Alaska",
-        state_code: "AK"
+            state_id: 2,
+            state_territory: "Alaska",
+            state_code: "AK",
         },
         {
-        state_id: 3,
-        state_territory: "Arizona",
-        state_code: "AZ"
+            state_id: 3,
+            state_territory: "Arizona",
+            state_code: "AZ",
         },
         {
-        state_id: 4,
-        state_territory: "Arkansas",
-        state_code: "AR"
+            state_id: 4,
+            state_territory: "Arkansas",
+            state_code: "AR",
         },
         {
-        state_id: 5,
-        state_territory: "California",
-        state_code: "CA"
+            state_id: 5,
+            state_territory: "California",
+            state_code: "CA",
         },
         {
-        state_id: 6,
-        state_territory: "Colorado",
-        state_code: "CO"
-        }
+            state_id: 6,
+            state_territory: "Colorado",
+            state_code: "CO",
+        },
     ].map((state) => ({
         value: state.state_id,
         display: state.state_territory,
@@ -285,24 +284,24 @@ const CompanyDashboard = () => {
 
     const regions = [
         {
-        region_id: 1,
-        region_name: "Northern Alabama",
-        state_id: 1
+            region_id: 1,
+            region_name: "Northern Alabama",
+            state_id: 1,
         },
         {
-        region_id: 2,
-        region_name: "Central Alabama",
-        state_id: 1
+            region_id: 2,
+            region_name: "Central Alabama",
+            state_id: 1,
         },
         {
-        region_id: 3,
-        region_name: "Southern Alabama",
-        state_id: 1
+            region_id: 3,
+            region_name: "Southern Alabama",
+            state_id: 1,
         },
         {
-        region_id: 4,
-        region_name: "Eastern Alabama",
-        state_id: 1
+            region_id: 4,
+            region_name: "Eastern Alabama",
+            state_id: 1,
         },
     ].map((region) => ({
         value: region.region_id,
@@ -1168,7 +1167,10 @@ const CompanyDashboard = () => {
                 zip_code: "35649",
             },
         },
-    ].map((household) => ({ value: household.household_id, display: household.street_address}));
+    ].map((household) => ({
+        value: household.household_id,
+        display: household.street_address,
+    }));
 
     return (
         <div>
@@ -1221,7 +1223,7 @@ const CompanyDashboard = () => {
                 <div className="pricingMenu">
                     <div className="titleContainer">
                         <div className="headerText">Pricing Tiers</div>
-                        <div className="headerText">Edit</div>
+                        <button className="editButton">Edit</button>
                     </div>
                     <div className="pricingContent">
                         {pricingTiers.map((tier) => (

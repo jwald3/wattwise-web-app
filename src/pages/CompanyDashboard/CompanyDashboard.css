@@ -52,12 +52,6 @@ html, body {
     flex: 4;
 }
 
-.headerText {
-    font-family: "Roboto", sans-serif;
-    font-size: 18px;
-    color: "#333333";
-}
-
 .pricingContent {
     display: flex;
     flex: 7;
@@ -67,8 +61,42 @@ html, body {
     padding: 0 2%;
 }
 
+.headerText {
+    font-family: 'Helvetica Neue', sans-serif;
+    font-size: 28px;  
+    color: #2C3E50;   
+    font-weight: 400; 
+    margin: 0;
+    padding-bottom: 8px; 
+    border-bottom: 2px solid #BDC3C7; 
+}
+
+.editButton {
+    background-color: transparent;
+    color: #2C3E50;  /* Dark Charcoal */
+    padding: 6px 12px;
+    border: 1px solid #2C3E50;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: 'Helvetica Neue', sans-serif;
+    font-size: 16px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.editButton:hover {
+    background-color: #2C3E50;
+    color: #FFFFFF;
+}
+
+.editButton:active {
+    background-color: #1A252C;  /* A bit darker charcoal for an active state */
+}
+
+
+
 .titleContainer {
     display: flex;
     justify-content: space-between;
-    margin: 5% 0;
+    align-items: baseline;  
+    margin-bottom: 16px;  
 }
