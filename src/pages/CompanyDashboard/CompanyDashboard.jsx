@@ -9,7 +9,9 @@ import PricingTierTile from "../../components/PricingTierTile/PricingTierTile";
 const CompanyDashboard = () => {
     const [state, setState] = React.useState("");
     const [region, setRegion] = React.useState("");
+    const [household, setHousehold] = React.useState("");
     const [period, setPeriod] = React.useState("Yearly");
+    
 
     const handleStateChange = (event) => {
         setState(event.target.value);
@@ -22,6 +24,10 @@ const CompanyDashboard = () => {
 
     const handlePeriodChange = (event) => {
         setPeriod(event.target.value);
+    };
+
+    const handleHouseholdChange = (event) => {
+        setHousehold(event.target.value);
     };
 
     const pricingTiers = [
@@ -242,18 +248,71 @@ const CompanyDashboard = () => {
     ];
 
     const states = [
-        "Alabama",
-        "Alaska",
-        "Arizona",
-        "Arkansas",
-        "California",
-        "Colorado",
-        "Connecticut",
-    ];
+        {
+        state_id: 1,
+        state_territory: "Alabama",
+        state_code: "AL"
+        },
+        {
+        state_id: 2,
+        state_territory: "Alaska",
+        state_code: "AK"
+        },
+        {
+        state_id: 3,
+        state_territory: "Arizona",
+        state_code: "AZ"
+        },
+        {
+        state_id: 4,
+        state_territory: "Arkansas",
+        state_code: "AR"
+        },
+        {
+        state_id: 5,
+        state_territory: "California",
+        state_code: "CA"
+        },
+        {
+        state_id: 6,
+        state_territory: "Colorado",
+        state_code: "CO"
+        }
+    ].map((state) => ({
+        value: state.state_id,
+        display: state.state_territory,
+    }));
 
-    const regions = ["North", "South", "East", "West"];
+    const regions = [
+        {
+        region_id: 1,
+        region_name: "Northern Alabama",
+        state_id: 1
+        },
+        {
+        region_id: 2,
+        region_name: "Central Alabama",
+        state_id: 1
+        },
+        {
+        region_id: 3,
+        region_name: "Southern Alabama",
+        state_id: 1
+        },
+        {
+        region_id: 4,
+        region_name: "Eastern Alabama",
+        state_id: 1
+        },
+    ].map((region) => ({
+        value: region.region_id,
+        display: region.region_name,
+    }));
 
-    const periods = ["Daily", "Weekly", "Monthly", "Yearly"];
+    const periods = ["Daily", "Weekly", "Monthly", "Yearly"].map((period) => ({
+        value: period,
+        display: period,
+    }));
 
     const energyUsage = [
         {
@@ -1080,6 +1139,37 @@ const CompanyDashboard = () => {
         },
     ];
 
+    const households = [
+        {
+            household_id: 1,
+            name: "John Doe",
+            provider_id: 1,
+            location_id: 1,
+            street_address: "123 Sesame Street",
+            location: {
+                location_id: 1,
+                state_id: 1,
+                region_id: 1,
+                city: "Huntsville",
+                zip_code: "35649",
+            },
+        },
+        {
+            household_id: 2,
+            name: "James Caan",
+            provider_id: 1,
+            location_id: 1,
+            street_address: "125 Sesame Street",
+            location: {
+                location_id: 1,
+                state_id: 1,
+                region_id: 1,
+                city: "Huntsville",
+                zip_code: "35649",
+            },
+        },
+    ].map((household) => ({ value: household.household_id, display: household.street_address}));
+
     return (
         <div>
             <Header />
@@ -1093,6 +1183,7 @@ const CompanyDashboard = () => {
                                 options={states}
                                 handleChange={handleStateChange}
                                 nullable={true}
+                                minWidth={75}
                             />
                             <DropdownMenu
                                 label="Region"
@@ -1100,13 +1191,15 @@ const CompanyDashboard = () => {
                                 options={regions}
                                 handleChange={handleRegionChange}
                                 nullable={true}
+                                minWidth={125}
                             />
-							<DropdownMenu
-                                label="Region"
-                                value={region}
-                                options={regions}
-                                handleChange={handleRegionChange}
+                            <DropdownMenu
+                                label="Household"
+                                value={household}
+                                options={households}
+                                handleChange={handleHouseholdChange}
                                 nullable={true}
+                                minWidth={150}
                             />
                         </div>
                         <div>
@@ -1116,6 +1209,7 @@ const CompanyDashboard = () => {
                                 options={periods}
                                 handleChange={handlePeriodChange}
                                 nullable={false}
+                                minWidth={125}
                             />
                         </div>
                     </div>
