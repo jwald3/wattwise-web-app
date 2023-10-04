@@ -12,7 +12,7 @@ const UsageChart = ({ data }) => {
                     <XAxis
                         dataKey="start_date"
                         textAnchor="middle"
-                        interval={20}
+                        interval={30}
                         height={60}
                         // add space between axis and label
                         tickMargin={10}
