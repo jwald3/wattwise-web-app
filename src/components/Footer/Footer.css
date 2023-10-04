@@ -1,8 +1,34 @@
-.main-footer {
+.footerContainer {
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    flex-direction: row;
-    justify-content: baseline;
-    padding: 0 5%;
-    margin-bottom: 5%;
+    background-color: #F5F5F5;
+    padding: 10px 30px;
+    border-top: 1px solid #E1E1E1;
+}
+
+.leftSection {
+    font-size: 14px;
+    color: #4A4A4A;
+}
+
+.rightSection {
+    display: flex;
+    gap: 15px;
+}
+
+.rightSection a {
+    text-decoration: none;
+    color: #333;
+    padding: 10px;
+}
+
+.link {
+    text-decoration: none;
+    color: #4A4A4A;
+    transition: 0.3s;
+}
+
+.link:hover {
+    color: #007BFF;
 }
