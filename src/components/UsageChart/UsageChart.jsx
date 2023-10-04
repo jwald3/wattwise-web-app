@@ -24,6 +24,7 @@ const UsageChart = ({ data }) => {
                         dataKey="energy_usage"
                         stroke="#32C5A4"
                         dot={false}
+                        isAnimationActive={false}
                     />
                 </LineChart>
             </ResponsiveContainer>

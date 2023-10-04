@@ -16,6 +16,7 @@ import {
     fetchYearlyEnergyConsumptionByCustomer,
 } from "../../api/Api";
 import FillerPricingTierTile from "../../components/FillerPricingTierTile/FillerPricingTierTile";
+import PeriodNavigator from "../../components/PeriodNavigator/PeriodNavigator";
 
 const CompanyDashboard = () => {
     const [provider, setProvider] = React.useState(1);
@@ -32,18 +33,6 @@ const CompanyDashboard = () => {
     const [currentYear, setCurrentYear] = React.useState(2023);
     const [currentMonth, setCurrentMonth] = React.useState(1);
     const [currentWeek, setCurrentWeek] = React.useState(1);
-
-    const incrementDate = () => {
-        const nextDate = new Date(currentDate);
-        nextDate.setDate(nextDate.getDate() + 1);
-        setCurrentDate(nextDate.toISOString().split("T")[0]);
-    };
-
-    const decrementDate = () => {
-        const prevDate = new Date(currentDate);
-        prevDate.setDate(prevDate.getDate() - 1);
-        setCurrentDate(prevDate.toISOString().split("T")[0]);
-    };
 
     useEffect(() => {
         const fetchStatesData = async () => {
@@ -244,12 +233,18 @@ const CompanyDashboard = () => {
 
                     <div className="contentContainer">
                         <UsageChart data={energyUsage} />
-                        <div>
-                            <div className="dateNavContainer">
-                                <button onClick={decrementDate}>←</button>
-                                <span>{currentDate}</span>
-                                <button onClick={incrementDate}>→</button>
-                            </div>
+                        <div style={{ display: "flex", alignItems: "center"}}>
+                            <PeriodNavigator
+                                period={period}
+                                dateValue={currentDate}
+                                dateSetter={setCurrentDate}
+                                yearValue={currentYear}
+                                yearSetter={setCurrentYear}
+                                monthValue={currentMonth}
+                                monthSetter={setCurrentMonth}
+                                weekValue={currentWeek}
+                                weekSetter={setCurrentWeek}
+                            />
                         </div>
                     </div>
                 </div>
