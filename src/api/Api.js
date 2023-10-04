@@ -5,13 +5,15 @@ const API_URL = 'https://energy-api-gateway.onrender.com';
 // Geography endpoints
 
 export const fetchRegions = async (stateID = null) => {
-    let params = {};
+    let params = new URLSearchParams();
 
     if (stateID !== null && stateID !== undefined)  {
-        params.append("stateID", stateID);
+        params.append("state_id", stateID);
     }
 
     const response = await axios.get(`${API_URL}/regions?${params.toString()}`);
+    console.log(`${API_URL}/regions?${params.toString()}`);
+    
     return response.data;
 };
 
@@ -28,7 +30,7 @@ export const fetchProviderByID = async (providerID) => {
 };
 
 export const fetchCustomersByProviderAndRegion = async (providerID, regionID) => {
-    let params = {};
+    let params = new URLSearchParams();
 
     if (providerID !== null && providerID !== undefined)  {
         params.append("providerID", providerID);
@@ -46,7 +48,7 @@ export const fetchCustomersByProviderAndRegion = async (providerID, regionID) =>
 // Pricing tier endpoints
 
 export const fetchPricingTiersByProvider = async ({providerID = null, regionID = null}) => {
-    let params = {};
+    let params = new URLSearchParams();
 
     if (providerID !== null && providerID !== undefined)  {
         params.append("providerID", providerID);
@@ -80,7 +82,7 @@ export const updatePricingTier = async ({pricingTierID = null, pricingTier = nul
 // Customer endpoints
 
 export const fetchDailyEnergyConsumptionByCustomer = async ({household_id = null, date = null, year = null}) => {
-    let params = {};
+    let params = new URLSearchParams();
 
     if (household_id !== null && household_id !== undefined)  {
         params.append("household_id", household_id);
@@ -99,7 +101,7 @@ export const fetchDailyEnergyConsumptionByCustomer = async ({household_id = null
 }
 
 export const fetchMonthlyEnergyConsumptionByCustomer = async ({household_id = null, month = null, year = null}) => {
-    let params = {};
+    let params = new URLSearchParams();
 
     if (household_id !== null && household_id !== undefined)  {
         params.append("household_id", household_id);
@@ -118,7 +120,7 @@ export const fetchMonthlyEnergyConsumptionByCustomer = async ({household_id = nu
 }
 
 export const fetchWeeklyEnergyConsumptionByCustomer = async ({household_id = null, week = null, year = null}) => {
-    let params = {};
+    let params = new URLSearchParams();
 
     if (household_id !== null && household_id !== undefined)  {
         params.append("household_id", household_id);
@@ -137,7 +139,7 @@ export const fetchWeeklyEnergyConsumptionByCustomer = async ({household_id = nul
 } 
 
 export const fetchYearlyEnergyConsumptionByCustomer = async ({household_id = null, year = null}) => {
-    let params = {};
+    let params = new URLSearchParams();
 
     if (household_id !== null && household_id !== undefined)  {
         params.append("household_id", household_id);
