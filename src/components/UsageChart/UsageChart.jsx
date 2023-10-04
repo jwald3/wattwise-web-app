@@ -22,7 +22,7 @@ const UsageChart = ({ data }) => {
                     <Line
                         type="monotone"
                         dataKey="energy_usage"
-                        stroke="#635dff"
+                        stroke="#32C5A4"
                         dot={false}
                     />
                 </LineChart>
