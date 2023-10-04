@@ -8,11 +8,11 @@ const FillerPricingTierTile = ({ pricingTierName }) => {
         <div className="tile">
             <div className="tile-header">
                 <div>{pricingTierName}</div>
-                <div></div>
+                <div style={{ fontWeight: "bold"}}>+</div>
             </div>
             <div className="tile-content">
                 <div className="time">
-                    "--:-- --" - "--:-- --"
+                    --:-- --  -  --:-- --
                 </div>
                 <div className="days">
                     {weekDays.map((day, index) => (

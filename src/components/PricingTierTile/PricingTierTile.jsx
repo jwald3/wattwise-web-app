@@ -37,7 +37,7 @@ const PricingTierTile = ({ pricingData }) => {
         <div className="tile">
             <div className="tile-header">
                 <div>{pricingTierName}</div>
-                <div>{rate} USD/kWh</div>
+                <div>{rate || ""} USD/kWh</div>
             </div>
             <div className="tile-content">
                 <div className="time">{startTimeIn12Hour} - {endTimeIn12Hour}</div>

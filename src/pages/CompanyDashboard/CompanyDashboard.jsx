@@ -5,10 +5,16 @@ import "./CompanyDashboard.css";
 import UsageChart from "../../components/UsageChart/UsageChart";
 import DropdownMenu from "../../components/DropdownMenu/DropdownMenu";
 import PricingTierTile from "../../components/PricingTierTile/PricingTierTile";
-import { fetchCustomersByProviderAndRegion, fetchPricingTiersByProvider, fetchRegions, fetchStates } from "../../api/Api";
+import {
+    fetchCustomersByProviderAndRegion,
+    fetchPricingTiersByProvider,
+    fetchRegions,
+    fetchStates,
+} from "../../api/Api";
+import FillerPricingTierTile from "../../components/FillerPricingTierTile/FillerPricingTierTile";
 
 const CompanyDashboard = () => {
-    const [provider, setProvider] = React.useState(1); 
+    const [provider, setProvider] = React.useState(1);
     const [state, setState] = React.useState("");
     const [region, setRegion] = React.useState("");
     const [household, setHousehold] = React.useState("");
@@ -54,38 +60,45 @@ const CompanyDashboard = () => {
         }
 
         const fetchHouseholdData = async () => {
-            const responseData = await fetchCustomersByProviderAndRegion(1, region);
+            const responseData = await fetchCustomersByProviderAndRegion(
+                1,
+                region
+            );
             console.log(responseData);
-        
+
             const customersArray = responseData.customers;
-        
+
             // if customersArray is null or an empty array, return
-            if (!Array.isArray(customersArray) || customersArray.length === 0) return;
-        
+            if (!Array.isArray(customersArray) || customersArray.length === 0)
+                return;
+
             let householdArray = customersArray.map((customer) => ({
                 value: customer.household_id,
-                display: customer.street_address
+                display: customer.street_address,
             }));
-        
+
             setHouseholds(householdArray);
-        }
+        };
 
         fetchHouseholdData();
-    }, [region, state])
+    }, [region, state]);
 
-useEffect(() => {
-    if (region === "") {
-        setPricingTiers([]);
-        return;
-    }
+    useEffect(() => {
+        if (region === "") {
+            setPricingTiers([]);
+            return;
+        }
 
-    const fetchPricingTiers = async () => {
-        const pricingTiers = await fetchPricingTiersByProvider({providerID: provider, regionID: region});
-        setPricingTiers(pricingTiers);
-    };
+        const fetchPricingTiers = async () => {
+            const pricingTiers = await fetchPricingTiersByProvider({
+                providerID: provider,
+                regionID: region,
+            });
+            setPricingTiers(pricingTiers);
+        };
 
-    fetchPricingTiers();
-}, [provider, region]);
+        fetchPricingTiers();
+    }, [provider, region]);
 
     const handleStateChange = (event) => {
         setState(event.target.value);
@@ -110,6 +123,8 @@ useEffect(() => {
         value: period,
         display: period,
     }));
+
+    const pricingCategories = ["Peak", "Off-Peak", "Weekend", "Holiday"];
 
     const energyUsage = [
         {
@@ -951,7 +966,7 @@ useEffect(() => {
                                 nullable={true}
                                 minWidth={75}
                             />
-    
+
                             {state !== "" && (
                                 <DropdownMenu
                                     label="Region"
@@ -962,7 +977,7 @@ useEffect(() => {
                                     minWidth={125}
                                 />
                             )}
-    
+
                             {region !== "" && (
                                 <DropdownMenu
                                     label="Household"
@@ -996,16 +1011,26 @@ useEffect(() => {
                         <button className="editButton">Edit</button>
                     </div>
                     <div className="pricingContent">
-                        {pricingTiers.map((tier) => (
-                            <PricingTierTile key={tier.pricing_id} pricingData={tier} />
-                        ))}
+                        {pricingCategories.map((category) => {
+                            const matchingTier = pricingTiers.find(
+                                (tier) => tier.pricing_tier_name === category
+                            );
+
+                            return matchingTier ? (
+                                <PricingTierTile
+                                    key={category}
+                                    pricingData={matchingTier}
+                                />
+                            ) : (
+                                <FillerPricingTierTile key={category} pricingTierName={category} />
+                            );
+                        })}
                     </div>
                 </div>
             </div>
             <Footer />
         </div>
     );
-    
 };
 
 export default CompanyDashboard;
