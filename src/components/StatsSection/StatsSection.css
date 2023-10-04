@@ -2,30 +2,45 @@
     display: flex;
     justify-content: space-between;
     padding: 3.75rem 0;
+    gap: 40px;
 }
 
 .stat-card {
     flex: 1;
     background-color: #f6f8fa;
+    border: 1px solid #e6e6e6;
     border-radius: 8px;
-    padding: 20px;
+    padding: 25px;
     margin: 0 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 4px 20px #0000001A;
     text-align: center;
+    transition: all 0.3s ease-in-out;
 }
 
 .icon img {
     width: 50px;
     height: 50px;
+    object-fit: contain;
 }
 
 .value {
     font-size: 24px;
-    font-weight: bold;
     margin: 10px 0;
+    color: #238F7C;
+    font-weight: bold;
 }
 
 .description {
-    font-size: 14px;
-    color: #2ecc71;
+    
+    line-height: 1.4;
+    letter-spacing: 0.5px;
+}
+
+.stat-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0px 5px 8px #0000001A;
+}
+
+.stat-card {
+    transition: all 0.3s ease-in-out;
 }
