@@ -6,6 +6,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import LandingPage from "./pages/LandingPage/LandingPage";
 import PrivacyPolicyPage from "./pages/PrivacyPolicyPage/PrivacyPolicyPage";
 import CompanyDashboard from "./pages/CompanyDashboard/CompanyDashboard";
+import PricingTierForm from "./pages/PricingTierForm/PricingTierForm";
 
 const router = createBrowserRouter([
     {
@@ -20,6 +21,10 @@ const router = createBrowserRouter([
         path: "/dashboard",
         element: <CompanyDashboard />,
     },
+    {
+        path: "/pricing-tier",
+        element: <PricingTierForm />
+    }
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
