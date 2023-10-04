@@ -47,18 +47,19 @@ export const fetchCustomersByProviderAndRegion = async (providerID, regionID) =>
 
 // Pricing tier endpoints
 
-export const fetchPricingTiersByProvider = async ({providerID = null, regionID = null}) => {
+export const fetchPricingTiersByProvider = async ({providerID, regionID}) => {
     let params = new URLSearchParams();
 
     if (providerID !== null && providerID !== undefined)  {
-        params.append("providerID", providerID);
+        params.append("provider_id", providerID);
     }
 
     if (regionID !== null && regionID !== undefined)  {
-        params.append("regionID", regionID);
+        params.append("region_id", regionID);
     }
 
     const response = await axios.get(`${API_URL}/pricing_tiers?${params.toString()}`);
+    console.log(`${API_URL}/pricing_tiers?${params.toString()}`)
     return response.data;
 }
 

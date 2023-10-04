@@ -5,9 +5,10 @@ import "./CompanyDashboard.css";
 import UsageChart from "../../components/UsageChart/UsageChart";
 import DropdownMenu from "../../components/DropdownMenu/DropdownMenu";
 import PricingTierTile from "../../components/PricingTierTile/PricingTierTile";
-import { fetchCustomersByProviderAndRegion, fetchRegions, fetchStates } from "../../api/Api";
+import { fetchCustomersByProviderAndRegion, fetchPricingTiersByProvider, fetchRegions, fetchStates } from "../../api/Api";
 
 const CompanyDashboard = () => {
+    const [provider, setProvider] = React.useState(1); 
     const [state, setState] = React.useState("");
     const [region, setRegion] = React.useState("");
     const [household, setHousehold] = React.useState("");
@@ -15,6 +16,7 @@ const CompanyDashboard = () => {
     const [states, setStates] = React.useState([]);
     const [regions, setRegions] = React.useState([]);
     const [households, setHouseholds] = React.useState([]);
+    const [pricingTiers, setPricingTiers] = React.useState([]);
 
     useEffect(() => {
         const fetchStatesData = async () => {
@@ -71,6 +73,20 @@ const CompanyDashboard = () => {
         fetchHouseholdData();
     }, [region, state])
 
+useEffect(() => {
+    if (region === "") {
+        setPricingTiers([]);
+        return;
+    }
+
+    const fetchPricingTiers = async () => {
+        const pricingTiers = await fetchPricingTiersByProvider({providerID: provider, regionID: region});
+        setPricingTiers(pricingTiers);
+    };
+
+    fetchPricingTiers();
+}, [provider, region]);
+
     const handleStateChange = (event) => {
         setState(event.target.value);
         setRegion("");
@@ -89,223 +105,6 @@ const CompanyDashboard = () => {
     const handleHouseholdChange = (event) => {
         setHousehold(event.target.value);
     };
-
-    const pricingTiers = [
-        {
-            rate: 0.27,
-            pricing_id: 13,
-            provider_id: 1,
-            region_id: 4,
-            pricing_tier_name: "Peak",
-            start_time: "07:30:00",
-            end_time: "18:30:00",
-            pricingTierDays: [
-                {
-                    pricing_tier_day_id: 56,
-                    pricing_id: 13,
-                    day_of_week: 1,
-                },
-                {
-                    pricing_tier_day_id: 57,
-                    pricing_id: 13,
-                    day_of_week: 2,
-                },
-                {
-                    pricing_tier_day_id: 58,
-                    pricing_id: 13,
-                    day_of_week: 3,
-                },
-                {
-                    pricing_tier_day_id: 59,
-                    pricing_id: 13,
-                    day_of_week: 4,
-                },
-            ],
-            pricingTierSpecialDates: [],
-        },
-        {
-            rate: 0.215,
-            pricing_id: 14,
-            provider_id: 1,
-            region_id: 4,
-            pricing_tier_name: "Off-Peak",
-            start_time: "18:30:00",
-            end_time: "07:30:00",
-            pricingTierDays: [
-                {
-                    pricing_tier_day_id: 60,
-                    pricing_id: 14,
-                    day_of_week: 1,
-                },
-                {
-                    pricing_tier_day_id: 61,
-                    pricing_id: 14,
-                    day_of_week: 2,
-                },
-                {
-                    pricing_tier_day_id: 62,
-                    pricing_id: 14,
-                    day_of_week: 3,
-                },
-                {
-                    pricing_tier_day_id: 63,
-                    pricing_id: 14,
-                    day_of_week: 4,
-                },
-            ],
-            pricingTierSpecialDates: [],
-        },
-        {
-            rate: 0.215,
-            pricing_id: 15,
-            provider_id: 1,
-            region_id: 4,
-            pricing_tier_name: "Weekend",
-            start_time: "00:00:00",
-            end_time: "23:59:59",
-            pricingTierDays: [
-                {
-                    pricing_tier_day_id: 64,
-                    pricing_id: 15,
-                    day_of_week: 5,
-                },
-                {
-                    pricing_tier_day_id: 65,
-                    pricing_id: 15,
-                    day_of_week: 6,
-                },
-                {
-                    pricing_tier_day_id: 66,
-                    pricing_id: 15,
-                    day_of_week: 7,
-                },
-            ],
-            pricingTierSpecialDates: [],
-        },
-        {
-            rate: 0.215,
-            pricing_id: 16,
-            provider_id: 1,
-            region_id: 4,
-            pricing_tier_name: "Holiday",
-            start_time: "00:00:00",
-            end_time: "23:59:59",
-            pricingTierDays: [
-                {
-                    pricing_tier_day_id: 67,
-                    pricing_id: 16,
-                    day_of_week: 1,
-                },
-                {
-                    pricing_tier_day_id: 68,
-                    pricing_id: 16,
-                    day_of_week: 2,
-                },
-                {
-                    pricing_tier_day_id: 69,
-                    pricing_id: 16,
-                    day_of_week: 3,
-                },
-                {
-                    pricing_tier_day_id: 70,
-                    pricing_id: 16,
-                    day_of_week: 4,
-                },
-                {
-                    pricing_tier_day_id: 71,
-                    pricing_id: 16,
-                    day_of_week: 5,
-                },
-                {
-                    pricing_tier_day_id: 72,
-                    pricing_id: 16,
-                    day_of_week: 6,
-                },
-                {
-                    pricing_tier_day_id: 73,
-                    pricing_id: 16,
-                    day_of_week: 7,
-                },
-            ],
-            pricingTierSpecialDates: [
-                {
-                    pricing_special_date_id: 54,
-                    pricing_id: 16,
-                    special_date: "2023-01-01",
-                },
-                {
-                    pricing_special_date_id: 55,
-                    pricing_id: 16,
-                    special_date: "2023-01-16",
-                },
-                {
-                    pricing_special_date_id: 56,
-                    pricing_id: 16,
-                    special_date: "2023-02-20",
-                },
-                {
-                    pricing_special_date_id: 57,
-                    pricing_id: 16,
-                    special_date: "2023-04-10",
-                },
-                {
-                    pricing_special_date_id: 58,
-                    pricing_id: 16,
-                    special_date: "2023-05-29",
-                },
-                {
-                    pricing_special_date_id: 59,
-                    pricing_id: 16,
-                    special_date: "2023-06-19",
-                },
-                {
-                    pricing_special_date_id: 60,
-                    pricing_id: 16,
-                    special_date: "2023-07-04",
-                },
-                {
-                    pricing_special_date_id: 61,
-                    pricing_id: 16,
-                    special_date: "2023-09-04",
-                },
-                {
-                    pricing_special_date_id: 62,
-                    pricing_id: 16,
-                    special_date: "2023-10-09",
-                },
-                {
-                    pricing_special_date_id: 63,
-                    pricing_id: 16,
-                    special_date: "2023-10-31",
-                },
-                {
-                    pricing_special_date_id: 64,
-                    pricing_id: 16,
-                    special_date: "2023-11-11",
-                },
-                {
-                    pricing_special_date_id: 65,
-                    pricing_id: 16,
-                    special_date: "2023-11-23",
-                },
-                {
-                    pricing_special_date_id: 66,
-                    pricing_id: 16,
-                    special_date: "2023-12-24",
-                },
-                {
-                    pricing_special_date_id: 67,
-                    pricing_id: 16,
-                    special_date: "2023-12-25",
-                },
-                {
-                    pricing_special_date_id: 68,
-                    pricing_id: 16,
-                    special_date: "2023-12-31",
-                },
-            ],
-        },
-    ];
 
     const periods = ["Daily", "Weekly", "Monthly", "Yearly"].map((period) => ({
         value: period,
