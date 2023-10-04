@@ -33,6 +33,18 @@ const CompanyDashboard = () => {
     const [currentMonth, setCurrentMonth] = React.useState(1);
     const [currentWeek, setCurrentWeek] = React.useState(1);
 
+    const incrementDate = () => {
+        const nextDate = new Date(currentDate);
+        nextDate.setDate(nextDate.getDate() + 1);
+        setCurrentDate(nextDate.toISOString().split("T")[0]);
+    };
+
+    const decrementDate = () => {
+        const prevDate = new Date(currentDate);
+        prevDate.setDate(prevDate.getDate() - 1);
+        setCurrentDate(prevDate.toISOString().split("T")[0]);
+    };
+
     useEffect(() => {
         const fetchStatesData = async () => {
             const states = await fetchStates();
@@ -114,39 +126,45 @@ const CompanyDashboard = () => {
 
         const fetchUsageData = async () => {
             let responseData = null;
-            
+
             if (period === "Daily") {
                 responseData = await fetchDailyEnergyConsumptionByCustomer({
                     household_id: household,
                     date: currentDate,
-                    year: 2023
+                    year: 2023,
                 });
             } else if (period === "Weekly") {
                 responseData = await fetchWeeklyEnergyConsumptionByCustomer({
                     household_id: household,
                     week: currentWeek,
-                    year: 2023
+                    year: 2023,
                 });
             } else if (period === "Monthly") {
                 responseData = await fetchMonthlyEnergyConsumptionByCustomer({
                     household_id: household,
                     month: currentMonth,
-                    year: 2023
+                    year: 2023,
                 });
-            }
-            else if (period === "Yearly") {
+            } else if (period === "Yearly") {
                 responseData = await fetchYearlyEnergyConsumptionByCustomer({
                     household_id: household,
-                    year: 2023
+                    year: 2023,
                 });
             }
 
             console.log(responseData);
             setEnergyUsage(responseData);
-        }
+        };
 
         fetchUsageData();
-    }, [household, period])
+    }, [
+        household,
+        period,
+        currentDate,
+        currentYear,
+        currentMonth,
+        currentWeek,
+    ]);
 
     const handleStateChange = (event) => {
         setState(event.target.value);
@@ -223,9 +241,16 @@ const CompanyDashboard = () => {
                             />
                         </div>
                     </div>
+
                     <div className="contentContainer">
                         <UsageChart data={energyUsage} />
-                        <div>Content</div>
+                        <div>
+                            <div className="dateNavContainer">
+                                <button onClick={decrementDate}>←</button>
+                                <span>{currentDate}</span>
+                                <button onClick={incrementDate}>→</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div className="pricingMenu">
@@ -245,7 +270,10 @@ const CompanyDashboard = () => {
                                     pricingData={matchingTier}
                                 />
                             ) : (
-                                <FillerPricingTierTile key={category} pricingTierName={category} />
+                                <FillerPricingTierTile
+                                    key={category}
+                                    pricingTierName={category}
+                                />
                             );
                         })}
                     </div>

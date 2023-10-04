@@ -36,7 +36,8 @@ html, body {
     display: flex;
     flex-direction: row;
     align-items: center;
-    margin: 4% 5%;
+    justify-content: space-between; /* Adjusts elements to take up equal space */
+    margin: 2% 5%;
 }
 
 .dropdownContainer {
@@ -98,4 +99,26 @@ html, body {
     justify-content: space-between;
     align-items: baseline;  
     margin-bottom: 16px;  
+}
+
+.dateNavContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Centralizes the date navigation */
+}
+
+button {
+    background-color: #EAEAEA;
+    border: none;
+    padding: 5px;
+    margin: 0 5px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.dateNavContainer span {
+    padding: 5px 15px; /* Increase horizontal padding for clarity */
+    background-color: #EAEAEA;
+    border-radius: 4px;
 }
