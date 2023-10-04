@@ -12,6 +12,10 @@ import {
     fetchPricingTiersByProvider,
     fetchRegions,
     fetchStates,
+    fetchTotalDailyEnergyConsumptionByCustomer,
+    fetchTotalMonthlyEnergyConsumptionByCustomer,
+    fetchTotalWeeklyEnergyConsumptionByCustomer,
+    fetchTotalYearlyEnergyConsumptionByCustomer,
     fetchWeeklyEnergyConsumptionByCustomer,
     fetchYearlyEnergyConsumptionByCustomer,
 } from "../../api/Api";
@@ -34,6 +38,7 @@ const CompanyDashboard = () => {
     const [currentYear, setCurrentYear] = React.useState(2023);
     const [currentMonth, setCurrentMonth] = React.useState(1);
     const [currentWeek, setCurrentWeek] = React.useState(1);
+    const [totalEnergyConsumption, setTotalEnergyConsumption] = React.useState(0);
 
     useEffect(() => {
         const fetchStatesData = async () => {
@@ -156,6 +161,29 @@ const CompanyDashboard = () => {
         currentWeek,
     ]);
 
+    useEffect(() => {
+        if (energyUsage.length === 0) return;
+
+        const getTotalConsumption = async () => {
+            let totalEnergy = 0;
+
+            if (period === "Daily") {
+                totalEnergy = await fetchTotalDailyEnergyConsumptionByCustomer({ household_id: household, date: currentDate, year: currentYear });
+            } else if (period === "Weekly") {
+                totalEnergy = await fetchTotalWeeklyEnergyConsumptionByCustomer({ household_id: household, week: currentWeek, year: currentYear });
+            } else if (period === "Monthly") {
+                totalEnergy = await fetchTotalMonthlyEnergyConsumptionByCustomer({ household_id: household, month: currentMonth, year: currentYear });
+            } else if (period === "Yearly") {
+                totalEnergy = await fetchTotalYearlyEnergyConsumptionByCustomer({ household_id: household, year: currentYear });
+            }
+
+            setTotalEnergyConsumption(totalEnergy.energy_usage);
+        };
+
+        getTotalConsumption();
+        
+    }, [period, energyUsage, household, currentDate, currentYear, currentMonth, currentWeek])
+
     const handleStateChange = (event) => {
         setState(event.target.value);
         setRegion("");
@@ -181,6 +209,8 @@ const CompanyDashboard = () => {
     }));
 
     const pricingCategories = ["Peak", "Off-Peak", "Weekend", "Holiday"];
+
+    console.log(totalEnergyConsumption)
 
     return (
         <div>
@@ -247,7 +277,7 @@ const CompanyDashboard = () => {
                                 weekSetter={setCurrentWeek}
                             />
                         </div>
-                        <StatsSection />
+                        <StatsSection energyUsage={totalEnergyConsumption} />
                     </div>
                 </div>
                 <div className="pricingMenu">

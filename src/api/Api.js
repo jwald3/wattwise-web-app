@@ -79,8 +79,80 @@ export const updatePricingTier = async ({pricingTierID = null, pricingTier = nul
 }
 
 
-
 // Customer endpoints
+export const fetchTotalDailyEnergyConsumptionByCustomer = async ({household_id = null, date = null, year = null}) => {
+    let params = new URLSearchParams();
+
+    if (household_id !== null && household_id !== undefined)  {
+        params.append("household_id", household_id);
+    }
+
+    if (date !== null && date !== undefined)  {
+        params.append("date", date);
+    }
+
+    if (year !== null && year !== undefined)  {
+        params.append("year", year);
+    }
+
+    const response = await axios.get(`${API_URL}/energy_usages/totals/daily?${params.toString()}`);
+
+    return response.data;
+}
+
+export const fetchTotalMonthlyEnergyConsumptionByCustomer = async ({household_id = null, month = null, year = null}) => {
+    let params = new URLSearchParams();
+
+    if (household_id !== null && household_id !== undefined)  {
+        params.append("household_id", household_id);
+    }
+
+    if (month !== null && month !== undefined)  {
+        params.append("month", month);
+    }
+
+    if (year !== null && year !== undefined)  {
+        params.append("year", year);
+    }
+
+    const response = await axios.get(`${API_URL}/energy_usages/totals/monthly?${params.toString()}`);
+    return response.data;
+}
+
+export const fetchTotalWeeklyEnergyConsumptionByCustomer = async ({household_id = null, week = null, year = null}) => {
+    let params = new URLSearchParams();
+
+    if (household_id !== null && household_id !== undefined)  {
+        params.append("household_id", household_id);
+    }
+
+    if (week !== null && week !== undefined)  {
+        params.append("week", week);
+    }
+
+    if (year !== null && year !== undefined)  {
+        params.append("year", year);
+    }
+
+    const response = await axios.get(`${API_URL}/energy_usages/totals/weekly?${params.toString()}`);
+    return response.data;
+}
+
+export const fetchTotalYearlyEnergyConsumptionByCustomer = async ({household_id = null, year = null}) => {
+    let params = new URLSearchParams();
+
+    if (household_id !== null && household_id !== undefined)  {
+        params.append("household_id", household_id);
+    }
+
+    if (year !== null && year !== undefined)  {
+        params.append("year", year);
+    }
+
+    const response = await axios.get(`${API_URL}/energy_usages/totals/yearly?${params.toString()}`);
+    return response.data;
+}
+
 export const fetchDailyEnergyConsumptionByCustomer = async ({household_id = null, date = null, year = null}) => {
     let params = new URLSearchParams();
 
