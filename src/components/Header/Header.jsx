@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 
 const Header = () => {
   return (
+    <div className="header-container">
     <div className="main-header">
       <div className="main-header-left">
         <div className="header-logo">
@@ -23,6 +24,7 @@ const Header = () => {
         <Link to="/#">Contact Us</Link>
         <Link to="/#">Logout</Link>
       </div>
+    </div>
     </div>
   );
 };

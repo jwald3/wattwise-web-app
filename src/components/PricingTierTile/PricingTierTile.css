@@ -8,15 +8,17 @@
     margin: 20px auto;
     background-color: #ffffff;
     overflow: hidden;
+    min-width: 340px;
 }
 
-.tile-header {
+.pricing-tile-header {
     display: flex;
     justify-content: space-between;
     padding: 2% 4%;
     border-bottom: 1px solid #e0e0e0;
-    background-color: #f4f4f4;
+    background-color: #238F7C;
     font-weight: 600;
+    color: #ffffff;
 }
 
 .tile-content {

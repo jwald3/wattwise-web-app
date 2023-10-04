@@ -35,7 +35,7 @@ const PricingTierTile = ({ pricingData }) => {
 
     return (
         <div className="tile">
-            <div className="tile-header">
+            <div className="pricing-tile-header">
                 <div>{pricingTierName}</div>
                 <div>{rate || ""} USD/kWh</div>
             </div>

@@ -81,7 +81,6 @@ export const updatePricingTier = async ({pricingTierID = null, pricingTier = nul
 
 
 // Customer endpoints
-
 export const fetchDailyEnergyConsumptionByCustomer = async ({household_id = null, date = null, year = null}) => {
     let params = new URLSearchParams();
 
@@ -97,7 +96,7 @@ export const fetchDailyEnergyConsumptionByCustomer = async ({household_id = null
         params.append("year", year);
     }
 
-    const response = await axios.get(`${API_URL}/energy_usages/totals/daily?${params.toString()}`);
+    const response = await axios.get(`${API_URL}/energy_usages/daily?${params.toString()}`);
     return response.data;
 }
 
@@ -116,7 +115,7 @@ export const fetchMonthlyEnergyConsumptionByCustomer = async ({household_id = nu
         params.append("year", year);
     }
 
-    const response = await axios.get(`${API_URL}/energy_usages/totals/monthly?${params.toString()}`);
+    const response = await axios.get(`${API_URL}/energy_usages/monthly?${params.toString()}`);
     return response.data;
 }
 
@@ -135,7 +134,7 @@ export const fetchWeeklyEnergyConsumptionByCustomer = async ({household_id = nul
         params.append("year", year);
     }
 
-    const response = await axios.get(`${API_URL}/energy_usages/totals/weekly?${params.toString()}`);
+    const response = await axios.get(`${API_URL}/energy_usages/weekly?${params.toString()}`);
     return response.data;
 } 
 
@@ -150,7 +149,7 @@ export const fetchYearlyEnergyConsumptionByCustomer = async ({household_id = nul
         params.append("year", year);
     }
 
-    const response = await axios.get(`${API_URL}/energy_usages/totals/yearly?${params.toString()}`);
+    const response = await axios.get(`${API_URL}/energy_usages/yearly?${params.toString()}`);
     return response.data;
 }
 
