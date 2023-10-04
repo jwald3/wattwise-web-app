@@ -7,11 +7,16 @@ import LandingPage from "./pages/LandingPage/LandingPage";
 import PrivacyPolicyPage from "./pages/PrivacyPolicyPage/PrivacyPolicyPage";
 import CompanyDashboard from "./pages/CompanyDashboard/CompanyDashboard";
 import PricingTierForm from "./pages/PricingTierForm/PricingTierForm";
+import AboutUs from "./pages/AboutUs/AboutUs";
 
 const router = createBrowserRouter([
     {
         path: "/",
         element: <LandingPage />,
+    },
+    {
+        path: "/about-us",
+        element: <AboutUs />,
     },
     {
         path: "/privacy",

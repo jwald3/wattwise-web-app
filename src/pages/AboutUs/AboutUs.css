@@ -1,0 +1,38 @@
+.about-us-container {
+    display: flex;
+    flex-direction: row;
+    flex: 1;
+    width: 90%;
+    margin: auto;
+    max-width: 1400px;
+    margin-top: 2%;
+}
+
+.about-us-left {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-left: 5%;
+    padding-right: 5%; 
+}
+
+.brand-color {
+    color: #32C5A4;
+}
+
+.about-us-right {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.about-us-img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    border-radius: 5%;
+}
