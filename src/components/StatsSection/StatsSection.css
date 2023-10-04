@@ -31,7 +31,6 @@
 }
 
 .description {
-    
     line-height: 1.4;
     letter-spacing: 0.5px;
 }
@@ -39,8 +38,4 @@
 .stat-card:hover {
     transform: translateY(-3px);
     box-shadow: 0px 5px 8px #0000001A;
-}
-
-.stat-card {
-    transition: all 0.3s ease-in-out;
 }
