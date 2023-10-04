@@ -17,6 +17,7 @@ import {
 } from "../../api/Api";
 import FillerPricingTierTile from "../../components/FillerPricingTierTile/FillerPricingTierTile";
 import PeriodNavigator from "../../components/PeriodNavigator/PeriodNavigator";
+import StatsSection from "../../components/StatsSection/StatsSection";
 
 const CompanyDashboard = () => {
     const [provider, setProvider] = React.useState(1);
@@ -246,6 +247,7 @@ const CompanyDashboard = () => {
                                 weekSetter={setCurrentWeek}
                             />
                         </div>
+                        <StatsSection />
                     </div>
                 </div>
                 <div className="pricingMenu">

@@ -1,3 +1,5 @@
+import './PeriodNavigator.css'
+
 const PeriodNavigator = ({ period, dateValue, dateSetter, weekValue, weekSetter, monthValue, monthSetter, yearValue, yearSetter }) => {
     
     // function for converting month number to month name, e.g. 1 -> January
@@ -29,7 +31,6 @@ const PeriodNavigator = ({ period, dateValue, dateSetter, weekValue, weekSetter,
                 return 'December';
         }
     }
-            
 
     const increment = () => {
         switch (period) {
@@ -95,12 +96,13 @@ const PeriodNavigator = ({ period, dateValue, dateSetter, weekValue, weekSetter,
     };
 
     return (
-        <div style={{ display: "flex", alignItems: "center", margin: "auto"}}>
+        <div className="navigatorWrapper">
             <button onClick={decrement}>←</button>
             <span>{displayDate()}</span>
             <button onClick={increment}>→</button>
         </div>
     );
+    
 };
 
 export default PeriodNavigator;

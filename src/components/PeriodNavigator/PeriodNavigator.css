@@ -1,0 +1,36 @@
+/* Wrapper around the navigator */
+.navigatorWrapper {
+    background: linear-gradient(to right, #e8f8f5, #f2f9f8);
+    border: 2px solid #2ecc71;
+    border-radius: 12px;       
+    padding: 10px 20px;      
+    display: flex;            
+    align-items: center;      
+    justify-content: center;
+    margin: auto;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    
+}
+
+/* Arrow buttons */
+.navigatorWrapper button {
+    background: none;         
+    border: none;     
+    cursor: pointer; 
+    font-size: 20px;
+    font-weight: bold;
+    padding: 5px 10px;        
+    transition: color 0.3s; 
+    color: #2ecc71; 
+}
+
+.navigatorWrapper button:hover {
+    color: #27ae60;
+}
+
+/* Year display */
+.navigatorWrapper span {
+    margin: 0 20px;       
+    font-size: 14px;       
+    font-weight: bold;
+}
