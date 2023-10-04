@@ -7,9 +7,12 @@ import DropdownMenu from "../../components/DropdownMenu/DropdownMenu";
 import PricingTierTile from "../../components/PricingTierTile/PricingTierTile";
 import {
     fetchCustomersByProviderAndRegion,
+    fetchDailyEnergyConsumptionByCustomer,
+    fetchMonthlyEnergyConsumptionByCustomer,
     fetchPricingTiersByProvider,
     fetchRegions,
     fetchStates,
+    fetchWeeklyEnergyConsumptionByCustomer,
     fetchYearlyEnergyConsumptionByCustomer,
 } from "../../api/Api";
 import FillerPricingTierTile from "../../components/FillerPricingTierTile/FillerPricingTierTile";
@@ -25,6 +28,10 @@ const CompanyDashboard = () => {
     const [households, setHouseholds] = React.useState([]);
     const [pricingTiers, setPricingTiers] = React.useState([]);
     const [energyUsage, setEnergyUsage] = React.useState([]);
+    const [currentDate, setCurrentDate] = React.useState("2023-01-01");
+    const [currentYear, setCurrentYear] = React.useState(2023);
+    const [currentMonth, setCurrentMonth] = React.useState(1);
+    const [currentWeek, setCurrentWeek] = React.useState(1);
 
     useEffect(() => {
         const fetchStatesData = async () => {
@@ -106,10 +113,34 @@ const CompanyDashboard = () => {
         if (household === "") return;
 
         const fetchUsageData = async () => {
-            const responseData = await fetchYearlyEnergyConsumptionByCustomer({
-                household_id: household,
-                year: 2023
-            });
+            let responseData = null;
+            
+            if (period === "Daily") {
+                responseData = await fetchDailyEnergyConsumptionByCustomer({
+                    household_id: household,
+                    date: currentDate,
+                    year: 2023
+                });
+            } else if (period === "Weekly") {
+                responseData = await fetchWeeklyEnergyConsumptionByCustomer({
+                    household_id: household,
+                    week: currentWeek,
+                    year: 2023
+                });
+            } else if (period === "Monthly") {
+                responseData = await fetchMonthlyEnergyConsumptionByCustomer({
+                    household_id: household,
+                    month: currentMonth,
+                    year: 2023
+                });
+            }
+            else if (period === "Yearly") {
+                responseData = await fetchYearlyEnergyConsumptionByCustomer({
+                    household_id: household,
+                    year: 2023
+                });
+            }
+
             console.log(responseData);
             setEnergyUsage(responseData);
         }
