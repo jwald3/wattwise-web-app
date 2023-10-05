@@ -65,6 +65,7 @@
     font-weight: 600;   /* added for better readability */
     border: 1px solid #e6e6e6;  /* added for better readability */
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);  /* added for better readability */
+    color: rgba(0, 0, 0, 0.54);
 }
 
 .dow-toggle:hover {

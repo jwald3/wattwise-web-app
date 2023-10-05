@@ -12,7 +12,6 @@ const PricingTierForm = () => {
     const [endTime, setEndTime] = useState("");
     const [rate, setRate] = useState("");
     const [days, setDays] = useState("");
-    const [dates, setDates] = useState("");
 
     const [activeDays, setActiveDays] = useState([]);
 
@@ -28,7 +27,7 @@ const PricingTierForm = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log({ startTime, endTime, rate, days, dates });
+        console.log({ startTime, endTime, rate, days });
     };
 
     // days of the week as an array of objects, using single letter abbreviations and 1-indexed days

@@ -6,7 +6,7 @@ import InputAdornment from "@mui/material/InputAdornment";
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 import { IconButton } from "@mui/material";
 
-function NumberInput() {
+function NumberInput({ label }) {
     const [value, setValue] = useState("");
 
     const handleChange = (event) => {
@@ -20,7 +20,7 @@ function NumberInput() {
 
     return (
         <TextField
-            label="Rate"
+            label={label}
             placeholder="x.xxx" // Placeholder text
             value={value}
             onChange={handleChange}
@@ -29,14 +29,18 @@ function NumberInput() {
             }}
             InputProps={{
                 endAdornment: (
-                    <InputAdornment 
+                    <InputAdornment
                         position="end"
-                        classes={{
-                            root: "MuiInputAdornment-root MuiInputAdornment-positionEnd MuiInputAdornment-outlined MuiInputAdornment-sizeMedium",
-                        }}
                     >
-                        <IconButton edge="end" size="medium">
-                            <AttachMoneyIcon fontSize="inherit" classes={{root: "MuiSvgIcon-root MuiSvgIcon-fontSizeMedium"}} />
+                        <IconButton
+                            edge="end"
+                            size="medium"
+                            disabled={true}
+                        >
+                            <AttachMoneyIcon
+                                fontSize="inherit"
+                                style={{ color: "rgba(0, 0, 0, 0.54)" }}
+                            />
                         </IconButton>
                     </InputAdornment>
                 ),

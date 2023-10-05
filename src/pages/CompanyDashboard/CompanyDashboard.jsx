@@ -80,7 +80,6 @@ const CompanyDashboard = () => {
                 1,
                 region
             );
-            console.log(responseData);
 
             const customersArray = responseData.customers;
 
@@ -147,7 +146,6 @@ const CompanyDashboard = () => {
                 });
             }
 
-            console.log(responseData);
             setEnergyUsage(responseData);
         };
 
@@ -234,7 +232,6 @@ const CompanyDashboard = () => {
 
     const pricingCategories = ["Peak", "Off-Peak", "Weekend", "Holiday"];
 
-    console.log(totalEnergyConsumption);
 
     return (
         <Layout>
