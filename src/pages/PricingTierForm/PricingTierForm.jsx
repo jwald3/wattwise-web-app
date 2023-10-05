@@ -4,8 +4,8 @@ import "./PricingTierForm.css";
 import { TimePicker } from "@mui/x-date-pickers/TimePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import TextField from "@mui/material/TextField";
 import { Link } from "react-router-dom";
+import NumberInput from "../../components/NumberInput/NumberInput";
 
 const PricingTierForm = () => {
     const [startTime, setStartTime] = useState("");
@@ -58,11 +58,7 @@ const PricingTierForm = () => {
                         </LocalizationProvider>
                     </div>
                     <div className="input-group">
-                        <TextField
-                            id="outlined-uncontrolled"
-                            label="Rate"
-                            defaultValue="0.000"
-                        />
+                        <NumberInput label="Rate" />
                     </div>
                     <div className="input-group">
                         <label className="dow-label" htmlFor="days">
