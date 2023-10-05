@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
-import Layout from '../../Layouts/Layout'
+import Layout from '../../Layouts/Layout';
 import './PricingTierForm.css';
+import { TimePicker } from '@mui/x-date-pickers/TimePicker';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+
 
 const PricingTierForm = () => {
   const [startTime, setStartTime] = useState('');
@@ -11,86 +15,40 @@ const PricingTierForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Handle the form submission logic here
-    console.log({
-      startTime,
-      endTime,
-      rate,
-      days,
-      dates,
-    });
+    console.log({ startTime, endTime, rate, days, dates });
   };
 
   return (
-	<Layout>
-		<div className='page-body'>
-			<div className='form-container'>
-				<div className="form-header">Pricing Tier</div>
-				<div className="form-body">
-					{/* The input field and label for start time */}
-					<div className="input-group">
-						<label htmlFor="startTime">Start Time</label>
-						<input
-							type="text"
-							name="startTime"
-							id="startTime"
-							value={startTime}
-							onChange={(e) => setStartTime(e.target.value)}
-						/>
-					</div>
-					{/* The input field and label for end time */}
-					<div className="input-group">
-						<label htmlFor="endTime">End Time</label>
-						<input
-							type="text"
-							name="endTime"
-							id="endTime"
-							value={endTime}
-							onChange={(e) => setEndTime(e.target.value)}
-						/>
-					</div>
-					{/* The input field and label for rate */}
-					<div className="input-group">
-						<label htmlFor="rate">Rate</label>
-						<input
-							type="text"
-							name="rate"
-							id="rate"
-							value={rate}
-							onChange={(e) => setRate(e.target.value)}
-						/>
-					</div>
-					{/* The input field and label for days */}
-					<div className="input-group">
-						<label htmlFor="days">Days</label>
-						<input
-							type="text"
-							name="days"
-							id="days"
-							value={days}
-							onChange={(e) => setDays(e.target.value)}
-						/>
-					</div>
-					{/* The input field and label for dates */}
-					<div className="input-group">
-						<label htmlFor="dates">Dates</label>
-						<input
-							type="text"
-							name="dates"
-							id="dates"
-							value={dates}
-							onChange={(e) => setDates(e.target.value)}
-						/>
-					</div>
-				</div>
-				<div className="button-container">
-					<button className="submit-button" onClick={handleSubmit}>
-						Submit
-					</button>
-				</div>
-			</div>
-		</div>
-	</Layout>
+    <Layout>
+      <div className='form-container'>
+        <h2 className="form-header">Pricing Tier</h2>
+        <form onSubmit={handleSubmit} className="form-body">
+          <div className="input-group">
+		  <LocalizationProvider dateAdapter={AdapterDayjs}>
+				<TimePicker label="Start Time" />
+			</LocalizationProvider>
+          </div>
+          <div className="input-group">
+		  <LocalizationProvider dateAdapter={AdapterDayjs}>
+				<TimePicker label="End Time" />
+			</LocalizationProvider>
+          </div>
+          <div className="input-group">
+            <label htmlFor="rate">Rate</label>
+            <input type="text" id="rate" value={rate} onChange={(e) => setRate(e.target.value)} />
+          </div>
+          <div className="input-group">
+            <label htmlFor="days">Days</label>
+            <input type="text" id="days" value={days} onChange={(e) => setDays(e.target.value)} />
+          </div>
+          <div className="input-group">
+            <label htmlFor="dates">Dates</label>
+            <input type="text" id="dates" value={dates} onChange={(e) => setDates(e.target.value)} />
+          </div>
+          <button type="submit" className="submit-button">Submit</button>
+        </form>
+      </div>
+    </Layout>
   );
 };
 
