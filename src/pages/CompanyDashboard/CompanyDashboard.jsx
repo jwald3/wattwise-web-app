@@ -286,7 +286,7 @@ const CompanyDashboard = () => {
                     </div>
 
                     <div className="contentContainer">
-                        <UsageChart data={energyUsage} />
+                        <UsageChart data={energyUsage} period={period} />
                         <div style={{ display: "flex", alignItems: "center" }}>
                             <PeriodNavigator
                                 period={period}
