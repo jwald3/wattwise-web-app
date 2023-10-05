@@ -1,0 +1,16 @@
+.layout-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.layout-content {
+    flex: 1;
+    /* add more styling if needed */
+}
+
+header, footer {
+    /* Adjust according to your needs */
+    padding: 20px;
+    background-color: #f5f5f5;
+}
