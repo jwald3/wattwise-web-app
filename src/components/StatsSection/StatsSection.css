@@ -2,8 +2,9 @@
     display: flex;
     justify-content: space-between;
     padding: 2.5rem 0;
-    width: 100%;
+    width: 90%;
     box-sizing: border-box;
+    margin: auto;
 }
 
 .stat-card {
