@@ -1,12 +1,10 @@
 import React from "react";
 import "./LandingPage.css";
-import Header from "../../components/Header/Header";
-import Footer from "../../components/Footer/Footer";
+import Layout from "../../Layouts/Layout";
 
 const LandingPage = () => {
     return (
-        <div>
-            <Header />
+        <Layout>
             <div className="main-page-landing">
                 <div className="landing-page-content">
                     <div className="landing-page-left-content">
@@ -60,8 +58,7 @@ const LandingPage = () => {
                     </div>
                 </div>
             </div>
-            <Footer />
-        </div>
+        </Layout>
     );
 };
 

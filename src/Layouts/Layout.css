@@ -6,12 +6,12 @@
 
 .layout-content {
     flex: 1;
-    margin: 5%;
-    /* add more styling if needed */
+    margin: 5% auto;
+    width: 90%;
+    max-width: 1400px;
 }
 
 header, footer {
-    /* Adjust according to your needs */
     padding: 20px;
     background-color: #f5f5f5;
 }

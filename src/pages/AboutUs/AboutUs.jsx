@@ -1,11 +1,10 @@
 import React from "react";
-import Header from "../../components/Header/Header";
+import Layout from "../../Layouts/Layout"
 import "./AboutUs.css";
 
 const AboutUs = () => {
     return (
-        <div>
-            <Header />
+        <Layout>
             <div className="about-us-container">
                 <div className="about-us-left">
                     <h1>What does it mean to be <span className="brand-color">Wattwise</span>?</h1>
@@ -63,7 +62,7 @@ const AboutUs = () => {
                 />
                 </div>
             </div>
-        </div>
+        </Layout>
     );
 };
 

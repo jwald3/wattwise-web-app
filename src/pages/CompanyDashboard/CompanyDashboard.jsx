@@ -1,6 +1,4 @@
 import React, { useEffect } from "react";
-import Header from "../../components/Header/Header";
-import Footer from "../../components/Footer/Footer";
 import "./CompanyDashboard.css";
 import UsageChart from "../../components/UsageChart/UsageChart";
 import DropdownMenu from "../../components/DropdownMenu/DropdownMenu";
@@ -22,6 +20,7 @@ import {
 import FillerPricingTierTile from "../../components/FillerPricingTierTile/FillerPricingTierTile";
 import PeriodNavigator from "../../components/PeriodNavigator/PeriodNavigator";
 import StatsSection from "../../components/StatsSection/StatsSection";
+import Layout from "../../Layouts/Layout";
 
 const CompanyDashboard = () => {
     const [provider, setProvider] = React.useState(1);
@@ -38,7 +37,8 @@ const CompanyDashboard = () => {
     const [currentYear, setCurrentYear] = React.useState(2023);
     const [currentMonth, setCurrentMonth] = React.useState(1);
     const [currentWeek, setCurrentWeek] = React.useState(1);
-    const [totalEnergyConsumption, setTotalEnergyConsumption] = React.useState(0);
+    const [totalEnergyConsumption, setTotalEnergyConsumption] =
+        React.useState(0);
 
     useEffect(() => {
         const fetchStatesData = async () => {
@@ -168,21 +168,45 @@ const CompanyDashboard = () => {
             let totalEnergy = 0;
 
             if (period === "Daily") {
-                totalEnergy = await fetchTotalDailyEnergyConsumptionByCustomer({ household_id: household, date: currentDate, year: currentYear });
+                totalEnergy = await fetchTotalDailyEnergyConsumptionByCustomer({
+                    household_id: household,
+                    date: currentDate,
+                    year: currentYear,
+                });
             } else if (period === "Weekly") {
-                totalEnergy = await fetchTotalWeeklyEnergyConsumptionByCustomer({ household_id: household, week: currentWeek, year: currentYear });
+                totalEnergy = await fetchTotalWeeklyEnergyConsumptionByCustomer(
+                    {
+                        household_id: household,
+                        week: currentWeek,
+                        year: currentYear,
+                    }
+                );
             } else if (period === "Monthly") {
-                totalEnergy = await fetchTotalMonthlyEnergyConsumptionByCustomer({ household_id: household, month: currentMonth, year: currentYear });
+                totalEnergy =
+                    await fetchTotalMonthlyEnergyConsumptionByCustomer({
+                        household_id: household,
+                        month: currentMonth,
+                        year: currentYear,
+                    });
             } else if (period === "Yearly") {
-                totalEnergy = await fetchTotalYearlyEnergyConsumptionByCustomer({ household_id: household, year: currentYear });
+                totalEnergy = await fetchTotalYearlyEnergyConsumptionByCustomer(
+                    { household_id: household, year: currentYear }
+                );
             }
 
             setTotalEnergyConsumption(totalEnergy.energy_usage);
         };
 
         getTotalConsumption();
-        
-    }, [period, energyUsage, household, currentDate, currentYear, currentMonth, currentWeek])
+    }, [
+        period,
+        energyUsage,
+        household,
+        currentDate,
+        currentYear,
+        currentMonth,
+        currentWeek,
+    ]);
 
     const handleStateChange = (event) => {
         setState(event.target.value);
@@ -210,11 +234,10 @@ const CompanyDashboard = () => {
 
     const pricingCategories = ["Peak", "Off-Peak", "Weekend", "Holiday"];
 
-    console.log(totalEnergyConsumption)
+    console.log(totalEnergyConsumption);
 
     return (
-        <div>
-            <Header />
+        <Layout>
             <div className="mainPage">
                 <div className="chartMenu flex2">
                     <div className="filterContainer">
@@ -264,7 +287,7 @@ const CompanyDashboard = () => {
 
                     <div className="contentContainer">
                         <UsageChart data={energyUsage} />
-                        <div style={{ display: "flex", alignItems: "center"}}>
+                        <div style={{ display: "flex", alignItems: "center" }}>
                             <PeriodNavigator
                                 period={period}
                                 dateValue={currentDate}
@@ -306,8 +329,7 @@ const CompanyDashboard = () => {
                     </div>
                 </div>
             </div>
-            <Footer />
-        </div>
+        </Layout>
     );
 };
 
