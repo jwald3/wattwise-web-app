@@ -6,6 +6,7 @@
     padding: 40px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     font-family: 'SF Pro Display', 'SF Pro Icons', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    min-width: 450px;
 }
 
 .form-header {
@@ -20,6 +21,9 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 60%;
+    min-width: 350px;
+    margin: 0 auto;
 }
 
 .input-group {
@@ -31,6 +35,45 @@
 
 .input-group input {
     background-color: #fff;
+}
+
+.dow-label {
+    font-size: calc(1rem * 0.75);
+    color: rgba(0, 0, 0, 0.6);
+    margin-left: 14px;
+}
+
+.dow-container {
+    display: flex;
+    justify-content: space-around;
+    margin: 10px 0;
+    width: 100%;
+    gap: 10px;  /* added to give space between the toggles */
+    height: 56px;
+}
+
+.dow-toggle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+
+    height: 50px;
+    border-radius: 50%;  /* makes it round */
+    background-color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-weight: 600;   /* added for better readability */
+    border: 1px solid #e6e6e6;  /* added for better readability */
+}
+
+.dow-toggle:hover {
+    background-color: #e0e0e0;
+}
+
+.dow-toggle.active {
+    background-color: #007aff;
+    color: white;
 }
 
 
