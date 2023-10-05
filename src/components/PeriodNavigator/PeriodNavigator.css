@@ -3,7 +3,7 @@
     background: linear-gradient(to right, #e8f8f5, #f2f9f8);
     border: 2px solid #2ecc71;
     border-radius: 12px;       
-    padding: 10px 20px;      
+    padding: .625rem 1rem;      
     display: flex;            
     align-items: center;      
     justify-content: center;
@@ -30,7 +30,7 @@
 
 /* Year display */
 .navigatorWrapper span {
-    margin: 0 20px;       
-    font-size: 14px;       
+    margin: 0 1.2rem;       
+    font-size: .8rem;       
     font-weight: bold;
 }

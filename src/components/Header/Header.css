@@ -28,20 +28,20 @@
 
 .header-logo-img {
     height: auto;
-    width: 200px;
+    width: 12.5rem;
     max-width: 100%;
 }
 
 .main-header-right {
     display: flex;
-    gap: 20px;
+    gap: 1.25rem;
     align-items: center;
 }
 
 .main-header-right a {
     text-decoration: none;
     color: #333; /* Adjust color as needed */
-    padding: 10px;
+    padding: .5rem;
     transition: background-color 0.2s, color 0.2s;
 }
 
