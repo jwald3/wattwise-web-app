@@ -1,9 +1,9 @@
 import React from 'react';
 import './Layout.css';
-import { Header } from 'react-native/Libraries/NewAppScreen';
 import Footer from '../components/Footer/Footer';
+import Header from '../components/Header/Header';
 
-function Layout({ children }) {
+const Layout = ({ children }) => {
     return (
         <div className="layout-container">
             <Header />
