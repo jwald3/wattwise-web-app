@@ -1,0 +1,83 @@
+.page-body {
+    display: flex;
+    min-height: 100%;
+    flex: 1;
+}
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 70%;
+    background-color: #f5f5f5;
+    border-radius: 10px;
+    margin: 5% auto;
+    min-height: 100%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.form-header {
+    padding: 40px;
+    width: calc(100% - 80px);
+    text-align: center;
+    border-bottom: 1px solid #e5e5e5;
+}   
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+    width: calc(100% - 80px);
+}
+
+.form-body {
+    flex: 1;
+    width: 25%;
+}
+
+.submit-button {
+    width: 100%;
+    max-width: 200px;
+    margin: 0 auto;
+    background-color: #32C5A4;
+    color: #fff;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    border: none;
+}
+
+.submit-button:hover {
+    background-color: #238F7C;
+}
+
+/* The input group should have the label on top of the field */
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    margin: 20px 0;
+    min-width: 200px;
+}
+
+/* The input-group input should be slightly rounded  */
+.input-group input {
+    border-radius: 5px;
+    border: 1px solid #e5e5e5;
+    padding: 10px;
+    font-size: 1.2rem;
+    margin: auto;
+    width: 100%;
+}
+
+/* The input-group label should be small and de-emphasized, with the focus on the input itself */
+.input-group label {
+    font-size: 0.8rem;
+    color: #777;
+    margin-bottom: 5px;
+}

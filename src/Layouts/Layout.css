@@ -9,6 +9,8 @@
     margin: 5% auto;
     width: 90%;
     max-width: 1400px;
+    display: flex;             /* Add this */
+    flex-direction: column;    /* Add this */
 }
 
 header, footer {
