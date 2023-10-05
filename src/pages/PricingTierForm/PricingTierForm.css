@@ -56,9 +56,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 50px;
-
-    height: 50px;
+    width: 2.5rem;
+    height: 2.5rem;
     border-radius: 50%;  /* makes it round */
     background-color: #fff;
     cursor: pointer;
@@ -76,10 +75,15 @@
     color: white;
 }
 
-
-.submit-button {
-    margin-top: 20px;
+.button-container {
+    display: flex;
+    justify-content: space-between;
     width: 100%;
+}
+
+.submit-button, .cancel-button {
+    margin-top: 20px;
+    flex: 2;
     background-color: #007aff;
     color: #fff;
     border-radius: 8px;
@@ -90,6 +94,26 @@
     transition: background-color 0.3s ease;
     border: none;
     text-align: center;
+}
+
+.cancel-button {
+    background-color: #fff;
+    color: #007aff;
+    border: 1px solid #007aff;
+    margin-right: 10px;
+}
+
+.cancel-button a {
+    text-decoration: none;
+    color: #007aff;
+}
+
+.submit-button:hover, .cancel-button:hover {
+    background-color: #005ecb;
+}
+
+.cancel-button:hover a {
+    color: #fff;
 }
 
 .submit-button:hover {
