@@ -1,5 +1,6 @@
 import React from "react";
 import "./FillerPricingTierTile.css"
+import { Link } from "react-router-dom";
 
 const FillerPricingTierTile = ({ pricingTierName }) => {
     const weekDays = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
@@ -8,7 +9,7 @@ const FillerPricingTierTile = ({ pricingTierName }) => {
         <div className="tile">
             <div className="tile-header">
                 <div>{pricingTierName}</div>
-                <div style={{ fontWeight: "bold"}}>+</div>
+                <Link to="/pricing-tier">+</Link>
             </div>
             <div className="tile-content">
                 <div className="time">
