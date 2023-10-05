@@ -17,3 +17,9 @@ header, footer {
     padding: 20px;
     background-color: #f5f5f5;
 }
+
+@media (max-width: 600px) {
+    .layout-content {
+      max-width: 90%;
+    }
+  }

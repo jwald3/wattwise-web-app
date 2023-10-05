@@ -44,7 +44,7 @@ const UsageChart = ({ data, period }) => {
 
 
     return (
-        <div style={{ width: '100%', height: 450 }}>
+        <div style={{ width: '100%', height: 300 }}>
             <ResponsiveContainer>
                 <LineChart
                     data={formatData(data)}
