@@ -11,7 +11,6 @@ const PricingTierForm = () => {
     const [startTime, setStartTime] = useState("");
     const [endTime, setEndTime] = useState("");
     const [rate, setRate] = useState("");
-    const [days, setDays] = useState("");
 
     const [activeDays, setActiveDays] = useState([]);
 
@@ -27,7 +26,7 @@ const PricingTierForm = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log({ startTime, endTime, rate, days });
+        console.log({ startTime, endTime, rate, activeDays });
     };
 
     // days of the week as an array of objects, using single letter abbreviations and 1-indexed days
@@ -48,16 +47,32 @@ const PricingTierForm = () => {
                 <form onSubmit={handleSubmit} className="form-body">
                     <div className="input-group">
                         <LocalizationProvider dateAdapter={AdapterDayjs}>
-                            <TimePicker label="Start Time" />
+                            <TimePicker 
+                                label="Start Time"  
+                                value={startTime}
+                                onChange={(newValue) => {
+                                    setStartTime(newValue.format("HH:mm:ss"));
+                                }}
+                            />
                         </LocalizationProvider>
                     </div>
                     <div className="input-group">
                         <LocalizationProvider dateAdapter={AdapterDayjs}>
-                            <TimePicker label="End Time" />
+                        <TimePicker 
+                            label="End Time"  
+                            value={endTime}
+                            onChange={(newValue) => {
+                                setEndTime(newValue.format("HH:mm:ss"));
+                            }}
+                        />
                         </LocalizationProvider>
                     </div>
                     <div className="input-group">
-                        <NumberInput label="Rate" />
+                        <NumberInput 
+                            label="Rate" 
+                            value={rate}
+                            onChange={(e) => setRate(e.target.value)}
+                        />
                     </div>
                     <div className="input-group">
                         <label className="dow-label" htmlFor="days">
