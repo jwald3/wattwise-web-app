@@ -1,27 +1,23 @@
-import React, { useState } from "react";
+import React from "react";
 import TextField from "@mui/material/TextField";
-// input adornment
 import InputAdornment from "@mui/material/InputAdornment";
-// money icon
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 import { IconButton } from "@mui/material";
 
-function NumberInput({ label }) {
-    const [value, setValue] = useState("");
-
+function NumberInput({ label, value, onChange }) {
     const handleChange = (event) => {
         const inputValue = event.target.value;
         const pattern = /^([0-9](\.[0-9]{0,3})?)?$/;
 
         if (pattern.test(inputValue)) {
-            setValue(inputValue);
+            onChange(event);  // Propagate the change event up
         }
     };
 
     return (
         <TextField
             label={label}
-            placeholder="x.xxx" // Placeholder text
+            placeholder="x.xxx"
             value={value}
             onChange={handleChange}
             inputProps={{
@@ -29,9 +25,7 @@ function NumberInput({ label }) {
             }}
             InputProps={{
                 endAdornment: (
-                    <InputAdornment
-                        position="end"
-                    >
+                    <InputAdornment position="end">
                         <IconButton
                             edge="end"
                             size="medium"

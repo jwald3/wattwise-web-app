@@ -6,6 +6,7 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { Link } from "react-router-dom";
 import NumberInput from "../../components/NumberInput/NumberInput";
+import { addPricingTier } from "../../api/Api";
 
 const PricingTierForm = () => {
     const [startTime, setStartTime] = useState("");
@@ -24,20 +25,40 @@ const PricingTierForm = () => {
         });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log({ startTime, endTime, rate, activeDays });
+
+        const payload = {
+            provider_id: 1,
+            region_id: 1,
+            pricing_tier_name: "Weekend", 
+            start_time: startTime,
+            end_time: endTime,
+            rate: rate,
+            pricingTierDays: activeDays,
+            pricingTierSpecialDates: [] 
+        };
+
+        console.log(payload)
+
+        try {
+            const response = await addPricingTier(payload)
+            // go back to dashboard
+            window.location.href = "/dashboard";
+        } catch (error) {
+            console.error('Error posting data', error);
+        }
     };
 
     // days of the week as an array of objects, using single letter abbreviations and 1-indexed days
     const daysOfWeek = [
-        { display: "S", value: 1 },
-        { display: "M", value: 2 },
-        { display: "T", value: 3 },
-        { display: "W", value: 4 },
-        { display: "T", value: 5 },
-        { display: "F", value: 6 },
-        { display: "S", value: 7 },
+        { display: "S", value: 0 },
+        { display: "M", value: 1 },
+        { display: "T", value: 2 },
+        { display: "W", value: 3 },
+        { display: "T", value: 4 },
+        { display: "F", value: 5 },
+        { display: "S", value: 6 },
     ];
 
     return (
