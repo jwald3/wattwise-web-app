@@ -10,10 +10,10 @@ const UsageChart = ({ data, period }) => {
             case 'Weekly':
                 return 'reading_time';
             case 'Monthly':
-                console.log("time")
+                // console.log("time")
                 return 'time';
             case 'Yearly':
-                console.log("time")
+                // console.log("time")
                 return 'start_date';
             default:
                 return 'start_date';

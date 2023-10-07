@@ -19,6 +19,11 @@
     font-weight: 600;
 }
 
+.title-header a {
+    color: #ffffff;
+    text-decoration: none;
+}
+
 .tile-content {
     display: flex;
     flex-direction: column;

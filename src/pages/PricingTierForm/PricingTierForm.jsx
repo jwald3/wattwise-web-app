@@ -1,19 +1,32 @@
+// External Libraries
 import React, { useState } from "react";
-import Layout from "../../Layouts/Layout";
-import "./PricingTierForm.css";
 import { TimePicker } from "@mui/x-date-pickers/TimePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
+
+// Components
+import Layout from "../../Layouts/Layout";
 import NumberInput from "../../components/NumberInput/NumberInput";
 
-const PricingTierForm = () => {
-    const [startTime, setStartTime] = useState("");
-    const [endTime, setEndTime] = useState("");
-    const [rate, setRate] = useState("");
-    const [days, setDays] = useState("");
+// API Calls/Utilities
+import { addPricingTier } from "../../api/Api";
 
+// Styles
+import "./PricingTierForm.css";
+
+const PricingTierForm = () => {
+    const [startTime, setStartTime] = useState(null);
+    const [endTime, setEndTime] = useState(null);
+    const [rate, setRate] = useState(0);
     const [activeDays, setActiveDays] = useState([]);
+
+    const navigate = useNavigate();
+    const location = useLocation();
+
+    const tierNameFromState = location.state?.tierName || "Default Name";
+
+    console.log("Passed tierName:", tierNameFromState);
 
     const toggleDay = (day) => {
         setActiveDays((prevDays) => {
@@ -25,72 +38,102 @@ const PricingTierForm = () => {
         });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log({ startTime, endTime, rate, days });
+
+        const payload = {
+            provider_id: 1,
+            region_id: 2,
+            pricing_tier_name: tierNameFromState,
+            start_time: startTime ? startTime.format("HH:mm:ss") : null,
+            end_time: endTime ? endTime.format("HH:mm:ss") : null,
+            rate: rate,
+            pricingTierDays: activeDays,
+            pricingTierSpecialDates: [],
+        };
+
+        console.log(payload);
+
+        try {
+            const response = await addPricingTier(payload);
+            // go back to dashboard
+            navigate("/dashboard");
+        } catch (error) {
+            console.error("Error posting data", error);
+        }
     };
 
     // days of the week as an array of objects, using single letter abbreviations and 1-indexed days
     const daysOfWeek = [
-        { display: "S", value: 1 },
-        { display: "M", value: 2 },
-        { display: "T", value: 3 },
-        { display: "W", value: 4 },
-        { display: "T", value: 5 },
-        { display: "F", value: 6 },
-        { display: "S", value: 7 },
+        { display: "S", value: 0 },
+        { display: "M", value: 1 },
+        { display: "T", value: 2 },
+        { display: "W", value: 3 },
+        { display: "T", value: 4 },
+        { display: "F", value: 5 },
+        { display: "S", value: 6 },
     ];
 
     return (
         <Layout>
-            <div className="form-container">
-                <h2 className="form-header">Pricing Tier</h2>
-                <form onSubmit={handleSubmit} className="form-body">
-                    <div className="input-group">
-                        <LocalizationProvider dateAdapter={AdapterDayjs}>
-                            <TimePicker label="Start Time" />
-                        </LocalizationProvider>
-                    </div>
-                    <div className="input-group">
-                        <LocalizationProvider dateAdapter={AdapterDayjs}>
-                            <TimePicker label="End Time" />
-                        </LocalizationProvider>
-                    </div>
-                    <div className="input-group">
-                        <NumberInput label="Rate" />
-                    </div>
-                    <div className="input-group">
-                        <label className="dow-label" htmlFor="days">
-                            Days
-                        </label>
-                        <div className="dow-container">
-                            {daysOfWeek.map((day, i) => {
-                                return (
-                                    <div
-                                        className={`dow-toggle ${
-                                            activeDays.includes(day.value)
-                                                ? "active"
-                                                : ""
-                                        }`}
-                                        key={day}
-                                        onClick={() => toggleDay(day.value)}
-                                    >
-                                        {day.display}
-                                    </div>
-                                );
-                            })}
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <div className="form-container">
+                    <h2 className="form-header">Pricing Tier</h2>
+                    <form onSubmit={handleSubmit} className="form-body">
+                        <div className="input-group">
+                            <TimePicker
+                                label="Start Time"
+                                value={startTime}
+                                onChange={setStartTime}
+                            />
                         </div>
-                    </div>
-                    <div className="button-container">
-                        <button type="submit" className="submit-button">
-                            Submit
-                        </button>
-                        <button className="cancel-button">
-                            <Link to="/dashboard">Cancel</Link>
-                        </button>
-                    </div>
-                </form>
-            </div>
+                        <div className="input-group">
+                            <TimePicker
+                                label="End Time"
+                                value={endTime}
+                                onChange={setEndTime}
+                            />
+                        </div>
+                        <div className="input-group">
+                            <NumberInput
+                                label="Rate"
+                                value={rate}
+                                onChange={(e) => setRate(e.target.value)}
+                            />
+                        </div>
+                        <div className="input-group">
+                            <label className="dow-label" htmlFor="days">
+                                Days
+                            </label>
+                            <div className="dow-container">
+                                {daysOfWeek.map((day, i) => {
+                                    return (
+                                        <div
+                                            className={`dow-toggle ${
+                                                activeDays.includes(day.value)
+                                                    ? "active"
+                                                    : ""
+                                            }`}
+                                            key={day.value}
+                                            onClick={() => toggleDay(day.value)}
+                                        >
+                                            {day.display}
+                                        </div>
+                                    );
+                                })}
+                            </div>
+                        </div>
+                        <div className="button-container">
+                            <button type="submit" className="submit-button">
+                                Submit
+                            </button>
+                            <Link to="/dashboard" className="cancel-button">
+                                Cancel
+                            </Link>
+                        </div>
+                    </form>
+                </div>
+            </LocalizationProvider>
         </Layout>
     );
 };

@@ -12,7 +12,6 @@ export const fetchRegions = async (stateID = null) => {
     }
 
     const response = await axios.get(`${API_URL}/regions?${params.toString()}`);
-    console.log(`${API_URL}/regions?${params.toString()}`);
     
     return response.data;
 };
@@ -59,7 +58,7 @@ export const fetchPricingTiersByProvider = async ({providerID, regionID}) => {
     }
 
     const response = await axios.get(`${API_URL}/pricing_tiers?${params.toString()}`);
-    console.log(`${API_URL}/pricing_tiers?${params.toString()}`)
+    // console.log(`${API_URL}/pricing_tiers?${params.toString()}`)
     return response.data;
 }
 
