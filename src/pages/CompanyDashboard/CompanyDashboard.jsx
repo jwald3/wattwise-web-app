@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import "./CompanyDashboard.css";
 import UsageChart from "../../components/UsageChart/UsageChart";
 import DropdownMenu from "../../components/DropdownMenu/DropdownMenu";
@@ -21,6 +21,7 @@ import FillerPricingTierTile from "../../components/FillerPricingTierTile/Filler
 import PeriodNavigator from "../../components/PeriodNavigator/PeriodNavigator";
 import StatsSection from "../../components/StatsSection/StatsSection";
 import Layout from "../../Layouts/Layout";
+import { useLocation, useNavigate, useNavigation } from "react-router-dom";
 
 const CompanyDashboard = () => {
     const [provider, setProvider] = React.useState(1);
@@ -37,8 +38,89 @@ const CompanyDashboard = () => {
     const [currentYear, setCurrentYear] = React.useState(2023);
     const [currentMonth, setCurrentMonth] = React.useState(1);
     const [currentWeek, setCurrentWeek] = React.useState(1);
-    const [totalEnergyConsumption, setTotalEnergyConsumption] =
-        React.useState(0);
+    const [totalEnergyConsumption, setTotalEnergyConsumption] = React.useState(0);
+
+    const location = useLocation();
+    const navigate = useNavigate();
+    const queryParams = new URLSearchParams(location.search);
+
+    const periods = ["Daily", "Weekly", "Monthly", "Yearly"].map((period) => ({
+        value: period,
+        display: period,
+    }));
+
+    const pricingCategories = ["Peak", "Off-Peak", "Weekend", "Holiday"];
+
+    // Read URL parameters and set to state
+    useEffect(() => {
+        const stateParam = queryParams.get("state");
+        const regionParam = queryParams.get("region");
+        const householdParam = queryParams.get("household");
+        const periodParam = queryParams.get("period") || "Yearly"; // default to "Yearly"
+        
+        let updateURL = false; // flag to check if we need to update the URL
+    
+        if (householdParam && (!stateParam || !regionParam)) {
+            // If household is provided without both state and region, clear all params
+            updateURL = true;
+            queryParams.delete("household");
+            queryParams.delete("region");
+            queryParams.delete("state");
+        } else if (regionParam && !stateParam) {
+            // If a region is provided without a state, remove the region param
+            updateURL = true;
+            queryParams.delete("region");
+        }
+    
+        if (updateURL) {
+            // If we've made changes, update the URL without causing a navigation event
+            navigate(`${location.pathname}?${queryParams.toString()}`, { replace: true });
+        } else {
+            // The standard logic to set states based on URL
+            if (stateParam) {
+                setState(stateParam);
+                if (regionParam) {
+                    setRegion(regionParam);
+                    if (householdParam) {
+                        setHousehold(householdParam);
+                    }
+                }
+            }
+            setPeriod(periodParam);
+        }
+    }, [location.search, navigate]);
+    
+
+    const updateURLParams = (newState, newRegion, newHousehold, newPeriod) => {
+        const params = [];
+
+        if (newState) params.push(`state=${newState}`);
+        if (newState && newRegion) params.push(`region=${newRegion}`);
+        if (newState && newRegion && newHousehold) params.push(`household=${newHousehold}`);
+        if (newPeriod) params.push(`period=${newPeriod}`);
+
+        navigate(`/dashboard?${params.join("&")}`);
+    }
+
+    const handleStateChange = (event) => {
+        const selectedState = event.target.value;
+        updateURLParams(selectedState, "", "", period);
+    };
+
+    const handleRegionChange = (event) => {
+        const selectedRegion = event.target.value;
+        updateURLParams(state, selectedRegion, "", period);
+    };
+
+    const handleHouseholdChange = (event) => {
+        const selectedHousehold = event.target.value;
+        updateURLParams(state, region, selectedHousehold, period);
+    };
+
+    const handlePeriodChange = (event) => {
+        const selectedPeriod = event.target.value;
+        updateURLParams(state, region, household, selectedPeriod);
+    };
 
     useEffect(() => {
         const fetchStatesData = async () => {
@@ -58,7 +140,6 @@ const CompanyDashboard = () => {
 
         const fetchRegionsData = async () => {
             const regions = await fetchRegions(state);
-
             let regionsArray = regions.map((region) => ({
                 value: region.region_id,
                 display: region.region_name,
@@ -76,22 +157,15 @@ const CompanyDashboard = () => {
         }
 
         const fetchHouseholdData = async () => {
-            const responseData = await fetchCustomersByProviderAndRegion(
-                1,
-                region
-            );
-
+            const responseData = await fetchCustomersByProviderAndRegion(1, region);
             const customersArray = responseData.customers;
 
-            // if customersArray is null or an empty array, return
-            if (!Array.isArray(customersArray) || customersArray.length === 0)
-                return;
+            if (!Array.isArray(customersArray) || customersArray.length === 0) return;
 
             let householdArray = customersArray.map((customer) => ({
                 value: customer.household_id,
                 display: customer.street_address,
             }));
-
             setHouseholds(householdArray);
         };
 
@@ -105,10 +179,7 @@ const CompanyDashboard = () => {
         }
 
         const fetchPricingTiers = async () => {
-            const pricingTiers = await fetchPricingTiersByProvider({
-                providerID: provider,
-                regionID: region,
-            });
+            const pricingTiers = await fetchPricingTiersByProvider({ providerID: provider, regionID: region });
             setPricingTiers(pricingTiers);
         };
 
@@ -150,14 +221,7 @@ const CompanyDashboard = () => {
         };
 
         fetchUsageData();
-    }, [
-        household,
-        period,
-        currentDate,
-        currentYear,
-        currentMonth,
-        currentWeek,
-    ]);
+    }, [household, period, currentDate, currentYear, currentMonth, currentWeek]);
 
     useEffect(() => {
         if (energyUsage.length === 0) return;
@@ -172,66 +236,29 @@ const CompanyDashboard = () => {
                     year: currentYear,
                 });
             } else if (period === "Weekly") {
-                totalEnergy = await fetchTotalWeeklyEnergyConsumptionByCustomer(
-                    {
-                        household_id: household,
-                        week: currentWeek,
-                        year: currentYear,
-                    }
-                );
+                totalEnergy = await fetchTotalWeeklyEnergyConsumptionByCustomer({
+                    household_id: household,
+                    week: currentWeek,
+                    year: currentYear,
+                });
             } else if (period === "Monthly") {
-                totalEnergy =
-                    await fetchTotalMonthlyEnergyConsumptionByCustomer({
-                        household_id: household,
-                        month: currentMonth,
-                        year: currentYear,
-                    });
+                totalEnergy = await fetchTotalMonthlyEnergyConsumptionByCustomer({
+                    household_id: household,
+                    month: currentMonth,
+                    year: currentYear,
+                });
             } else if (period === "Yearly") {
-                totalEnergy = await fetchTotalYearlyEnergyConsumptionByCustomer(
-                    { household_id: household, year: currentYear }
-                );
+                totalEnergy = await fetchTotalYearlyEnergyConsumptionByCustomer({
+                    household_id: household,
+                    year: currentYear,
+                });
             }
 
             setTotalEnergyConsumption(totalEnergy.energy_usage);
         };
 
         getTotalConsumption();
-    }, [
-        period,
-        energyUsage,
-        household,
-        currentDate,
-        currentYear,
-        currentMonth,
-        currentWeek,
-    ]);
-
-    const handleStateChange = (event) => {
-        setState(event.target.value);
-        setRegion("");
-        setHousehold("");
-    };
-
-    const handleRegionChange = (event) => {
-        setRegion(event.target.value);
-        setHousehold("");
-    };
-
-    const handlePeriodChange = (event) => {
-        setPeriod(event.target.value);
-    };
-
-    const handleHouseholdChange = (event) => {
-        setHousehold(event.target.value);
-    };
-
-    const periods = ["Daily", "Weekly", "Monthly", "Yearly"].map((period) => ({
-        value: period,
-        display: period,
-    }));
-
-    const pricingCategories = ["Peak", "Off-Peak", "Weekend", "Holiday"];
-
+    }, [period, energyUsage, household, currentDate, currentYear, currentMonth, currentWeek]);
 
     return (
         <Layout>
