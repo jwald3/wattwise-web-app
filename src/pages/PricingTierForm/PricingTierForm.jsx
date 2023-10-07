@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { TimePicker } from "@mui/x-date-pickers/TimePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 
 // Components
 import Layout from "../../Layouts/Layout";
@@ -22,6 +22,11 @@ const PricingTierForm = () => {
     const [activeDays, setActiveDays] = useState([]);
 
     const navigate = useNavigate();
+    const location = useLocation();
+
+    const tierNameFromState = location.state?.tierName || "Default Name";
+
+    console.log("Passed tierName:", tierNameFromState);
 
     const toggleDay = (day) => {
         setActiveDays((prevDays) => {
@@ -38,8 +43,8 @@ const PricingTierForm = () => {
 
         const payload = {
             provider_id: 1,
-            region_id: 1,
-            pricing_tier_name: "Weekend",
+            region_id: 2,
+            pricing_tier_name: tierNameFromState,
             start_time: startTime ? startTime.format("HH:mm:ss") : null,
             end_time: endTime ? endTime.format("HH:mm:ss") : null,
             rate: rate,

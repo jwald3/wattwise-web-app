@@ -9,7 +9,12 @@ const FillerPricingTierTile = ({ pricingTierName }) => {
         <div className="tile">
             <div className="tile-header">
                 <div>{pricingTierName}</div>
-                <Link to="/pricing-tier">+</Link>
+                <Link
+                    to={`/pricing-tier`}
+                    state={{ tierName: pricingTierName }}
+                >
+                    +
+                </Link>
             </div>
             <div className="tile-content">
                 <div className="time">
