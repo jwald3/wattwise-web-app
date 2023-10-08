@@ -1,6 +1,7 @@
 import React from "react";
 import "./LandingPage.css";
 import Layout from "../../Layouts/Layout";
+import LoginButton from "../../components/LoginButton/LoginButton";
 
 const LandingPage = () => {
     return (
@@ -28,9 +29,7 @@ const LandingPage = () => {
                                 watch the savings stack up!
                             </div>
                             <div className="call-to-action-btn-container">
-                                <button className="call-to-action-btn">
-                                    Sign Up Now
-                                </button>
+                                <LoginButton />
                             </div>
                         </div>
                     </div>

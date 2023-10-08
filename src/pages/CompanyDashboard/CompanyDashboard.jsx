@@ -23,6 +23,7 @@ import StatsSection from "../../components/StatsSection/StatsSection";
 import Layout from "../../Layouts/Layout";
 import { useLocation, useNavigate } from "react-router-dom";
 import NoData from "../../components/NoData/NoData";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const CompanyDashboard = () => {
 	const [provider, setProvider] = React.useState(1);
@@ -41,6 +42,8 @@ const CompanyDashboard = () => {
 	const [currentWeek, setCurrentWeek] = React.useState(1);
 	const [totalEnergyConsumption, setTotalEnergyConsumption] = React.useState(0);
 	const [isEdit, setIsEdit] = React.useState(false);
+
+	const { isAuthenticated, loginWithRedirect } = useAuth0();
 
 	const location = useLocation();
 	const navigate = useNavigate();
@@ -93,6 +96,13 @@ const CompanyDashboard = () => {
 			setPeriod(periodParam);
 		}
 	}, [location.search, navigate]);
+
+	useEffect(() => {
+		if (!isAuthenticated) {
+			loginWithRedirect();  // Redirect to the Auth0 login page
+		}
+	}, [isAuthenticated, loginWithRedirect]);
+
 
 	const updateURLParams = (newState, newRegion, newHousehold, newPeriod) => {
 		const params = [];
@@ -277,114 +287,116 @@ const CompanyDashboard = () => {
 	]);
 
 	return (
-		<Layout>
-			<div className="mainPage">
-				<div className="chartMenu flex2">
-					<div className="filterContainer">
-						<div className="dropdownContainer">
-							<DropdownMenu
-								label="State"
-								value={state}
-								options={states}
-								handleChange={handleStateChange}
-								nullable={true}
-								minWidth={75}
-							/>
-
-							{state !== "" && (
+		isAuthenticated ? (
+			<Layout>
+				<div className="mainPage">
+					<div className="chartMenu flex2">
+						<div className="filterContainer">
+							<div className="dropdownContainer">
 								<DropdownMenu
-									label="Region"
-									value={region}
-									options={regions}
-									handleChange={handleRegionChange}
+									label="State"
+									value={state}
+									options={states}
+									handleChange={handleStateChange}
 									nullable={true}
+									minWidth={75}
+								/>
+
+								{state !== "" && (
+									<DropdownMenu
+										label="Region"
+										value={region}
+										options={regions}
+										handleChange={handleRegionChange}
+										nullable={true}
+										minWidth={125}
+									/>
+								)}
+
+								{region !== "" && (
+									<DropdownMenu
+										label="Household"
+										value={household}
+										options={households}
+										handleChange={handleHouseholdChange}
+										nullable={true}
+										minWidth={150}
+									/>
+								)}
+							</div>
+							<div>
+								<DropdownMenu
+									label="Period"
+									value={period}
+									options={periods}
+									handleChange={handlePeriodChange}
+									nullable={false}
 									minWidth={125}
 								/>
-							)}
-
-							{region !== "" && (
-								<DropdownMenu
-									label="Household"
-									value={household}
-									options={households}
-									handleChange={handleHouseholdChange}
-									nullable={true}
-									minWidth={150}
-								/>
-							)}
+							</div>
 						</div>
-						<div>
-							<DropdownMenu
-								label="Period"
-								value={period}
-								options={periods}
-								handleChange={handlePeriodChange}
-								nullable={false}
-								minWidth={125}
-							/>
+
+						<div className="content-container">
+							{household ? (
+								<>
+									<UsageChart data={energyUsage} period={period} />
+									<div style={{ display: "flex", alignItems: "center" }}>
+										<PeriodNavigator
+											period={period}
+											dateValue={currentDate}
+											dateSetter={setCurrentDate}
+											yearValue={currentYear}
+											yearSetter={setCurrentYear}
+											monthValue={currentMonth}
+											monthSetter={setCurrentMonth}
+											weekValue={currentWeek}
+											weekSetter={setCurrentWeek}
+										/>
+									</div>
+									<StatsSection energyUsage={totalEnergyConsumption} /></>) : <NoData />}
 						</div>
 					</div>
+					<div className="pricingMenu">
+						<div className="titleContainer">
+							<div className="headerText">Pricing Tiers</div>
+							{/* Make the edit button change the isEdit state and have the "active" property*/}
+							<button
+								className={`editButton ${isEdit ? "active-edit" : ""}`}
+								onClick={() => setIsEdit(!isEdit)}
+							>
+								Edit
+							</button>
+						</div>
+						<div className="pricingContent">
+							{pricingCategories.map((category) => {
+								const matchingTier = pricingTiers.find(
+									(tier) => tier.pricing_tier_name === category
+								);
 
-					<div className="content-container">
-						{household ? (
-							<>
-								<UsageChart data={energyUsage} period={period} />
-								<div style={{ display: "flex", alignItems: "center" }}>
-									<PeriodNavigator
-										period={period}
-										dateValue={currentDate}
-										dateSetter={setCurrentDate}
-										yearValue={currentYear}
-										yearSetter={setCurrentYear}
-										monthValue={currentMonth}
-										monthSetter={setCurrentMonth}
-										weekValue={currentWeek}
-										weekSetter={setCurrentWeek}
+								return matchingTier ? (
+									<PricingTierTile
+										key={category}
+										pricingData={matchingTier}
+										state={state}
+										region={region}
+										regionName={matchingTier.region_name}
+										isEdit={isEdit}
 									/>
-								</div>
-								<StatsSection energyUsage={totalEnergyConsumption} /></>) : <NoData />}
+								) : (
+									<FillerPricingTierTile
+										key={category}
+										pricingTierName={category}
+										state={state}
+										region={region}
+										regionName={matchingTier?.region_name}
+									/>
+								);
+							})}
+						</div>
 					</div>
 				</div>
-				<div className="pricingMenu">
-					<div className="titleContainer">
-						<div className="headerText">Pricing Tiers</div>
-						{/* Make the edit button change the isEdit state and have the "active" property*/}
-						<button
-							className={`editButton ${isEdit ? "active-edit" : ""}`}
-							onClick={() => setIsEdit(!isEdit)}
-						>
-							Edit
-						</button>
-					</div>
-					<div className="pricingContent">
-						{pricingCategories.map((category) => {
-							const matchingTier = pricingTiers.find(
-								(tier) => tier.pricing_tier_name === category
-							);
-
-							return matchingTier ? (
-								<PricingTierTile
-									key={category}
-									pricingData={matchingTier}
-									state={state}
-									region={region}
-									regionName={matchingTier.region_name}
-									isEdit={isEdit}
-								/>
-							) : (
-								<FillerPricingTierTile
-									key={category}
-									pricingTierName={category}
-									state={state}
-									region={region}
-									regionName={matchingTier?.region_name}
-								/>
-							);
-						})}
-					</div>
-				</div>
-			</div>
-		</Layout>
+			</Layout>
+		) : null
 	);
 };
 
