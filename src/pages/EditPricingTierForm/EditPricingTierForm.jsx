@@ -13,9 +13,9 @@ import NumberInput from "../../components/NumberInput/NumberInput";
 import { addPricingTier } from "../../api/Api";
 
 // Styles
-import "./PricingTierForm.css";
+import "./EditPricingTierForm.css";
 
-const PricingTierForm = () => {
+const EditPricingTierForm = () => {
     const [startTime, setStartTime] = useState(null);
     const [endTime, setEndTime] = useState(null);
     const [rate, setRate] = useState(0);
@@ -25,6 +25,10 @@ const PricingTierForm = () => {
     const location = useLocation();
 
     const tierNameFromState = location.state?.tierName || "Default Name";
+    const stateFromState = location.state?.state || "Default State";
+    const regionFromState = location.state?.region || "Default Region";
+
+    const queryParams = new URLSearchParams();
 
     console.log("Passed tierName:", tierNameFromState);
 
@@ -43,7 +47,7 @@ const PricingTierForm = () => {
 
         const payload = {
             provider_id: 1,
-            region_id: 2,
+            region_id: regionFromState,
             pricing_tier_name: tierNameFromState,
             start_time: startTime ? startTime.format("HH:mm:ss") : null,
             end_time: endTime ? endTime.format("HH:mm:ss") : null,
@@ -57,7 +61,9 @@ const PricingTierForm = () => {
         try {
             const response = await addPricingTier(payload);
             // go back to dashboard
-            navigate("/dashboard");
+            queryParams.set("state", stateFromState);
+            queryParams.set("region", regionFromState);
+            navigate(`/dashboard?${queryParams.toString()}`, { replace: true });
         } catch (error) {
             console.error("Error posting data", error);
         }
@@ -138,4 +144,4 @@ const PricingTierForm = () => {
     );
 };
 
-export default PricingTierForm;
+export default EditPricingTierForm;

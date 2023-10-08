@@ -1,7 +1,8 @@
 import React from "react";
 import "./PricingTierTile.css"
+import { Link } from "react-router-dom";
 
-const PricingTierTile = ({ pricingData }) => {
+const PricingTierTile = ({ pricingData, isEdit }) => {
     const weekDays = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
     
     const {
@@ -10,6 +11,7 @@ const PricingTierTile = ({ pricingData }) => {
         start_time: startTime,
         end_time: endTime,
         pricingTierDays,
+        pricing_id
     } = pricingData;
     
     const convertTo12Hour = (timeStr) => {
@@ -33,7 +35,7 @@ const PricingTierTile = ({ pricingData }) => {
     const startTimeIn12Hour = convertTo12Hour(startTime);
     const endTimeIn12Hour = convertTo12Hour(endTime);
 
-    return (
+    const renderTileContent = () => (
         <div className="tile">
             <div className="pricing-tile-header">
                 <div>{pricingTierName}</div>
@@ -54,6 +56,10 @@ const PricingTierTile = ({ pricingData }) => {
             </div>
         </div>
     );
+
+    return isEdit 
+        ? <Link to={`/pricing-tier/${pricing_id}/edit`} className="tile-link">{renderTileContent()}</Link>
+        : renderTileContent();
 };
 
 export default PricingTierTile;

@@ -86,8 +86,9 @@ html, body {
     color: #FFFFFF;
 }
 
-.editButton:active {
+.active-edit {
     background-color: #1A252C;
+    color: #FFFFFF;
     /* A bit darker charcoal for an active state */
 }
 
