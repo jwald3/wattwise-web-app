@@ -17,10 +17,11 @@
     border-bottom: 1px solid #e0e0e0;
     background-color: #B0BEC5;
     font-weight: 600;
+    text-decoration: none;
 }
 
-.title-header a {
-    color: #ffffff;
+.add-link {
+    color: #000;
     text-decoration: none;
 }
 
