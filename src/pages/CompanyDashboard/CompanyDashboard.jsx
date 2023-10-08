@@ -364,6 +364,7 @@ const CompanyDashboard = () => {
 									pricingData={matchingTier}
 									state={state}
 									region={region}
+									regionName={matchingTier.region_name}
 									isEdit={isEdit}
 								/>
 							) : (
@@ -372,6 +373,7 @@ const CompanyDashboard = () => {
 									pricingTierName={category}
 									state={state}
 									region={region}
+									regionName={matchingTier?.region_name}
 								/>
 							);
 						})}

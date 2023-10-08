@@ -27,6 +27,7 @@ const NewPricingTierForm = () => {
     const tierNameFromState = location.state?.tierName || "Default Name";
     const stateFromState = location.state?.state || "Default State";
     const regionFromState = location.state?.region || "Default Region";
+    const regionNameFromState = location.state?.regionName || "Default Region Name";
 
     const queryParams = new URLSearchParams();
 
@@ -86,7 +87,7 @@ const NewPricingTierForm = () => {
         <Layout>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <div className="form-container">
-                    <h2 className="form-header">Pricing Tier</h2>
+                    <h2 className="form-header">{`${tierNameFromState} - ${regionNameFromState}`}</h2>
                     <form onSubmit={handleSubmit} className="form-body">
                         <div className="input-group">
                             <TimePicker
@@ -118,8 +119,8 @@ const NewPricingTierForm = () => {
                                     return (
                                         <div
                                             className={`dow-toggle ${activeDays.includes(day.value)
-                                                    ? "active"
-                                                    : ""
+                                                ? "active"
+                                                : ""
                                                 }`}
                                             key={day.value}
                                             onClick={() => toggleDay(day.value)}

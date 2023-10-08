@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { TimePicker } from "@mui/x-date-pickers/TimePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import dayjs from "dayjs";
 
 // Components
@@ -11,7 +11,7 @@ import Layout from "../../Layouts/Layout";
 import NumberInput from "../../components/NumberInput/NumberInput";
 
 // API Calls/Utilities
-import { updatePricingTier } from "../../api/Api";
+import { deletePricingTier, updatePricingTier } from "../../api/Api";
 
 // Styles
 import "./EditPricingTierForm.css";
@@ -28,6 +28,8 @@ const EditPricingTierForm = () => {
     const tierNameFromState = location.state?.tierName || "Default Name";
     const stateFromState = location.state?.state || "Default State";
     const regionFromState = location.state?.region || "Default Region";
+    const regionNameFromState = location.state?.regionName || "Default Region Name";
+
     const pricingId = location.state?.pricingData?.pricing_id || null;
 
     console.log(location.state?.pricingData);
@@ -81,7 +83,7 @@ const EditPricingTierForm = () => {
         console.log(payload);
 
         try {
-            const response = await updatePricingTier({ pricingTierID: pricingId, payload: payload });
+            const response = await updatePricingTier({ pricingTierID: pricingId, pricingTier: payload });
             console.log(response);
 
             // go back to dashboard
@@ -90,6 +92,22 @@ const EditPricingTierForm = () => {
             navigate(`/dashboard?${queryParams.toString()}`, { replace: true });
         } catch (error) {
             console.error("Error posting data", error);
+        }
+    };
+
+    const handleDelete = async (e) => {
+        e.preventDefault();
+
+        try {
+            const response = await deletePricingTier(pricingId);
+            console.log(response);
+
+            queryParams.set("state", stateFromState);
+            queryParams.set("region", regionFromState);
+            navigate(`/dashboard?${queryParams.toString()}`, { replace: true });
+            navigate(`/dashboard?${queryParams.toString()}`, { replace: true });
+        } catch (error) {
+            console.error("Error deleting data", error);
         }
     };
 
@@ -108,7 +126,7 @@ const EditPricingTierForm = () => {
         <Layout>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <div className="form-container">
-                    <h2 className="form-header">Pricing Tier</h2>
+                    <h2 className="form-header">{`${tierNameFromState} - ${regionNameFromState}`}</h2>
                     <form onSubmit={handleSubmit} className="form-body">
                         <div className="input-group">
                             <TimePicker
@@ -154,9 +172,9 @@ const EditPricingTierForm = () => {
                             <button type="submit" className="submit-button">
                                 Submit
                             </button>
-                            <Link to="/dashboard" className="cancel-button">
-                                Cancel
-                            </Link>
+                            <button type="button" className="delete-button" onClick={handleDelete}>
+                                Delete
+                            </button>
                         </div>
                     </form>
                 </div>
