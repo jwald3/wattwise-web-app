@@ -9,6 +9,7 @@ import CompanyDashboard from "./pages/CompanyDashboard/CompanyDashboard";
 import NewPricingTierForm from "./pages/NewPricingTierForm/NewPricingTierForm";
 import AboutUs from "./pages/AboutUs/AboutUs";
 import EditPricingTierForm from "./pages/EditPricingTierForm/EditPricingTierForm";
+import { Auth0Provider } from "@auth0/auth0-react";
 
 const router = createBrowserRouter([
     {
@@ -39,9 +40,15 @@ const router = createBrowserRouter([
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-    <React.StrictMode>
+    <Auth0Provider
+        domain="dev-pj7t2m2pdrnvypjq.us.auth0.com"
+        clientId="qQhvR1xQBG17JGBcRU1aUyrMqAQs3Io3"
+        authorizationParams={{
+            redirect_uri: window.location.origin
+        }}
+    >
         <RouterProvider router={router} />
-    </React.StrictMode>
+    </Auth0Provider>
 );
 
 // If you want to start measuring performance in your app, pass a function
