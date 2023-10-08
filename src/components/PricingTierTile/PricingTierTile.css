@@ -12,6 +12,14 @@
 
 .tile-link {
     text-decoration: none;
+    color: #fff;
+    width: 95%;
+    box-shadow: 0px 4px 6px #0000001A;
+}
+
+.tile-link .tile {
+    width: 100%;
+    box-shadow: none !important;
 }
 
 
@@ -53,4 +61,10 @@
 .day.active {
     color: #32C5A4;
     font-weight: 600;
+}
+
+@media (max-width: 1200px) {
+    .days {
+        max-width: 600px;
+    }
 }

@@ -123,6 +123,19 @@ button {
     border-radius: 4px;
 }
 
+
+@media (max-width: 1200px) {
+    .mainPage {
+        flex-direction: column;
+    }
+
+    .chartMenu,
+    .pricingMenu {
+        width: 100%;
+    }
+}
+
+
 @media (max-width: 1000px) {
 
     .chartMenu,

@@ -58,7 +58,7 @@ const PricingTierTile = ({ pricingData, isEdit }) => {
     );
 
     return isEdit 
-        ? <Link to={`/pricing-tier/${pricing_id}/edit`} className="tile-link">{renderTileContent()}</Link>
+        ? <Link to={`/pricing-tier/${pricing_id}/edit`} className="tile-link tile">{renderTileContent()}</Link>
         : renderTileContent();
 };
 

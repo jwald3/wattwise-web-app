@@ -54,7 +54,7 @@ const UsageChart = ({ data, period }) => {
                         dataKey={dataKey(period)}
                         textAnchor="middle"
                         // interval={30} year
-                        interval={24} // month
+                        interval={30} // month
                         height={60}
                         // add space between axis and label
                         tickMargin={10}
