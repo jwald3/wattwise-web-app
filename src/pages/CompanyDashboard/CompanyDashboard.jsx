@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect } from "react";
 import "./CompanyDashboard.css";
 import UsageChart from "../../components/UsageChart/UsageChart";
 import DropdownMenu from "../../components/DropdownMenu/DropdownMenu";
@@ -21,7 +21,7 @@ import FillerPricingTierTile from "../../components/FillerPricingTierTile/Filler
 import PeriodNavigator from "../../components/PeriodNavigator/PeriodNavigator";
 import StatsSection from "../../components/StatsSection/StatsSection";
 import Layout from "../../Layouts/Layout";
-import { useLocation, useNavigate, useNavigation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const CompanyDashboard = () => {
     const [provider, setProvider] = React.useState(1);
@@ -342,11 +342,15 @@ const CompanyDashboard = () => {
                                 <PricingTierTile
                                     key={category}
                                     pricingData={matchingTier}
+                                    state={state}
+                                    region={region}
                                 />
                             ) : (
                                 <FillerPricingTierTile
                                     key={category}
                                     pricingTierName={category}
+                                    state={state}
+                                    region={region}
                                 />
                             );
                         })}

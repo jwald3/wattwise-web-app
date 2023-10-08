@@ -6,7 +6,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import LandingPage from "./pages/LandingPage/LandingPage";
 import PrivacyPolicyPage from "./pages/PrivacyPolicyPage/PrivacyPolicyPage";
 import CompanyDashboard from "./pages/CompanyDashboard/CompanyDashboard";
-import PricingTierForm from "./pages/PricingTierForm/PricingTierForm";
+import NewPricingTierForm from "./pages/NewPricingTierForm/NewPricingTierForm";
 import AboutUs from "./pages/AboutUs/AboutUs";
 
 const router = createBrowserRouter([
@@ -28,7 +28,7 @@ const router = createBrowserRouter([
     },
     {
         path: "/pricing-tier",
-        element: <PricingTierForm />
+        element: <NewPricingTierForm />
     }
 ]);
 
