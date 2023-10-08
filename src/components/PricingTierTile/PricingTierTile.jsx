@@ -2,7 +2,7 @@ import React from "react";
 import "./PricingTierTile.css";
 import { Link } from "react-router-dom";
 
-const PricingTierTile = ({ pricingData, state, region, isEdit }) => {
+const PricingTierTile = ({ pricingData, state, region, regionName, isEdit }) => {
     const weekDays = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 
     const {
@@ -16,24 +16,18 @@ const PricingTierTile = ({ pricingData, state, region, isEdit }) => {
 
     console.log(pricingData);
 
+    // convert time string from 24-hour format to 12-hour format where 00:00 is 12:00 AM
     const convertTo12Hour = (timeStr) => {
-        // Extract hours, minutes, and seconds
-        const [hours, minutes] = timeStr.split(":");
+        if (timeStr) {
+            const [hours, minutes] = timeStr.split(":");
+            const suffix = hours >= 12 ? "PM" : "AM";
+            const hoursIn12HourFormat = hours % 12 || 12;
 
-        // Determine AM/PM
-        const isPM = hours >= 12;
-        const isMidday = hours === 12;
-
-        // Convert hours to 12-hour format
-        const convertedHours = isMidday ? 12 : hours % 12;
-
-        // Construct 12-hour format time string
-        const timeIn12Hour = `${convertedHours
-            .toString()
-            .padStart(2, "0")}:${minutes} ${isPM ? "PM" : "AM"}`;
-
-        return timeIn12Hour;
-    };
+            return `${hoursIn12HourFormat}:${minutes} ${suffix}`;
+        } else {
+            return "";
+        }
+    }
 
     const activeDays = pricingTierDays.map((d) => d.day_of_week);
     const startTimeIn12Hour = convertTo12Hour(startTime);
@@ -71,7 +65,8 @@ const PricingTierTile = ({ pricingData, state, region, isEdit }) => {
                 pricingData: pricingData,
                 tierName: pricingTierName,
                 state: state,
-                region: region
+                region: region,
+                regionName: regionName,
             }}
         >
             {renderTileContent()}
