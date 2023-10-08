@@ -8,6 +8,7 @@ import PrivacyPolicyPage from "./pages/PrivacyPolicyPage/PrivacyPolicyPage";
 import CompanyDashboard from "./pages/CompanyDashboard/CompanyDashboard";
 import NewPricingTierForm from "./pages/NewPricingTierForm/NewPricingTierForm";
 import AboutUs from "./pages/AboutUs/AboutUs";
+import EditPricingTierForm from "./pages/EditPricingTierForm/EditPricingTierForm";
 
 const router = createBrowserRouter([
     {
@@ -29,6 +30,11 @@ const router = createBrowserRouter([
     {
         path: "/pricing-tier",
         element: <NewPricingTierForm />
+    },
+    // path for pricing tier by id and edit
+    {
+        path: "/pricing-tier/:id/edit",
+        element: <EditPricingTierForm />
     }
 ]);
 

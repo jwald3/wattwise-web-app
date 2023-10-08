@@ -13,9 +13,9 @@ import NumberInput from "../../components/NumberInput/NumberInput";
 import { addPricingTier } from "../../api/Api";
 
 // Styles
-import "./NewPricingTierForm.css";
+import "./EditPricingTierForm.css";
 
-const NewPricingTierForm = () => {
+const EditPricingTierForm = () => {
     const [startTime, setStartTime] = useState(null);
     const [endTime, setEndTime] = useState(null);
     const [rate, setRate] = useState(0);
@@ -144,4 +144,4 @@ const NewPricingTierForm = () => {
     );
 };
 
-export default NewPricingTierForm;
+export default EditPricingTierForm;

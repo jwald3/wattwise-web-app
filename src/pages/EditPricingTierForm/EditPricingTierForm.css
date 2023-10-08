@@ -1,0 +1,137 @@
+.form-container {
+    width: 40%;
+    background-color: #f5f5f5;
+    border-radius: 12px;
+    margin: auto;
+    padding: 2.75rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    font-family: 'Roboto', 'SF Pro Icons', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    min-width: 28rem;
+}
+
+.form-header {
+    text-align: center;
+    font-size: 1.8rem;
+    font-weight: 500;
+    margin-bottom: 1.2rem;
+    color: #2c2c2c;
+} 
+
+.form-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 60%;
+    min-width: 22rem;
+    margin: 0 auto;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    margin: 1.2rem 0;
+    width: 100%;
+}
+
+.input-group input {
+    background-color: #fff;
+}
+
+.dow-label {
+    font-size: calc(1rem * 0.75);
+    color: rgba(0, 0, 0, 0.6);
+    margin-left: 14px;
+}
+
+.dow-container {
+    display: flex;
+    justify-content: space-around;
+    margin: 10px 0;
+    width: 100%;
+    gap: 10px;  /* added to give space between the toggles */
+    height: 56px;
+}
+
+.dow-toggle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;  /* makes it round */
+    background-color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-weight: 600;   /* added for better readability */
+    border: 1px solid #e6e6e6;  /* added for better readability */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);  /* added for better readability */
+    color: rgba(0, 0, 0, 0.54);
+}
+
+.dow-toggle:hover {
+    border: 1px solid #238F7C;
+    background-color: #238F7C;
+    color: #fff;
+}
+
+.dow-toggle.active {
+    background-color: #32C5A4;
+    color: white;
+}
+
+.dow-toggle.active:hover {
+    background-color: #238F7C;
+}
+
+.button-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.submit-button, .cancel-button {
+    margin-top: 20px;
+    flex: 2;
+    background-color: #32C5A4;
+    color: #fff;
+    border-radius: 8px;
+    padding: 12px 20px;
+    font-size: 1.2rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    border: none;
+    text-align: center;
+}
+
+.cancel-button {
+    background-color: #fff;
+    color: #32C5A4;
+    border: 1px solid #32C5A4;
+    margin-right: 10px;
+}
+
+.cancel-button a {
+    text-decoration: none;
+    color: #32C5A4;
+}
+
+.submit-button:hover, .cancel-button:hover {
+    background-color: #238F7C;
+}
+
+.cancel-button:hover a {
+    color: #fff;
+}
+
+.submit-button:hover {
+    background-color: #238F7C;
+}
+
+.MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+    border-color: #32C5A4 !important;
+}
+
+.MuiInputLabel-outlined.Mui-focused {
+    color: #32C5A4 !important;
+}

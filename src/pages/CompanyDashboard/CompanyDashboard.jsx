@@ -39,6 +39,7 @@ const CompanyDashboard = () => {
     const [currentMonth, setCurrentMonth] = React.useState(1);
     const [currentWeek, setCurrentWeek] = React.useState(1);
     const [totalEnergyConsumption, setTotalEnergyConsumption] = React.useState(0);
+    const [isEdit, setIsEdit] = React.useState(false);
 
     const location = useLocation();
     const navigate = useNavigate();
@@ -330,7 +331,11 @@ const CompanyDashboard = () => {
                 <div className="pricingMenu">
                     <div className="titleContainer">
                         <div className="headerText">Pricing Tiers</div>
-                        <button className="editButton">Edit</button>
+                        {/* Make the edit button change the isEdit state and have the "active" property*/}
+                        <button 
+                            className={`editButton ${isEdit ? "active-edit" : ""}`}
+                            onClick={() => setIsEdit(!isEdit)}
+                        >Edit</button>
                     </div>
                     <div className="pricingContent">
                         {pricingCategories.map((category) => {
@@ -344,6 +349,7 @@ const CompanyDashboard = () => {
                                     pricingData={matchingTier}
                                     state={state}
                                     region={region}
+                                    isEdit={isEdit}
                                 />
                             ) : (
                                 <FillerPricingTierTile
