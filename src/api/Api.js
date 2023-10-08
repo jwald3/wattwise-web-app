@@ -72,7 +72,7 @@ export const deletePricingTier = async (pricingTierID) => {
     return response.data;
 }
 
-export const updatePricingTier = async ({pricingTierID = null, pricingTier = null}) => {
+export const updatePricingTier = async ({pricingTierID, pricingTier}) => {
     const response = await axios.put(`${API_URL}/pricing_tiers/${pricingTierID}`, pricingTier);
     return response.data;
 }

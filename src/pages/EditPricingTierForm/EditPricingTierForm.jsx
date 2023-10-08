@@ -1,16 +1,17 @@
 // External Libraries
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { TimePicker } from "@mui/x-date-pickers/TimePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { Link, useNavigate, useLocation } from "react-router-dom";
+import dayjs from "dayjs";
 
 // Components
 import Layout from "../../Layouts/Layout";
 import NumberInput from "../../components/NumberInput/NumberInput";
 
 // API Calls/Utilities
-import { addPricingTier } from "../../api/Api";
+import { updatePricingTier } from "../../api/Api";
 
 // Styles
 import "./EditPricingTierForm.css";
@@ -27,10 +28,31 @@ const EditPricingTierForm = () => {
     const tierNameFromState = location.state?.tierName || "Default Name";
     const stateFromState = location.state?.state || "Default State";
     const regionFromState = location.state?.region || "Default Region";
+    const pricingId = location.state?.pricingData?.pricing_id || null;
+
+    console.log(location.state?.pricingData);
+
+    useEffect(() => {
+        const pricingData = location.state?.pricingData;
+        if (pricingData) {
+            // convert start time into a dayjs object
+            const startTime = pricingData.start_time
+                ? dayjs(pricingData.start_time, "HH:mm:ss")
+                : null;
+
+            // convert end time into a dayjs object
+            const endTime = pricingData.end_time
+                ? dayjs(pricingData.end_time, "HH:mm:ss")
+                : null;
+
+            setStartTime(startTime);
+            setEndTime(endTime);
+            setRate(pricingData.rate);
+            setActiveDays(pricingData.pricingTierDays.map((d) => d.day_of_week));
+        }
+    }, [location.state?.pricingData]);
 
     const queryParams = new URLSearchParams();
-
-    console.log("Passed tierName:", tierNameFromState);
 
     const toggleDay = (day) => {
         setActiveDays((prevDays) => {
@@ -59,7 +81,9 @@ const EditPricingTierForm = () => {
         console.log(payload);
 
         try {
-            const response = await addPricingTier(payload);
+            const response = await updatePricingTier({ pricingTierID: pricingId, payload: payload });
+            console.log(response);
+
             // go back to dashboard
             queryParams.set("state", stateFromState);
             queryParams.set("region", regionFromState);
@@ -115,11 +139,8 @@ const EditPricingTierForm = () => {
                                 {daysOfWeek.map((day, i) => {
                                     return (
                                         <div
-                                            className={`dow-toggle ${
-                                                activeDays.includes(day.value)
-                                                    ? "active"
-                                                    : ""
-                                            }`}
+                                            className={`dow-toggle ${activeDays.includes(day.value) ? "active" : ""
+                                                }`}
                                             key={day.value}
                                             onClick={() => toggleDay(day.value)}
                                         >

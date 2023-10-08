@@ -60,6 +60,8 @@ const NewPricingTierForm = () => {
 
         try {
             const response = await addPricingTier(payload);
+            console.log(response);
+
             // go back to dashboard
             queryParams.set("state", stateFromState);
             queryParams.set("region", regionFromState);
@@ -115,11 +117,10 @@ const NewPricingTierForm = () => {
                                 {daysOfWeek.map((day, i) => {
                                     return (
                                         <div
-                                            className={`dow-toggle ${
-                                                activeDays.includes(day.value)
+                                            className={`dow-toggle ${activeDays.includes(day.value)
                                                     ? "active"
                                                     : ""
-                                            }`}
+                                                }`}
                                             key={day.value}
                                             onClick={() => toggleDay(day.value)}
                                         >
