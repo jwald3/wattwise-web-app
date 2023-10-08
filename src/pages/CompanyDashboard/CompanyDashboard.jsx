@@ -142,6 +142,8 @@ const CompanyDashboard = () => {
 	useEffect(() => {
 		if (state === -1) return;
 
+		setRegion("");
+
 		const fetchRegionsData = async () => {
 			const regions = await fetchRegions(state);
 			let regionsArray = regions.map((region) => ({
@@ -159,6 +161,8 @@ const CompanyDashboard = () => {
 			setHouseholds([]);
 			return;
 		}
+
+		setHousehold("");
 
 		const fetchHouseholdData = async () => {
 			const responseData = await fetchCustomersByProviderAndRegion(1, region);
