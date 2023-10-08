@@ -70,10 +70,10 @@ html, body {
 
 .editButton {
     background-color: transparent;
-    color: #2C3E50;
+    color: #32C5A4;
     /* Dark Charcoal */
     padding: .3rem .6rem;
-    border: 1px solid #2C3E50;
+    border: 1px solid #32C5A4;
     border-radius: 4px;
     cursor: pointer;
     font-family: 'Roboto', sans-serif;
@@ -82,12 +82,12 @@ html, body {
 }
 
 .editButton:hover {
-    background-color: #2C3E50;
+    background-color: #32C5A4;
     color: #FFFFFF;
 }
 
 .active-edit {
-    background-color: #1A252C;
+    background-color: #32C5A4;
     color: #FFFFFF;
     /* A bit darker charcoal for an active state */
 }
