@@ -5,6 +5,7 @@
     background-color: #F5F5F5;
     border-bottom: 1px solid #E1E1E1;
     height: 8vh;
+    min-height: 70px;
     max-height: 100px;
 }
 
