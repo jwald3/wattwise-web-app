@@ -151,3 +151,50 @@
     border: none;
     text-align: center;
 }
+
+/* Modal Styles */
+
+.modal-overlay {
+    position: fixed;  /* Cover the entire viewport */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);  /* Semi-transparent background */
+    display: flex;  /* Center the modal content */
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;  /* Ensure it's on top */
+}
+
+.modal-content {
+    width: 80%;
+    max-width: 500px;  /* Ensure the modal isn't too wide on large screens */
+    background-color: #fff;
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);  /* Same shadow as your form for consistency */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.modal-content p {
+    font-size: 1.2rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.modal-content button {
+    margin: 0.5rem;  /* Give the buttons some spacing */
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.modal-content button:hover {
+    filter: brightness(0.9);  /* Slightly darken the button on hover */
+}

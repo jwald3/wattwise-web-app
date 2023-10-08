@@ -22,6 +22,8 @@ const EditPricingTierForm = () => {
     const [rate, setRate] = useState(0);
     const [activeDays, setActiveDays] = useState([]);
 
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
+
     const navigate = useNavigate();
     const location = useLocation();
 
@@ -95,9 +97,14 @@ const EditPricingTierForm = () => {
         }
     };
 
-    const handleDelete = async (e) => {
+    const handleDeleteClick = (e) => {
         e.preventDefault();
+        setShowDeleteModal(true);
+    };
 
+    const handleConfirmDelete = async () => {
+        setShowDeleteModal(false);
+        // existing delete logic here...
         try {
             const response = await deletePricingTier(pricingId);
             console.log(response);
@@ -105,11 +112,11 @@ const EditPricingTierForm = () => {
             queryParams.set("state", stateFromState);
             queryParams.set("region", regionFromState);
             navigate(`/dashboard?${queryParams.toString()}`, { replace: true });
-            navigate(`/dashboard?${queryParams.toString()}`, { replace: true });
         } catch (error) {
             console.error("Error deleting data", error);
         }
     };
+
 
     // days of the week as an array of objects, using single letter abbreviations and 1-indexed days
     const daysOfWeek = [
@@ -124,6 +131,17 @@ const EditPricingTierForm = () => {
 
     return (
         <Layout>
+            {showDeleteModal && (
+                <div className="modal-overlay">
+                    <div className="modal-content">
+                        <p>Are you sure you want to delete this tier?</p>
+                        <div className="modal-button-container">
+                            <button onClick={handleConfirmDelete}>Yes, Delete</button>
+                            <button onClick={() => setShowDeleteModal(false)}>Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            )}
             <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <div className="form-container">
                     <h2 className="form-header">{`${tierNameFromState} - ${regionNameFromState}`}</h2>
@@ -172,9 +190,10 @@ const EditPricingTierForm = () => {
                             <button type="submit" className="submit-button">
                                 Submit
                             </button>
-                            <button type="button" className="delete-button" onClick={handleDelete}>
+                            <button type="button" className="delete-button" onClick={handleDeleteClick}>
                                 Delete
                             </button>
+
                         </div>
                     </form>
                 </div>
