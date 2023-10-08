@@ -1,7 +1,7 @@
 import './PeriodNavigator.css'
 
 const PeriodNavigator = ({ period, dateValue, dateSetter, weekValue, weekSetter, monthValue, monthSetter, yearValue, yearSetter }) => {
-    
+
     // function for converting month number to month name, e.g. 1 -> January
     const monthName = (month) => {
         switch (month) {
@@ -38,14 +38,23 @@ const PeriodNavigator = ({ period, dateValue, dateSetter, weekValue, weekSetter,
                 const nextDay = new Date(dateValue);
                 nextDay.setDate(nextDay.getDate() + 1);
                 dateSetter(nextDay.toISOString().split("T")[0]);
+                if (nextDay.getMonth() === 0) {
+                    yearSetter(yearValue + 1);
+                }
                 break;
             case 'Weekly':
-                let nextWeek = weekValue === 52 ? 1 : weekValue + 1;    
+                let nextWeek = weekValue === 52 ? 1 : weekValue + 1;
                 weekSetter(nextWeek);
+                if (nextWeek === 1) {
+                    yearSetter(yearValue + 1);
+                }
                 break;
             case 'Monthly':
                 let nextMonth = monthValue === 12 ? 1 : monthValue + 1;
                 monthSetter(nextMonth);
+                if (nextMonth === 1) {
+                    yearSetter(yearValue + 1);
+                }
                 break;
             case 'Yearly':
                 let nextYear = yearValue + 1;
@@ -62,14 +71,23 @@ const PeriodNavigator = ({ period, dateValue, dateSetter, weekValue, weekSetter,
                 const prevDay = new Date(dateValue);
                 prevDay.setDate(prevDay.getDate() - 1);
                 dateSetter(prevDay.toISOString().split("T")[0]);
+                if (prevDay.getMonth() === 11) {
+                    yearSetter(yearValue - 1);
+                }
                 break;
             case 'Weekly':
-                let lastWeek = weekValue === 1 ? 52 : weekValue - 1;    
+                let lastWeek = weekValue === 1 ? 52 : weekValue - 1;
                 weekSetter(lastWeek);
+                if (lastWeek === 52) {
+                    yearSetter(yearValue - 1);
+                }
                 break;
             case 'Monthly':
                 let lastMonth = monthValue === 1 ? 12 : monthValue - 1;
                 monthSetter(lastMonth);
+                if (lastMonth === 12) {
+                    yearSetter(yearValue - 1);
+                }
                 break;
             case 'Yearly':
                 let lastYear = yearValue - 1;
@@ -102,7 +120,7 @@ const PeriodNavigator = ({ period, dateValue, dateSetter, weekValue, weekSetter,
             <button onClick={increment}>→</button>
         </div>
     );
-    
+
 };
 
 export default PeriodNavigator;

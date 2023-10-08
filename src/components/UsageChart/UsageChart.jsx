@@ -2,61 +2,52 @@ import React from "react";
 import { CartesianGrid, Line, LineChart, XAxis, YAxis, ResponsiveContainer } from "recharts";
 
 const UsageChart = ({ data, period }) => {
-    // switch period into data key, i.e., daily -> time, yearly -> start_date, etc.
-    const dataKey = (period) => {
+    let formattedData = [...data];
+    let xAxisKey = "";
+
+    switch (period) {
+        case 'Daily':
+            formattedData = data.map(d => ({ ...d, time: d.time?.split("T")[1] }));
+            xAxisKey = 'time';
+            break;
+        case 'Weekly':
+            formattedData = data.map(d => ({ ...d, reading_time: d.reading_time?.split("T")[0]?.split("-")?.slice(1).join("-") }));
+            xAxisKey = 'reading_time';
+            break;
+        case 'Monthly':
+            formattedData = data.map(d => ({ ...d, time: d.time?.split("T")[0] }));
+            xAxisKey = 'time';
+            break;
+        case 'Yearly':
+            xAxisKey = 'start_date';
+            break;
+        default:
+            xAxisKey = 'start_date';
+            break;
+    }
+
+    const getInterval = (period) => {
         switch (period) {
-            case 'Daily':
-                return 'time';
-            case 'Weekly':
-                return 'reading_time';
-            case 'Monthly':
-                // console.log("time")
-                return 'time';
-            case 'Yearly':
-                // console.log("time")
-                return 'start_date';
-            default:
-                return 'start_date';
+            case 'Daily': return 2;
+            case 'Weekly': return 24;
+            case 'Monthly': return 6;
+            case 'Yearly': return 30;
+            default: return 12;
         }
-    }
-
-    // format data for chart where the object is a datetime
-    const formatData = (data, period) => {
-        // if period is yearly, return data as is
-        if (period === 'Yearly') {
-            return data;
-        }
-        // if period is weekly, strip out the time from the datetime
-        else if (period === 'Weekly') {
-            return data.map(d => {
-                return {
-                    ...d,
-                    // extract date from datetime (splitting on space or T not working on their own)
-                    // need to convert to date object to get rid of time
-                    reading_time: new Date(d.reading_time).toLocaleDateString()
-                }
-            })
-        }
-        else {
-            return data;
-        }
-    }
-
+    };
 
     return (
         <div style={{ width: '100%', height: 300 }}>
             <ResponsiveContainer>
                 <LineChart
-                    data={formatData(data)}
+                    data={formattedData}
                     margin={{ top: 20, right: 20, bottom: 20, left: 20 }}
                 >
                     <XAxis
-                        dataKey={dataKey(period)}
+                        dataKey={xAxisKey}
                         textAnchor="middle"
-                        // interval={30} year
-                        interval={30} // month
+                        interval={getInterval(period)}
                         height={60}
-                        // add space between axis and label
                         tickMargin={10}
                     />
                     <YAxis domain={["auto", "auto"]} />
