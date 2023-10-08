@@ -22,6 +22,7 @@ import PeriodNavigator from "../../components/PeriodNavigator/PeriodNavigator";
 import StatsSection from "../../components/StatsSection/StatsSection";
 import Layout from "../../Layouts/Layout";
 import { useLocation, useNavigate } from "react-router-dom";
+import NoData from "../../components/NoData/NoData";
 
 const CompanyDashboard = () => {
 	const [provider, setProvider] = React.useState(1);
@@ -323,22 +324,24 @@ const CompanyDashboard = () => {
 						</div>
 					</div>
 
-					<div className="contentContainer">
-						<UsageChart data={energyUsage} period={period} />
-						<div style={{ display: "flex", alignItems: "center" }}>
-							<PeriodNavigator
-								period={period}
-								dateValue={currentDate}
-								dateSetter={setCurrentDate}
-								yearValue={currentYear}
-								yearSetter={setCurrentYear}
-								monthValue={currentMonth}
-								monthSetter={setCurrentMonth}
-								weekValue={currentWeek}
-								weekSetter={setCurrentWeek}
-							/>
-						</div>
-						<StatsSection energyUsage={totalEnergyConsumption} />
+					<div className="content-container">
+						{household ? (
+							<>
+								<UsageChart data={energyUsage} period={period} />
+								<div style={{ display: "flex", alignItems: "center" }}>
+									<PeriodNavigator
+										period={period}
+										dateValue={currentDate}
+										dateSetter={setCurrentDate}
+										yearValue={currentYear}
+										yearSetter={setCurrentYear}
+										monthValue={currentMonth}
+										monthSetter={setCurrentMonth}
+										weekValue={currentWeek}
+										weekSetter={setCurrentWeek}
+									/>
+								</div>
+								<StatsSection energyUsage={totalEnergyConsumption} /></>) : <NoData />}
 					</div>
 				</div>
 				<div className="pricingMenu">
