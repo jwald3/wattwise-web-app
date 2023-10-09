@@ -1,0 +1,43 @@
+/* DropdownMenu.css */
+
+.dropdown-container {
+    /* You can add styles specific to the container if required */
+}
+
+.dropdown-control {
+    margin: 8px !important; /* Overriding the MUI styles might require !important */
+    /* Add other styles as necessary */
+}
+
+.dropdown-select {
+    font-size: 14px !important;
+}
+
+.dropdown-menu-item {
+    font-size: 16px !important;
+}
+
+.dropdown-menu-item-emphasized {
+    font-size: 16px !important;
+    font-style: italic;
+}
+
+/* Media query for smaller screens, adjust as necessary */
+@media (max-width: 600px) {
+    .dropdown-select {
+        font-size: .6rem !important;
+    }
+
+    .dropdown-menu-item,
+    .dropdown-menu-item-emphasized {
+        font-size: .6rem !important;
+    }
+
+    .MuiSelect-select,
+    .MuiSelect-standard,
+    .MuiInputBase-input, 
+    .MuiInput-input
+    {
+        font-size: .6rem !important;
+    }
+}

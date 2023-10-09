@@ -10,6 +10,8 @@ import NewPricingTierForm from "./pages/NewPricingTierForm/NewPricingTierForm";
 import AboutUs from "./pages/AboutUs/AboutUs";
 import EditPricingTierForm from "./pages/EditPricingTierForm/EditPricingTierForm";
 import { Auth0Provider } from "@auth0/auth0-react";
+import AuthCallback from "./components/Auth/AuthCallback";
+import ProtectedRoute from "./components/Auth/ProtectedRoute";
 
 const router = createBrowserRouter([
     {
@@ -26,7 +28,11 @@ const router = createBrowserRouter([
     },
     {
         path: "/dashboard",
-        element: <CompanyDashboard />,
+        element: (
+            <ProtectedRoute>
+                <CompanyDashboard />
+            </ProtectedRoute>
+        ),
     },
     {
         path: "/pricing-tier",
@@ -36,6 +42,10 @@ const router = createBrowserRouter([
     {
         path: "/pricing-tier/:id/edit",
         element: <EditPricingTierForm />
+    },
+    {
+        path: "/callback",
+        element: <AuthCallback />,
     }
 ]);
 
@@ -43,9 +53,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     <Auth0Provider
         domain="dev-pj7t2m2pdrnvypjq.us.auth0.com"
         clientId="qQhvR1xQBG17JGBcRU1aUyrMqAQs3Io3"
-        authorizationParams={{
-            redirect_uri: window.location.origin
-        }}
+        redirectUri={window.location.origin + "/callback"} // Ensure the redirectUri is set correctly
     >
         <RouterProvider router={router} />
     </Auth0Provider>

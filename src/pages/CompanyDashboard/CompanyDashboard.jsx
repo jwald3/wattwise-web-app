@@ -43,7 +43,7 @@ const CompanyDashboard = () => {
 	const [totalEnergyConsumption, setTotalEnergyConsumption] = React.useState(0);
 	const [isEdit, setIsEdit] = React.useState(false);
 
-	const { isAuthenticated, loginWithRedirect } = useAuth0();
+	const { isAuthenticated, loginWithRedirect, isLoading } = useAuth0();
 
 	const location = useLocation();
 	const navigate = useNavigate();
@@ -98,10 +98,10 @@ const CompanyDashboard = () => {
 	}, [location.search, navigate]);
 
 	useEffect(() => {
-		if (!isAuthenticated) {
-			loginWithRedirect();  // Redirect to the Auth0 login page
+		if (!isLoading && !isAuthenticated) {
+			loginWithRedirect();
 		}
-	}, [isAuthenticated, loginWithRedirect]);
+	}, [isLoading, isAuthenticated, loginWithRedirect]);
 
 
 	const updateURLParams = (newState, newRegion, newHousehold, newPeriod) => {
@@ -299,7 +299,8 @@ const CompanyDashboard = () => {
 									options={states}
 									handleChange={handleStateChange}
 									nullable={true}
-									minWidth={75}
+									// adapt minWidth based on screen size, reduce by .8 if on screen < 1200px
+									minWidth={window.innerWidth <= 1200 ? 75 * .6 : 75}
 								/>
 
 								{state !== "" && (
@@ -309,7 +310,7 @@ const CompanyDashboard = () => {
 										options={regions}
 										handleChange={handleRegionChange}
 										nullable={true}
-										minWidth={125}
+										minWidth={window.innerWidth <= 1200 ? 125 * .6 : 125}
 									/>
 								)}
 
@@ -320,7 +321,7 @@ const CompanyDashboard = () => {
 										options={households}
 										handleChange={handleHouseholdChange}
 										nullable={true}
-										minWidth={150}
+										minWidth={window.innerWidth <= 1200 ? 150 * .6 : 150}
 									/>
 								)}
 							</div>
@@ -331,7 +332,7 @@ const CompanyDashboard = () => {
 									options={periods}
 									handleChange={handlePeriodChange}
 									nullable={false}
-									minWidth={125}
+									minWidth={window.innerWidth <= 1200 ? 125 * .6 : 125}
 								/>
 							</div>
 						</div>
