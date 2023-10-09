@@ -17,6 +17,7 @@
     box-shadow: 0px 4px 20px #0000001A;
     text-align: center;
     transition: all 0.3s ease-in-out;
+    box-sizing: border-box;
 }
 
 .icon img {
@@ -38,3 +39,38 @@
     font-size: 0.8rem;
 }
 
+@media (max-width: 1200px) {
+    .stat-card {
+        padding: 1rem 0.5rem;
+    }
+
+    .value {
+        font-size: 1.2rem;
+    }
+}
+
+@media (max-width: 1000px) {
+    .stat-card {
+        padding: 1rem 0.5rem;
+    }
+
+    .value {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .stats-container {
+        flex-direction: column;
+        width: 100%;
+        gap: 1rem;
+    }
+
+    .stat-card {
+        padding: 1.25rem 0.5rem;
+    }
+
+    .value {
+        font-size: 1.2rem;
+    }
+}

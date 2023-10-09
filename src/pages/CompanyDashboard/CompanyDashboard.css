@@ -131,7 +131,7 @@ button {
 }
 
 
-@media (max-width: 1200px) {
+@media (max-width: 1000px) {
     .mainPage {
         flex-direction: column;
     }
@@ -148,6 +148,12 @@ button {
     .chartMenu,
     .pricingMenu {
         flex: 1;
+    }
+}
+
+@media (max-width: 738px) {
+    .filterContainer {
+        flex-direction: column;
     }
 }
 
