@@ -47,3 +47,10 @@
 .link:hover {
     color: #007BFF;
 }
+
+@media (max-width: 700px) {
+    /* hide right side if too narrow */
+    .rightSection {
+        display: none;
+    }
+}
