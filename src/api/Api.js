@@ -16,6 +16,11 @@ export const fetchRegions = async (stateID = null) => {
     return response.data;
 };
 
+export const fetchRegionById = async (regionID) => {
+    const response = await axios.get(`${API_URL}/regions/${regionID}`);
+    return response.data;
+};
+
 export const fetchStates = async () => {
     const response = await axios.get(`${API_URL}/states`);
     return response.data;

@@ -1,5 +1,5 @@
 // External Libraries
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { TimePicker } from "@mui/x-date-pickers/TimePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
@@ -10,7 +10,7 @@ import Layout from "../../Layouts/Layout";
 import NumberInput from "../../components/NumberInput/NumberInput";
 
 // API Calls/Utilities
-import { addPricingTier } from "../../api/Api";
+import { addPricingTier, fetchRegionById } from "../../api/Api";
 
 // Styles
 import "./NewPricingTierForm.css";
@@ -27,7 +27,18 @@ const NewPricingTierForm = () => {
     const tierNameFromState = location.state?.tierName || "Default Name";
     const stateFromState = location.state?.state || "Default State";
     const regionFromState = location.state?.region || "Default Region";
-    const regionNameFromState = location.state?.regionName || "Default Region Name";
+
+    const [regionName, setRegionName] = useState("")
+
+    useEffect(() => {
+        // use fetchRegionById to set regionName state
+        const fetchRegionName = async () => {
+            const region = await fetchRegionById(regionFromState);
+            setRegionName(region.region_name);
+        }
+        fetchRegionName();
+
+    }, [regionFromState]);
 
     const queryParams = new URLSearchParams();
 
@@ -82,7 +93,7 @@ const NewPricingTierForm = () => {
         <Layout>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <div className="form-container">
-                    <h2 className="form-header">{`${tierNameFromState} - ${regionNameFromState}`}</h2>
+                    <h2 className="form-header">{`${tierNameFromState} - ${regionName}`}</h2>
                     <form onSubmit={handleSubmit} className="form-body">
                         <div className="input-group">
                             <TimePicker

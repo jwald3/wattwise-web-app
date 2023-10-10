@@ -11,7 +11,7 @@ import Layout from "../../Layouts/Layout";
 import NumberInput from "../../components/NumberInput/NumberInput";
 
 // API Calls/Utilities
-import { deletePricingTier, updatePricingTier } from "../../api/Api";
+import { deletePricingTier, fetchRegionById, updatePricingTier } from "../../api/Api";
 
 // Styles
 import "./EditPricingTierForm.css";
@@ -30,9 +30,20 @@ const EditPricingTierForm = () => {
     const tierNameFromState = location.state?.tierName || "Default Name";
     const stateFromState = location.state?.state || "Default State";
     const regionFromState = location.state?.region || "Default Region";
-    const regionNameFromState = location.state?.regionName || "Default Region Name";
 
     const pricingId = location.state?.pricingData?.pricing_id || null;
+
+    const [regionName, setRegionName] = useState("")
+
+    useEffect(() => {
+        // use fetchRegionById to set regionName state
+        const fetchRegionName = async () => {
+            const region = await fetchRegionById(regionFromState);
+            setRegionName(region.region_name);
+        }
+        fetchRegionName();
+
+    }, [regionFromState]);
 
     useEffect(() => {
         const pricingData = location.state?.pricingData;
@@ -138,7 +149,7 @@ const EditPricingTierForm = () => {
             )}
             <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <div className="form-container">
-                    <h2 className="form-header">{`${tierNameFromState} - ${regionNameFromState}`}</h2>
+                    <h2 className="form-header">{`${tierNameFromState} - ${regionName}`}</h2>
                     <form onSubmit={handleSubmit} className="form-body">
                         <div className="input-group">
                             <TimePicker
