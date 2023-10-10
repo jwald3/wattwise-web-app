@@ -2,8 +2,12 @@ import React from "react";
 import "./LandingPage.css";
 import Layout from "../../Layouts/Layout";
 import LoginButton from "../../components/LoginButton/LoginButton";
+import { useAuth0 } from "@auth0/auth0-react";
+import { Link } from "react-router-dom";
 
 const LandingPage = () => {
+    const { isAuthenticated } = useAuth0();
+
     return (
         <Layout>
             <div className="main-page-landing">
@@ -29,7 +33,14 @@ const LandingPage = () => {
                                 watch the savings stack up!
                             </div>
                             <div className="call-to-action-btn-container">
-                                <LoginButton />
+                                
+                                {isAuthenticated ? (
+                                    <Link to="/about-us">
+                                        <button className="learn-more-button">
+                                            Learn More
+                                        </button>
+                                    </Link>
+                                ) : <LoginButton />}
                             </div>
                         </div>
                     </div>
