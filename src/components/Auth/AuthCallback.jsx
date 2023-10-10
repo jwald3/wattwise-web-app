@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 function AuthCallback() {
-    const { isAuthenticated, handleRedirectCallback, getAccessTokenSilently } = useAuth0();
+    const { isAuthenticated, handleRedirectCallback } = useAuth0();
     const navigate = useNavigate();
     const location = useLocation();
 

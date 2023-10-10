@@ -117,7 +117,7 @@ const QueryFilterTray = () => {
 			  }
 			  dispatch(setPeriod(periodParam));
 		}
-	}, [location.search, navigate]);
+	}, [location.search, navigate, dispatch, queryParams]);
 
     useEffect(() => {
 		if (household === "") return;
