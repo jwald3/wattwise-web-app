@@ -26,10 +26,12 @@ import NoData from "../../components/NoData/NoData";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useDispatch, useSelector } from "react-redux";
 import { setHousehold, setPeriod, setRegion, setState } from "../../redux/dashboardSlice";
+import { fetchPricingTiersByRegion } from "../../redux/pricingTiersSlice";
 
 const CompanyDashboard = () => {
 	const [provider, setProvider] = React.useState(1);
 	const { state, region, household, period } = useSelector((state) => state.dashboard);
+	const pricingTiersFromRedux = useSelector(state => state.pricingTiers.pricingTiers);
  	const dispatch = useDispatch();
 
 	const [states, setStates] = React.useState([]);
@@ -182,21 +184,11 @@ const CompanyDashboard = () => {
 	}, [region, state]);
 
 	useEffect(() => {
-		if (region === "") {
-			setPricingTiers([]);
-			return;
-		}
-
-		const fetchPricingTiers = async () => {
-			const pricingTiers = await fetchPricingTiersByProvider({
-				providerID: provider,
-				regionID: region,
-			});
-			setPricingTiers(pricingTiers);
-		};
-
-		fetchPricingTiers();
-	}, [provider, region]);
+        if (region !== "") {
+            // Dispatch the action to fetch the pricing tiers
+            dispatch(fetchPricingTiersByRegion(region));
+        }
+    }, [dispatch, region]);
 
 	useEffect(() => {
 		if (household === "") return;
@@ -354,7 +346,6 @@ const CompanyDashboard = () => {
 					<div className="pricingMenu">
 						<div className="titleContainer">
 							<div className="headerText">Pricing Tiers</div>
-							{/* Make the edit button change the isEdit state and have the "active" property*/}
 							<button
 								className={`editButton ${isEdit ? "active-edit" : ""}`}
 								onClick={() => setIsEdit(!isEdit)}
@@ -364,7 +355,7 @@ const CompanyDashboard = () => {
 						</div>
 						<div className="pricingContent">
 							{pricingCategories.map((category) => {
-								const matchingTier = pricingTiers.find(
+								const matchingTier = pricingTiersFromRedux.find(
 									(tier) => tier.pricing_tier_name === category
 								);
 

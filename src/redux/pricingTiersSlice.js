@@ -1,15 +1,11 @@
-// Redux slice for pricing tiers: an array of pricing tier objects for a given region
-// will use the API function getPricingTiersByRegion(region) to get the pricing tiers
-// for a given region
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { fetchPricingTiersByProvider } from "../api/Api";
 
 export const fetchPricingTiersByRegion = createAsyncThunk(
     "pricingTiers/getPricingTiersByRegion",
     async (region) => {
-        const response = await fetchPricingTiersByProvider({providerID: 1, regionID: region})
-        const data = await response.json();
-        return data;
+        const response = await fetchPricingTiersByProvider({providerID: 1, regionID: region});
+        return response; // Since axios already parses JSON for you
     }
 );
 
@@ -41,4 +37,3 @@ const pricingTiersSlice = createSlice({
 });
 
 export default pricingTiersSlice.reducer;
-
