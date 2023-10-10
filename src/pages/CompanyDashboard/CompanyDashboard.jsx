@@ -29,16 +29,13 @@ const CompanyDashboard = () => {
 	const pricingTiersFromRedux = useSelector(state => state.pricingTiers.pricingTiers);
 	const householdsFromRedux = useSelector(state => state.households.households);
 	const energyUsageFromRedux = useSelector(state => state.energyUsage.energyUsage);
+	const { currentDate, currentYear, currentMonth, currentWeek } = useSelector(state => state.energyUsage);
 
  	const dispatch = useDispatch();
 
 	const [states, setStates] = React.useState([]);
 	const [regions, setRegions] = React.useState([]);
 	
-	const [currentDate, setCurrentDate] = React.useState("2023-01-01");
-	const [currentYear, setCurrentYear] = React.useState(2023);
-	const [currentMonth, setCurrentMonth] = React.useState(1);
-	const [currentWeek, setCurrentWeek] = React.useState(1);
 	const [totalEnergyConsumption, setTotalEnergyConsumption] = React.useState(0);
 	const [isEdit, setIsEdit] = React.useState(false);
 
@@ -277,17 +274,7 @@ const CompanyDashboard = () => {
 								<>
 									<UsageChart data={energyUsageFromRedux} period={period} />
 									<div style={{ display: "flex", alignItems: "center" }}>
-										<PeriodNavigator
-											period={period}
-											dateValue={currentDate}
-											dateSetter={setCurrentDate}
-											yearValue={currentYear}
-											yearSetter={setCurrentYear}
-											monthValue={currentMonth}
-											monthSetter={setCurrentMonth}
-											weekValue={currentWeek}
-											weekSetter={setCurrentWeek}
-										/>
+										<PeriodNavigator />
 									</div>
 									<StatsSection energyUsage={totalEnergyConsumption} /></>) : <NoData />}
 						</div>

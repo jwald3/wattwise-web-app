@@ -86,3 +86,5 @@ const energyUsageSlice = createSlice({
 });
 
 export default energyUsageSlice.reducer;
+export const { setCurrentDate, setCurrentWeek, setCurrentMonth, setCurrentYear } = energyUsageSlice.actions;
+
