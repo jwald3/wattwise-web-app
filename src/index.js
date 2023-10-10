@@ -51,11 +51,14 @@ const router = createBrowserRouter([
     }
 ]);
 
+
 ReactDOM.createRoot(document.getElementById("root")).render(
     <Auth0Provider
         domain="dev-pj7t2m2pdrnvypjq.us.auth0.com"
         clientId="qQhvR1xQBG17JGBcRU1aUyrMqAQs3Io3"
         redirectUri={window.location.origin}
+        useRefreshTokens={true}
+        cacheLocation="localstorage"
     >
         <Provider store={store}>
             <RouterProvider router={router} />
