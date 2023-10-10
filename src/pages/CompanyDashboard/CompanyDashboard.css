@@ -9,8 +9,7 @@ html, body {
     flex: 1;
 }
 
-.chartMenu,
-.pricingMenu {
+.chartMenu {
     display: flex;
     flex-direction: column;
     border: 1px solid #e0e0e0;
@@ -20,6 +19,7 @@ html, body {
     margin: 0.5rem;
     width: 45%;
     box-sizing: border-box;
+    flex: 2;
 }
 
 .content-container {
@@ -27,14 +27,6 @@ html, body {
     flex-direction: column;
     flex: 1;
     box-sizing: border-box;
-}
-
-.chartMenu {
-    flex: 2;
-}
-
-.pricingMenu {
-    flex: 1;
 }
 
 .filterContainer {
@@ -54,73 +46,11 @@ html, body {
     align-items: center;
 }
 
-.pricingContent {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    gap: 1.25rem;
-    padding: 0 2%;
-    align-items: center;
-    justify-content: center;
-    box-sizing: border-box;
-}
-
-.headerText {
-    font-family: 'Roboto', sans-serif;
-    font-size: 1.25rem;
-    color: #2C3E50;
-    font-weight: 400;
-    margin: 0;
-    padding-bottom: 0.5rem;
-    border-bottom: 2px solid #BDC3C7;
-}
-
-.editButton {
-    background-color: transparent;
-    color: #32C5A4;
-    /* Dark Charcoal */
-    padding: .3rem .6rem;
-    border: 1px solid #32C5A4;
-    border-radius: 4px;
-    cursor: pointer;
-    font-family: 'Roboto', sans-serif;
-    font-size: 1rem;
-    transition: background-color 0.3s, color 0.3s;
-}
-
-.editButton:hover {
-    background-color: #32C5A4;
-    color: #FFFFFF;
-}
-
-.active-edit {
-    background-color: #32C5A4;
-    color: #FFFFFF;
-    /* A bit darker charcoal for an active state */
-}
-
-.titleContainer {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    margin-bottom: 1rem;
-}
-
 .dateNavContainer {
     display: flex;
     align-items: center;
     justify-content: center;
     /* Centralizes the date navigation */
-}
-
-button {
-    background-color: #EAEAEA;
-    border: none;
-    padding: 0.3rem;
-    margin: 0 0.3rem;
-    border-radius: 0.2rem;
-    cursor: pointer;
-    transition: background-color 0.2s;
 }
 
 .dateNavContainer span {
@@ -130,14 +60,12 @@ button {
     border-radius: 4px;
 }
 
-
 @media (max-width: 1200px) {
     .mainPage {
         flex-direction: column;
     }
 
-    .chartMenu,
-    .pricingMenu {
+    .chartMenu {
         width: 100%;
     }
 }
@@ -145,8 +73,7 @@ button {
 
 @media (max-width: 1000px) {
 
-    .chartMenu,
-    .pricingMenu {
+    .chartMenu {
         flex: 1;
     }
 }

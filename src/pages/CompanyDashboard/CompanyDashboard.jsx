@@ -1,9 +1,6 @@
 import React, { useEffect } from "react";
 import "./CompanyDashboard.css";
 import UsageChart from "../../components/UsageChart/UsageChart";
-import DropdownMenu from "../../components/DropdownMenu/DropdownMenu";
-import PricingTierTile from "../../components/PricingTierTile/PricingTierTile";
-import FillerPricingTierTile from "../../components/FillerPricingTierTile/FillerPricingTierTile";
 import PeriodNavigator from "../../components/PeriodNavigator/PeriodNavigator";
 import StatsSection from "../../components/StatsSection/StatsSection";
 import Layout from "../../Layouts/Layout";
@@ -17,34 +14,26 @@ import { fetchHouseholdsByRegion } from "../../redux/householdsSlice";
 import { fetchTotalEnergyConsumption, fetchUsageData } from "../../redux/energyUsagesSlice";
 import { getStates } from "../../redux/statesSlice";
 import { getRegions } from "../../redux/regionsSlice";
+import PricingTierTray from "../../components/PricingTierTray/PricingTierTray";
+import QueryFilterTray from "../../components/QueryFilterTray/QueryFilterTray";
 
 const CompanyDashboard = () => {
 	const { state, region, household, period } = useSelector((state) => state.dashboard);
 	const pricingTiersFromRedux = useSelector(state => state.pricingTiers.pricingTiers);
-	const householdsFromRedux = useSelector(state => state.households.households);
 	const energyUsageFromRedux = useSelector(state => state.energyUsage.energyUsage);
-	const statesFromRedux = useSelector(state => state.states.states);
-	const regionsFromRedux = useSelector(state => state.regions.regions);
-
+	
 	const { currentDate, currentYear, currentMonth, currentWeek } = useSelector(state => state.energyUsage);
 
  	const dispatch = useDispatch();
 	
 	const totalEnergyConsumptionFromRedux = useSelector(state => state.energyUsage.totalEnergyConsumption);
-	const [isEdit, setIsEdit] = React.useState(false);
+	
 
 	const { isAuthenticated } = useAuth0();
 
 	const location = useLocation();
 	const navigate = useNavigate();
 	const queryParams = new URLSearchParams(location.search);
-
-	const periods = ["Daily", "Weekly", "Monthly", "Yearly"].map((period) => ({
-		value: period,
-		display: period,
-	}));
-
-	const pricingCategories = ["Peak", "Off-Peak", "Weekend", "Holiday"];
 
 	// Read URL parameters and set to state
 	useEffect(() => {
@@ -86,38 +75,6 @@ const CompanyDashboard = () => {
 			  dispatch(setPeriod(periodParam));
 		}
 	}, [location.search, navigate]);
-
-	const updateURLParams = (newState, newRegion, newHousehold, newPeriod) => {
-		const params = [];
-
-		if (newState) params.push(`state=${newState}`);
-		if (newState && newRegion) params.push(`region=${newRegion}`);
-		if (newState && newRegion && newHousehold)
-			params.push(`household=${newHousehold}`);
-		if (newPeriod) params.push(`period=${newPeriod}`);
-
-		navigate(`/dashboard?${params.join("&")}`);
-	};
-
-	const handleStateChange = (event) => {
-		const selectedState = event.target.value;
-		updateURLParams(selectedState, "", "", period);
-	};
-
-	const handleRegionChange = (event) => {
-		const selectedRegion = event.target.value;
-		updateURLParams(state, selectedRegion, "", period);
-	};
-
-	const handleHouseholdChange = (event) => {
-		const selectedHousehold = event.target.value;
-		updateURLParams(state, region, selectedHousehold, period);
-	};
-
-	const handlePeriodChange = (event) => {
-		const selectedPeriod = event.target.value;
-		updateURLParams(state, region, household, selectedPeriod);
-	};
 
 	useEffect(() => {
 		dispatch(getStates())
@@ -164,63 +121,7 @@ const CompanyDashboard = () => {
 			<Layout>
 				<div className="mainPage">
 					<div className="chartMenu flex2">
-						<div className="filterContainer">
-							<div className="dropdownContainer">
-								<DropdownMenu
-									label="State"
-									value={state}
-									options={statesFromRedux.map((state) => ({
-										value: state.state_id,
-										display: state.state_territory,
-									}))	
-									}
-									handleChange={handleStateChange}
-									nullable={true}
-									// adapt minWidth based on screen size, reduce by .8 if on screen < 1200px
-									minWidth={window.innerWidth <= 1200 ? 75 * .6 : 75}
-								/>
-
-								{state !== "" && (
-									<DropdownMenu
-										label="Region"
-										value={region}
-										options={regionsFromRedux.map((region) => ({
-											value: region.region_id,
-											display: region.region_name,
-										}))
-										}
-										handleChange={handleRegionChange}
-										nullable={true}
-										minWidth={window.innerWidth <= 1200 ? 125 * .6 : 125}
-									/>
-								)}
-
-								{region !== "" && (
-									<DropdownMenu
-										label="Household"
-										value={household}
-										options={householdsFromRedux.map((household) => ({
-											value: household.household_id,
-											display: household.street_address,
-										}))}
-										handleChange={handleHouseholdChange}
-										nullable={true}
-										minWidth={window.innerWidth <= 1200 ? 150 * .6 : 150}
-									/>
-								)}
-							</div>
-							<div>
-								<DropdownMenu
-									label="Period"
-									value={period}
-									options={periods}
-									handleChange={handlePeriodChange}
-									nullable={false}
-									minWidth={window.innerWidth <= 1200 ? 125 * .6 : 125}
-								/>
-							</div>
-						</div>
-
+						<QueryFilterTray />
 						<div className="content-container">
 							{household ? (
 								<>
@@ -231,43 +132,7 @@ const CompanyDashboard = () => {
 									<StatsSection energyUsage={totalEnergyConsumptionFromRedux} /></>) : <NoData />}
 						</div>
 					</div>
-					<div className="pricingMenu">
-						<div className="titleContainer">
-							<div className="headerText">Pricing Tiers</div>
-							<button
-								className={`editButton ${isEdit ? "active-edit" : ""}`}
-								onClick={() => setIsEdit(!isEdit)}
-							>
-								Edit
-							</button>
-						</div>
-						<div className="pricingContent">
-							{pricingCategories.map((category) => {
-								const matchingTier = pricingTiersFromRedux.find(
-									(tier) => tier.pricing_tier_name === category
-								);
-
-								return matchingTier ? (
-									<PricingTierTile
-										key={category}
-										pricingData={matchingTier}
-										state={state}
-										region={region}
-										regionName={matchingTier.region_name}
-										isEdit={isEdit}
-									/>
-								) : (
-									<FillerPricingTierTile
-										key={category}
-										pricingTierName={category}
-										state={state}
-										region={region}
-										regionName={matchingTier?.region_name}
-									/>
-								);
-							})}
-						</div>
-					</div>
+					<PricingTierTray pricingTiers={pricingTiersFromRedux} />
 				</div>
 			</Layout>
 		) : null
