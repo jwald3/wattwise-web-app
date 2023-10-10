@@ -4,10 +4,8 @@ import UsageChart from "../../components/UsageChart/UsageChart";
 import DropdownMenu from "../../components/DropdownMenu/DropdownMenu";
 import PricingTierTile from "../../components/PricingTierTile/PricingTierTile";
 import {
-	fetchCustomersByProviderAndRegion,
 	fetchDailyEnergyConsumptionByCustomer,
 	fetchMonthlyEnergyConsumptionByCustomer,
-	fetchPricingTiersByProvider,
 	fetchRegions,
 	fetchStates,
 	fetchTotalDailyEnergyConsumptionByCustomer,
@@ -30,7 +28,6 @@ import { fetchPricingTiersByRegion } from "../../redux/pricingTiersSlice";
 import { fetchHouseholdsByRegion } from "../../redux/householdsSlice";
 
 const CompanyDashboard = () => {
-	const [provider, setProvider] = React.useState(1);
 	const { state, region, household, period } = useSelector((state) => state.dashboard);
 	const pricingTiersFromRedux = useSelector(state => state.pricingTiers.pricingTiers);
 	const householdsFromRedux = useSelector(state => state.households.households);
