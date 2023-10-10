@@ -5,7 +5,7 @@ export const fetchPricingTiersByRegion = createAsyncThunk(
     "pricingTiers/getPricingTiersByRegion",
     async (region) => {
         const response = await fetchPricingTiersByProvider({providerID: 1, regionID: region});
-        return response; // Since axios already parses JSON for you
+        return response; 
     }
 );
 
