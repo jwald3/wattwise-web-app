@@ -6,7 +6,6 @@ const initialState = {
   region: "",
   household: "",
   period: "Yearly",
-  // ... (and the rest of your initial states)
 };
 
 const dashboardSlice = createSlice({

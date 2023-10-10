@@ -40,21 +40,28 @@ const QueryFilterTray = () => {
 
     const handleStateChange = (event) => {
 		const selectedState = event.target.value;
+		setState(selectedState);
+		setRegion(null);
+		setHousehold(null);
 		updateURLParams(selectedState, "", "", period);
 	};
 
 	const handleRegionChange = (event) => {
 		const selectedRegion = event.target.value;
+		setRegion(selectedRegion);
+		setHousehold(null);
 		updateURLParams(state, selectedRegion, "", period);
 	};
 
 	const handleHouseholdChange = (event) => {
 		const selectedHousehold = event.target.value;
+		setHousehold(selectedHousehold);
 		updateURLParams(state, region, selectedHousehold, period);
 	};
 
 	const handlePeriodChange = (event) => {
 		const selectedPeriod = event.target.value;
+		setPeriod(selectedPeriod)
 		updateURLParams(state, region, household, selectedPeriod);
 	};
 
