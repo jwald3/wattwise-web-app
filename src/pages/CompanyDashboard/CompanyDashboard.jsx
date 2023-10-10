@@ -4,16 +4,12 @@ import UsageChart from "../../components/UsageChart/UsageChart";
 import DropdownMenu from "../../components/DropdownMenu/DropdownMenu";
 import PricingTierTile from "../../components/PricingTierTile/PricingTierTile";
 import {
-	fetchDailyEnergyConsumptionByCustomer,
-	fetchMonthlyEnergyConsumptionByCustomer,
 	fetchRegions,
 	fetchStates,
 	fetchTotalDailyEnergyConsumptionByCustomer,
 	fetchTotalMonthlyEnergyConsumptionByCustomer,
 	fetchTotalWeeklyEnergyConsumptionByCustomer,
 	fetchTotalYearlyEnergyConsumptionByCustomer,
-	fetchWeeklyEnergyConsumptionByCustomer,
-	fetchYearlyEnergyConsumptionByCustomer,
 } from "../../api/Api";
 import FillerPricingTierTile from "../../components/FillerPricingTierTile/FillerPricingTierTile";
 import PeriodNavigator from "../../components/PeriodNavigator/PeriodNavigator";
@@ -26,17 +22,19 @@ import { useDispatch, useSelector } from "react-redux";
 import { setHousehold, setPeriod, setRegion, setState } from "../../redux/dashboardSlice";
 import { fetchPricingTiersByRegion } from "../../redux/pricingTiersSlice";
 import { fetchHouseholdsByRegion } from "../../redux/householdsSlice";
+import { fetchUsageData } from "../../redux/energyUsagesSlice";
 
 const CompanyDashboard = () => {
 	const { state, region, household, period } = useSelector((state) => state.dashboard);
 	const pricingTiersFromRedux = useSelector(state => state.pricingTiers.pricingTiers);
 	const householdsFromRedux = useSelector(state => state.households.households);
+	const energyUsageFromRedux = useSelector(state => state.energyUsage.energyUsage);
+
  	const dispatch = useDispatch();
 
 	const [states, setStates] = React.useState([]);
 	const [regions, setRegions] = React.useState([]);
 	
-	const [energyUsage, setEnergyUsage] = React.useState([]);
 	const [currentDate, setCurrentDate] = React.useState("2023-01-01");
 	const [currentYear, setCurrentYear] = React.useState(2023);
 	const [currentMonth, setCurrentMonth] = React.useState(1);
@@ -172,42 +170,11 @@ const CompanyDashboard = () => {
 	useEffect(() => {
 		if (household === "") return;
 
-		const fetchUsageData = async () => {
-			let responseData = null;
-
-			if (period === "Daily") {
-				responseData = await fetchDailyEnergyConsumptionByCustomer({
-					household_id: household,
-					date: currentDate,
-					year: 2023,
-				});
-			} else if (period === "Weekly") {
-				responseData = await fetchWeeklyEnergyConsumptionByCustomer({
-					household_id: household,
-					week: currentWeek,
-					year: 2023,
-				});
-			} else if (period === "Monthly") {
-				responseData = await fetchMonthlyEnergyConsumptionByCustomer({
-					household_id: household,
-					month: currentMonth,
-					year: 2023,
-				});
-			} else if (period === "Yearly") {
-				responseData = await fetchYearlyEnergyConsumptionByCustomer({
-					household_id: household,
-					year: 2023,
-				});
-			}
-
-			setEnergyUsage(responseData);
-		};
-
-		fetchUsageData();
-	}, [household, period, currentDate, currentYear, currentMonth, currentWeek]);
+		dispatch(fetchUsageData({ household, period, currentDate, currentYear, currentMonth, currentWeek }));
+	}, [dispatch, household, period, currentDate, currentYear, currentMonth, currentWeek]);
 
 	useEffect(() => {
-		if (energyUsage.length === 0) return;
+		if (energyUsageFromRedux.length === 0) return;
 
 		const getTotalConsumption = async () => {
 			let totalEnergy = 0;
@@ -243,7 +210,7 @@ const CompanyDashboard = () => {
 		getTotalConsumption();
 	}, [
 		period,
-		energyUsage,
+		energyUsageFromRedux,
 		household,
 		currentDate,
 		currentYear,
@@ -308,7 +275,7 @@ const CompanyDashboard = () => {
 						<div className="content-container">
 							{household ? (
 								<>
-									<UsageChart data={energyUsage} period={period} />
+									<UsageChart data={energyUsageFromRedux} period={period} />
 									<div style={{ display: "flex", alignItems: "center" }}>
 										<PeriodNavigator
 											period={period}
