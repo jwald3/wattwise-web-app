@@ -26,7 +26,6 @@ const CompanyDashboard = () => {
 
  	const dispatch = useDispatch();
 	
-
 	const { isAuthenticated } = useAuth0();
 
 	const location = useLocation();
@@ -123,7 +122,7 @@ const CompanyDashboard = () => {
 						<div className="content-container">
 							{household ? (
 								<>
-									<UsageChart data={energyUsageFromRedux} period={period} />
+									<UsageChart />
 									<div style={{ display: "flex", alignItems: "center" }}>
 										<PeriodNavigator />
 									</div>

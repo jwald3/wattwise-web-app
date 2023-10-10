@@ -1,31 +1,49 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { CartesianGrid, Line, LineChart, XAxis, YAxis, ResponsiveContainer } from "recharts";
 import "./UsageChart.css";
+import { useSelector } from "react-redux";
 
-const UsageChart = ({ data, period }) => {
-    let formattedData = [...data];
-    let xAxisKey = "";
+const UsageChart = () => {
+    const data = useSelector(state => state.energyUsage?.energyUsage);
+    const period = useSelector(state => state.dashboard.period);
+    
+    const [formattedDataArray, setFormattedDataArray] = useState([]);
+    const [xAxisKey, setXAxisKey] = useState("");
 
-    switch (period) {
-        case 'Daily':
-            formattedData = data.map(d => ({ ...d, time: d.time?.split("T")[1] }));
-            xAxisKey = 'time';
-            break;
-        case 'Weekly':
-            formattedData = data.map(d => ({ ...d, reading_time: d.reading_time?.split("T")[0]?.split("-")?.slice(1).join("-") }));
-            xAxisKey = 'reading_time';
-            break;
-        case 'Monthly':
-            formattedData = data.map(d => ({ ...d, time: d.time?.split("T")[0] }));
-            xAxisKey = 'time';
-            break;
-        case 'Yearly':
-            xAxisKey = 'start_date';
-            break;
-        default:
-            xAxisKey = 'start_date';
-            break;
-    }
+    useEffect(() => {
+        if (data?.length > 0) {
+
+            let formattedData = [...data];
+            let xAxis = "";
+        
+            switch (period) {
+                case 'Daily':
+                    formattedData = data.map(d => ({ ...d, time: d.time?.split("T")[1] }));
+                    xAxis = 'time';
+                    break;
+                case 'Weekly':
+                    formattedData = data.map(d => ({ ...d, reading_time: d.reading_time?.split("T")[0]?.split("-")?.slice(1).join("-") }));
+                    xAxis = 'reading_time';
+                    break;
+                case 'Monthly':
+                    formattedData = data.map(d => ({ ...d, time: d.time?.split("T")[0] }));
+                    xAxis = 'time';
+                    break;
+                case 'Yearly':
+                    xAxis = 'start_date';
+                    break;
+                default:
+                    xAxis = 'start_date';
+                    break;
+            }
+
+            setFormattedDataArray(formattedData);
+            setXAxisKey(xAxis);
+        }
+    }, [data, period]);
+
+
+    
 
     const getInterval = (period) => {
         switch (period) {
@@ -41,7 +59,7 @@ const UsageChart = ({ data, period }) => {
         <div className="usage-chart-container">
             <ResponsiveContainer>
                 <LineChart
-                    data={formattedData}
+                    data={formattedDataArray}
                     margin={{ top: 20, right: 20, bottom: 20, left: 20 }}
                 >
                     <XAxis
