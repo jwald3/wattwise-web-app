@@ -3,14 +3,13 @@ import './StatsSection.css';
 import EnergySavingsLeafIcon from '@mui/icons-material/EnergySavingsLeaf';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import RecyclingIcon from '@mui/icons-material/Recycling';
+import { useSelector } from 'react-redux';
 
 
-const StatsSection = ({ energyUsage }) => {
+const StatsSection = () => {
+    const energyUsage = useSelector(state => state.energyUsage.totalEnergyConsumption);
 
-    // get energy usage validity
-    const energyUsageValid = (energyUsage) => {
-        return (energyUsage === null || energyUsage === undefined || energyUsage === 0) ? false : true;
-    }
+    const energyUsageValid = (energyUsage) => energyUsage !== null && energyUsage !== undefined && energyUsage !== 0;
 
     return (
         <div className="stats-container">

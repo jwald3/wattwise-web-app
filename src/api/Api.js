@@ -28,21 +28,31 @@ export const fetchProviderByID = async (providerID) => {
     return response.data;
 };
 
-export const fetchCustomersByProviderAndRegion = async (providerID, regionID) => {
-    let params = new URLSearchParams();
+export const fetchCustomersByProviderAndRegion = async (providerID = null, regionID = null) => {
+    const params = {};
 
-    if (providerID !== null && providerID !== undefined)  {
-        params.append("provider_id", providerID);
+    if (providerID !== null)  {
+        params.provider_id = providerID;
     }
 
-    if (regionID !== null && regionID !== undefined)  {
-        params.append("region_id", regionID);
+    if (regionID !== null)  {
+        params.region_id = regionID;
     }
 
-    const response = await axios.get(`${API_URL}/provider_customers?${params.toString()}`);
+    try {
+        const response = await axios.get(`${API_URL}/provider_customers`, { params });
 
-    return response.data;
-}
+        // Check if response.data exists and if it contains the customers key
+        if (response.data && 'customers' in response.data) {
+            return response.data.customers;
+        } else {
+            throw new Error('Unexpected API response format.');
+        }
+    } catch (error) {
+        console.error('Error fetching customers:', error);
+        throw error;  // Re-throw the error if you want the caller to handle it further
+    }
+};
 
 // Pricing tier endpoints
 

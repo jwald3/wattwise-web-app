@@ -34,7 +34,7 @@ const DropdownMenu = ({
                             <em>None</em>
                         </MenuItem>
                     )}
-                    {options?.map((option) => (
+                    {Array.isArray(options) && options.map((option) => (
                         <MenuItem
                             value={option.value}
                             key={option.value}

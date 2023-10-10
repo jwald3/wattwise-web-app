@@ -1,6 +1,13 @@
+import { useSelector, useDispatch } from 'react-redux';
 import './PeriodNavigator.css'
+import { setCurrentDate, setCurrentWeek, setCurrentMonth, setCurrentYear } from '../../redux/energyUsagesSlice'
 
-const PeriodNavigator = ({ period, dateValue, dateSetter, weekValue, weekSetter, monthValue, monthSetter, yearValue, yearSetter }) => {
+const PeriodNavigator = () => {
+    const dispatch = useDispatch();
+
+    const { period } = useSelector((state) => state.dashboard);
+    const { currentYear, currentMonth, currentWeek, currentDate } = useSelector((state) => state.energyUsage);
+
 
     // function for converting month number to month name, e.g. 1 -> January
     const monthName = (month) => {
@@ -35,30 +42,30 @@ const PeriodNavigator = ({ period, dateValue, dateSetter, weekValue, weekSetter,
     const increment = () => {
         switch (period) {
             case 'Daily':
-                const nextDay = new Date(dateValue);
+                const nextDay = new Date(currentDate);
                 nextDay.setDate(nextDay.getDate() + 1);
-                dateSetter(nextDay.toISOString().split("T")[0]);
+                dispatch(setCurrentDate(nextDay.toISOString().split("T")[0]));
+                
                 if (nextDay.getMonth() === 0) {
-                    yearSetter(yearValue + 1);
+                    dispatch(setCurrentYear(currentYear + 1));
                 }
                 break;
             case 'Weekly':
-                let nextWeek = weekValue === 52 ? 1 : weekValue + 1;
-                weekSetter(nextWeek);
+                let nextWeek = currentWeek === 52 ? 1 : currentWeek + 1;
+                dispatch(setCurrentWeek(nextWeek));
                 if (nextWeek === 1) {
-                    yearSetter(yearValue + 1);
+                    dispatch(setCurrentYear(currentYear + 1));
                 }
                 break;
             case 'Monthly':
-                let nextMonth = monthValue === 12 ? 1 : monthValue + 1;
-                monthSetter(nextMonth);
+                let nextMonth = currentMonth === 12 ? 1 : currentMonth + 1;
+                dispatch(setCurrentMonth(nextMonth));
                 if (nextMonth === 1) {
-                    yearSetter(yearValue + 1);
+                    dispatch(setCurrentYear(currentYear + 1));
                 }
                 break;
             case 'Yearly':
-                let nextYear = yearValue + 1;
-                yearSetter(nextYear);
+                dispatch(setCurrentYear(currentYear + 1));
                 break;
             default:
                 break;
@@ -68,30 +75,29 @@ const PeriodNavigator = ({ period, dateValue, dateSetter, weekValue, weekSetter,
     const decrement = () => {
         switch (period) {
             case 'Daily':
-                const prevDay = new Date(dateValue);
+                const prevDay = new Date(currentDate);
                 prevDay.setDate(prevDay.getDate() - 1);
-                dateSetter(prevDay.toISOString().split("T")[0]);
+                dispatch(setCurrentDate(prevDay.toISOString().split("T")[0]));
                 if (prevDay.getMonth() === 11) {
-                    yearSetter(yearValue - 1);
+                    dispatch(setCurrentYear(currentYear - 1));
                 }
                 break;
             case 'Weekly':
-                let lastWeek = weekValue === 1 ? 52 : weekValue - 1;
-                weekSetter(lastWeek);
+                let lastWeek = currentWeek === 1 ? 52 : currentWeek - 1;
+                dispatch(setCurrentWeek(lastWeek));
                 if (lastWeek === 52) {
-                    yearSetter(yearValue - 1);
+                    dispatch(setCurrentYear(currentYear - 1));
                 }
                 break;
             case 'Monthly':
-                let lastMonth = monthValue === 1 ? 12 : monthValue - 1;
-                monthSetter(lastMonth);
+                let lastMonth = currentMonth === 1 ? 12 : currentMonth - 1;
+                dispatch(setCurrentMonth(lastMonth));
                 if (lastMonth === 12) {
-                    yearSetter(yearValue - 1);
+                    dispatch(setCurrentYear(currentYear - 1));
                 }
                 break;
             case 'Yearly':
-                let lastYear = yearValue - 1;
-                yearSetter(lastYear);
+                dispatch(setCurrentYear(currentYear - 1));
                 break;
             default:
                 break;
@@ -101,13 +107,13 @@ const PeriodNavigator = ({ period, dateValue, dateSetter, weekValue, weekSetter,
     const displayDate = () => {
         switch (period) {
             case 'Daily':
-                return dateValue;
+                return currentDate;
             case 'Weekly':
-                return `Week ${weekValue}, ${yearValue}`;
+                return `Week ${currentWeek}, ${currentYear}`;
             case 'Monthly':
-                return `${monthName(monthValue)} ${yearValue}`;
+                return `${monthName(currentMonth)} ${currentYear}`;
             case 'Yearly':
-                return yearValue;
+                return currentYear;
             default:
                 break;
         }

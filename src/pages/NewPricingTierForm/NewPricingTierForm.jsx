@@ -31,8 +31,6 @@ const NewPricingTierForm = () => {
 
     const queryParams = new URLSearchParams();
 
-    console.log("Passed tierName:", tierNameFromState);
-
     const toggleDay = (day) => {
         setActiveDays((prevDays) => {
             if (prevDays.includes(day)) {
@@ -57,11 +55,8 @@ const NewPricingTierForm = () => {
             pricingTierSpecialDates: [],
         };
 
-        console.log(payload);
-
         try {
             const response = await addPricingTier(payload);
-            console.log(response);
 
             // go back to dashboard
             queryParams.set("state", stateFromState);

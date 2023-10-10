@@ -1,0 +1,87 @@
+.pricingMenu {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    border: 1px solid #e0e0e0;
+    border-radius: 1rem;
+    box-shadow: 0px 4px 6px #0000001A;
+    padding: 1.5%;
+    margin: 0.5rem;
+    width: 45%;
+    box-sizing: border-box;
+}
+
+.pricingContent {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 1.25rem;
+    padding: 0 2%;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+}
+
+.titleContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 1rem;
+}
+
+
+.headerText {
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.25rem;
+    color: #2C3E50;
+    font-weight: 400;
+    margin: 0;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #BDC3C7;
+}
+
+.editButton {
+    background-color: transparent;
+    color: #32C5A4;
+    /* Dark Charcoal */
+    padding: .3rem .6rem;
+    border: 1px solid #32C5A4;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: 'Roboto', sans-serif;
+    font-size: 1rem;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.editButton:hover {
+    background-color: #32C5A4;
+    color: #FFFFFF;
+}
+
+.active-edit {
+    background-color: #32C5A4;
+    color: #FFFFFF;
+}
+
+button {
+    background-color: #EAEAEA;
+    border: none;
+    padding: 0.3rem;
+    margin: 0 0.3rem;
+    border-radius: 0.2rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+@media (max-width: 1200px) {
+    .pricingMenu {
+        width: 100%;
+    }
+}
+
+@media (max-width: 1000px) {
+    .pricingMenu {
+        flex: 1;
+    }
+}
+
