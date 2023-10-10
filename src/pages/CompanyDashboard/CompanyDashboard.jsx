@@ -27,17 +27,18 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { useDispatch, useSelector } from "react-redux";
 import { setHousehold, setPeriod, setRegion, setState } from "../../redux/dashboardSlice";
 import { fetchPricingTiersByRegion } from "../../redux/pricingTiersSlice";
+import { fetchHouseholdsByRegion } from "../../redux/householdsSlice";
 
 const CompanyDashboard = () => {
 	const [provider, setProvider] = React.useState(1);
 	const { state, region, household, period } = useSelector((state) => state.dashboard);
 	const pricingTiersFromRedux = useSelector(state => state.pricingTiers.pricingTiers);
+	const householdsFromRedux = useSelector(state => state.households.households);
  	const dispatch = useDispatch();
 
 	const [states, setStates] = React.useState([]);
 	const [regions, setRegions] = React.useState([]);
-	const [households, setHouseholds] = React.useState([]);
-	const [pricingTiers, setPricingTiers] = React.useState([]);
+	
 	const [energyUsage, setEnergyUsage] = React.useState([]);
 	const [currentDate, setCurrentDate] = React.useState("2023-01-01");
 	const [currentYear, setCurrentYear] = React.useState(2023);
@@ -159,29 +160,10 @@ const CompanyDashboard = () => {
 	}, [state]);
 
 	useEffect(() => {
-		if (region === "") {
-			setHouseholds([]);
-			return;
+		if (region !== "") {
+			dispatch(fetchHouseholdsByRegion(region));
 		}
-
-		setHouseholds([]);
-		setHousehold("");
-
-		const fetchHouseholdData = async () => {
-			const responseData = await fetchCustomersByProviderAndRegion(1, region);
-			const customersArray = responseData.customers;
-
-			if (!Array.isArray(customersArray) || customersArray.length === 0) return;
-
-			let householdArray = customersArray.map((customer) => ({
-				value: customer.household_id,
-				display: customer.street_address,
-			}));
-			setHouseholds(householdArray);
-		};
-
-		fetchHouseholdData();
-	}, [region, state]);
+	}, [dispatch, region]);
 
 	useEffect(() => {
         if (region !== "") {
@@ -304,7 +286,10 @@ const CompanyDashboard = () => {
 									<DropdownMenu
 										label="Household"
 										value={household}
-										options={households}
+										options={householdsFromRedux.map((household) => ({
+											value: household.household_id,
+											display: household.street_address,
+										}))}
 										handleChange={handleHouseholdChange}
 										nullable={true}
 										minWidth={window.innerWidth <= 1200 ? 150 * .6 : 150}
