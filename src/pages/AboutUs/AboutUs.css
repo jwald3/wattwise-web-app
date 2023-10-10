@@ -48,5 +48,6 @@
     .about-us-img {
         margin-top: 0;
         margin-bottom: 0;
+        max-height: 340px;
     }
 }
