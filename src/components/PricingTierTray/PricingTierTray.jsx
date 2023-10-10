@@ -1,14 +1,24 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import PricingTierTile from "../PricingTierTile/PricingTierTile";
 import FillerPricingTierTile from "../FillerPricingTierTile/FillerPricingTierTile";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import "./PricingTierTray.css";
+import { fetchPricingTiersByRegion } from "../../redux/pricingTiersSlice";
 
-const PricingTierTray = ({ pricingTiers }) => {
+const PricingTierTray = () => {
+	const dispatch = useDispatch();
+	const pricingTiers = useSelector(state => state.pricingTiers.pricingTiers);
+
 	const [isEdit, setIsEdit] = useState(false);
 	const { state, region } = useSelector((state) => state.dashboard);
 
     const pricingCategories = ["Peak", "Off-Peak", "Weekend", "Holiday"];
+
+	useEffect(() => {
+        if (region !== "") {
+            dispatch(fetchPricingTiersByRegion(region));
+        }
+    }, [dispatch, region]);
 
     return (
         <div className="pricingMenu">

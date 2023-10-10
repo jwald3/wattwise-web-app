@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 const UsageChart = () => {
     const data = useSelector(state => state.energyUsage?.energyUsage);
     const period = useSelector(state => state.dashboard.period);
-    
+
     const [formattedDataArray, setFormattedDataArray] = useState([]);
     const [xAxisKey, setXAxisKey] = useState("");
 
@@ -41,9 +41,6 @@ const UsageChart = () => {
             setXAxisKey(xAxis);
         }
     }, [data, period]);
-
-
-    
 
     const getInterval = (period) => {
         switch (period) {

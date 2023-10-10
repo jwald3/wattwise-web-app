@@ -9,10 +9,7 @@ import { useSelector } from 'react-redux';
 const StatsSection = () => {
     const energyUsage = useSelector(state => state.energyUsage.totalEnergyConsumption);
 
-    // get energy usage validity
-    const energyUsageValid = (energyUsage) => {
-        return (energyUsage === null || energyUsage === undefined || energyUsage === 0) ? false : true;
-    }
+    const energyUsageValid = (energyUsage) => energyUsage !== null && energyUsage !== undefined && energyUsage !== 0;
 
     return (
         <div className="stats-container">
