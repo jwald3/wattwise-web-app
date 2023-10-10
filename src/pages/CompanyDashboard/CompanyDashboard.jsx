@@ -26,8 +26,6 @@ const CompanyDashboard = () => {
 
  	const dispatch = useDispatch();
 	
-	const totalEnergyConsumptionFromRedux = useSelector(state => state.energyUsage.totalEnergyConsumption);
-	
 
 	const { isAuthenticated } = useAuth0();
 
@@ -129,7 +127,7 @@ const CompanyDashboard = () => {
 									<div style={{ display: "flex", alignItems: "center" }}>
 										<PeriodNavigator />
 									</div>
-									<StatsSection energyUsage={totalEnergyConsumptionFromRedux} /></>) : <NoData />}
+									<StatsSection /></>) : <NoData />}
 						</div>
 					</div>
 					<PricingTierTray pricingTiers={pricingTiersFromRedux} />
