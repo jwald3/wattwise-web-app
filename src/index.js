@@ -62,9 +62,9 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root")).render(
     <Auth0Provider
-        domain="dev-pj7t2m2pdrnvypjq.us.auth0.com"
-        clientId="qQhvR1xQBG17JGBcRU1aUyrMqAQs3Io3"
-        redirectUri={window.location.origin}
+        domain={process.env.REACT_APP_AUTH0_DOMAIN}
+        clientId={process.env.REACT_APP_AUTH0_CLIENT_ID}
+        redirectUri={process.env.REACT_APP_AUTH0_REDIRECT_URI}
         useRefreshTokens={true}
         cacheLocation="localstorage"
     >
@@ -75,3 +75,4 @@ ReactDOM.createRoot(document.getElementById("root")).render(
 );
 
 reportWebVitals();
+
