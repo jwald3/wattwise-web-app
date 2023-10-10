@@ -8,7 +8,7 @@ const PrivacyPolicyPage = () => {
     return (
         <Layout>
             <div className="main-page">
-                <div className="privacy-policy-container">
+                <div className="privacy-container">
                     <div>
                         <h1>Privacy Policy for Wattwise</h1>
                         <p>Last updated: {date}</p>
