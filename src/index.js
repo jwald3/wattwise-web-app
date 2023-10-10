@@ -39,11 +39,19 @@ const router = createBrowserRouter([
     },
     {
         path: "/pricing-tier",
-        element: <NewPricingTierForm />
+        element: (
+            <ProtectedRoute>
+                <NewPricingTierForm />
+            </ProtectedRoute>
+        )
     },
     {
         path: "/pricing-tier/:id/edit",
-        element: <EditPricingTierForm />
+        element: (
+            <ProtectedRoute>
+                <EditPricingTierForm />
+            </ProtectedRoute>
+        )
     },
     {
         path: "/callback",
