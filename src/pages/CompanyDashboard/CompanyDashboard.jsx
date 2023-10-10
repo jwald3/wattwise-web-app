@@ -24,13 +24,14 @@ import Layout from "../../Layouts/Layout";
 import { useLocation, useNavigate } from "react-router-dom";
 import NoData from "../../components/NoData/NoData";
 import { useAuth0 } from "@auth0/auth0-react";
+import { useDispatch, useSelector } from "react-redux";
+import { setHousehold, setPeriod, setRegion, setState } from "../../redux/dashboardSlice";
 
 const CompanyDashboard = () => {
 	const [provider, setProvider] = React.useState(1);
-	const [state, setState] = React.useState("");
-	const [region, setRegion] = React.useState("");
-	const [household, setHousehold] = React.useState("");
-	const [period, setPeriod] = React.useState("Yearly");
+	const { state, region, household, period } = useSelector((state) => state.dashboard);
+ 	const dispatch = useDispatch();
+
 	const [states, setStates] = React.useState([]);
 	const [regions, setRegions] = React.useState([]);
 	const [households, setHouseholds] = React.useState([]);
@@ -85,24 +86,17 @@ const CompanyDashboard = () => {
 		} else {
 			// The standard logic to set states based on URL
 			if (stateParam) {
-				setState(stateParam);
+				dispatch(setState(stateParam));
 				if (regionParam) {
-					setRegion(regionParam);
-					if (householdParam) {
-						setHousehold(householdParam);
-					}
+				  dispatch(setRegion(regionParam));
+				  if (householdParam) {
+					dispatch(setHousehold(householdParam));
+				  }
 				}
-			}
-			setPeriod(periodParam);
+			  }
+			  dispatch(setPeriod(periodParam));
 		}
 	}, [location.search, navigate]);
-
-	useEffect(() => {
-		if (!isLoading && !isAuthenticated) {
-			loginWithRedirect();
-		}
-	}, [isLoading, isAuthenticated, loginWithRedirect]);
-
 
 	const updateURLParams = (newState, newRegion, newHousehold, newPeriod) => {
 		const params = [];
