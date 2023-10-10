@@ -4,6 +4,7 @@ import pricingTiersReducer from "./pricingTiersSlice";
 import householdsReducer from "./householdsSlice";  
 import energyUsageReducer from "./energyUsagesSlice";
 import statesReducer from "./statesSlice";
+import regionsReducer from "./regionsSlice";
 
 export const store = configureStore({
     reducer: {
@@ -12,5 +13,6 @@ export const store = configureStore({
         households: householdsReducer,
         energyUsage: energyUsageReducer,
         states: statesReducer,
+        regions: regionsReducer,
     },
 });

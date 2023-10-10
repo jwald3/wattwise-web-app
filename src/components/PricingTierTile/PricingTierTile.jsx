@@ -14,8 +14,6 @@ const PricingTierTile = ({ pricingData, state, region, regionName, isEdit }) => 
         pricing_id,
     } = pricingData;
 
-    console.log(pricingData);
-
     // convert time string from 24-hour format to 12-hour format where 00:00 is 12:00 AM
     const convertTo12Hour = (timeStr) => {
         if (timeStr) {

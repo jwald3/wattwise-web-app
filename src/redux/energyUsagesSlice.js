@@ -5,6 +5,10 @@ import {
     fetchWeeklyEnergyConsumptionByCustomer,
     fetchMonthlyEnergyConsumptionByCustomer,
     fetchYearlyEnergyConsumptionByCustomer,
+    fetchTotalDailyEnergyConsumptionByCustomer,
+    fetchTotalWeeklyEnergyConsumptionByCustomer,
+    fetchTotalMonthlyEnergyConsumptionByCustomer,
+    fetchTotalYearlyEnergyConsumptionByCustomer,
 } from '../api/Api';
 
 export const fetchUsageData = createAsyncThunk(
@@ -37,7 +41,44 @@ export const fetchUsageData = createAsyncThunk(
 				});
 			}
 
+        
         return responseData;
+    }
+);
+
+// fetch total energy usage from the API
+export const fetchTotalEnergyConsumption = createAsyncThunk(
+    'energyUsage/fetchTotalEnergyConsumption',
+    async ({ household, period, currentDate, currentYear, currentMonth, currentWeek }) => {
+        let totalEnergy = 0;
+
+			if (period === "Daily") {
+				totalEnergy = await fetchTotalDailyEnergyConsumptionByCustomer({
+					household_id: household,
+					date: currentDate,
+					year: currentYear,
+				});
+			} else if (period === "Weekly") {
+				totalEnergy = await fetchTotalWeeklyEnergyConsumptionByCustomer({
+					household_id: household,
+					week: currentWeek,
+					year: currentYear,
+				});
+			} else if (period === "Monthly") {
+				totalEnergy = await fetchTotalMonthlyEnergyConsumptionByCustomer({
+					household_id: household,
+					month: currentMonth,
+					year: currentYear,
+				});
+			} else if (period === "Yearly") {
+				totalEnergy = await fetchTotalYearlyEnergyConsumptionByCustomer({
+					household_id: household,
+					year: currentYear,
+				});
+			}
+                
+            return totalEnergy.energy_usage;
+
     }
 );
 
@@ -80,8 +121,17 @@ const energyUsageSlice = createSlice({
                 state.loading = false;
                 state.error = action.error.message;
             })
-            
-
+            .addCase(fetchTotalEnergyConsumption.pending, (state) => {
+                state.loading = true;
+            })
+            .addCase(fetchTotalEnergyConsumption.fulfilled, (state, action) => {
+                state.loading = false;
+                state.totalEnergyConsumption = action.payload;
+            })
+            .addCase(fetchTotalEnergyConsumption.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.error.message;
+            })
     }
 });
 

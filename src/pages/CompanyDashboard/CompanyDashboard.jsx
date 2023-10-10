@@ -3,13 +3,6 @@ import "./CompanyDashboard.css";
 import UsageChart from "../../components/UsageChart/UsageChart";
 import DropdownMenu from "../../components/DropdownMenu/DropdownMenu";
 import PricingTierTile from "../../components/PricingTierTile/PricingTierTile";
-import {
-	fetchRegions,
-	fetchTotalDailyEnergyConsumptionByCustomer,
-	fetchTotalMonthlyEnergyConsumptionByCustomer,
-	fetchTotalWeeklyEnergyConsumptionByCustomer,
-	fetchTotalYearlyEnergyConsumptionByCustomer,
-} from "../../api/Api";
 import FillerPricingTierTile from "../../components/FillerPricingTierTile/FillerPricingTierTile";
 import PeriodNavigator from "../../components/PeriodNavigator/PeriodNavigator";
 import StatsSection from "../../components/StatsSection/StatsSection";
@@ -21,8 +14,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { setHousehold, setPeriod, setRegion, setState } from "../../redux/dashboardSlice";
 import { fetchPricingTiersByRegion } from "../../redux/pricingTiersSlice";
 import { fetchHouseholdsByRegion } from "../../redux/householdsSlice";
-import { fetchUsageData } from "../../redux/energyUsagesSlice";
+import { fetchTotalEnergyConsumption, fetchUsageData } from "../../redux/energyUsagesSlice";
 import { getStates } from "../../redux/statesSlice";
+import { getRegions } from "../../redux/regionsSlice";
 
 const CompanyDashboard = () => {
 	const { state, region, household, period } = useSelector((state) => state.dashboard);
@@ -30,18 +24,16 @@ const CompanyDashboard = () => {
 	const householdsFromRedux = useSelector(state => state.households.households);
 	const energyUsageFromRedux = useSelector(state => state.energyUsage.energyUsage);
 	const statesFromRedux = useSelector(state => state.states.states);
+	const regionsFromRedux = useSelector(state => state.regions.regions);
 
 	const { currentDate, currentYear, currentMonth, currentWeek } = useSelector(state => state.energyUsage);
 
  	const dispatch = useDispatch();
-
 	
-	const [regions, setRegions] = React.useState([]);
-	
-	const [totalEnergyConsumption, setTotalEnergyConsumption] = React.useState(0);
+	const totalEnergyConsumptionFromRedux = useSelector(state => state.energyUsage.totalEnergyConsumption);
 	const [isEdit, setIsEdit] = React.useState(false);
 
-	const { isAuthenticated, loginWithRedirect, isLoading } = useAuth0();
+	const { isAuthenticated } = useAuth0();
 
 	const location = useLocation();
 	const navigate = useNavigate();
@@ -129,20 +121,11 @@ const CompanyDashboard = () => {
 
 	useEffect(() => {
 		dispatch(getStates())
-	}, []);
+	}, [dispatch]);
 
 	useEffect(() => {
-		const fetchRegionsData = async () => {
-			const regions = await fetchRegions(state);
-			let regionsArray = regions.map((region) => ({
-				value: region.region_id,
-				display: region.region_name,
-			}));
-			setRegions(regionsArray);
-		};
-
-		fetchRegionsData();
-	}, [state]);
+		dispatch(getRegions(state));
+	}, [dispatch, state]);
 
 	useEffect(() => {
 		if (region !== "") {
@@ -164,41 +147,9 @@ const CompanyDashboard = () => {
 	}, [dispatch, household, period, currentDate, currentYear, currentMonth, currentWeek]);
 
 	useEffect(() => {
-		if (energyUsageFromRedux.length === 0) return;
-
-		const getTotalConsumption = async () => {
-			let totalEnergy = 0;
-
-			if (period === "Daily") {
-				totalEnergy = await fetchTotalDailyEnergyConsumptionByCustomer({
-					household_id: household,
-					date: currentDate,
-					year: currentYear,
-				});
-			} else if (period === "Weekly") {
-				totalEnergy = await fetchTotalWeeklyEnergyConsumptionByCustomer({
-					household_id: household,
-					week: currentWeek,
-					year: currentYear,
-				});
-			} else if (period === "Monthly") {
-				totalEnergy = await fetchTotalMonthlyEnergyConsumptionByCustomer({
-					household_id: household,
-					month: currentMonth,
-					year: currentYear,
-				});
-			} else if (period === "Yearly") {
-				totalEnergy = await fetchTotalYearlyEnergyConsumptionByCustomer({
-					household_id: household,
-					year: currentYear,
-				});
-			}
-
-			setTotalEnergyConsumption(totalEnergy.energy_usage);
-		};
-
-		getTotalConsumption();
+		dispatch(fetchTotalEnergyConsumption({ household, period, currentDate, currentYear, currentMonth, currentWeek }));
 	}, [
+		dispatch,
 		period,
 		energyUsageFromRedux,
 		household,
@@ -233,7 +184,11 @@ const CompanyDashboard = () => {
 									<DropdownMenu
 										label="Region"
 										value={region}
-										options={regions}
+										options={regionsFromRedux.map((region) => ({
+											value: region.region_id,
+											display: region.region_name,
+										}))
+										}
 										handleChange={handleRegionChange}
 										nullable={true}
 										minWidth={window.innerWidth <= 1200 ? 125 * .6 : 125}
@@ -273,7 +228,7 @@ const CompanyDashboard = () => {
 									<div style={{ display: "flex", alignItems: "center" }}>
 										<PeriodNavigator />
 									</div>
-									<StatsSection energyUsage={totalEnergyConsumption} /></>) : <NoData />}
+									<StatsSection energyUsage={totalEnergyConsumptionFromRedux} /></>) : <NoData />}
 						</div>
 					</div>
 					<div className="pricingMenu">

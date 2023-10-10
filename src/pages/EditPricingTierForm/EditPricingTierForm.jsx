@@ -34,8 +34,6 @@ const EditPricingTierForm = () => {
 
     const pricingId = location.state?.pricingData?.pricing_id || null;
 
-    console.log(location.state?.pricingData);
-
     useEffect(() => {
         const pricingData = location.state?.pricingData;
         if (pricingData) {
@@ -82,11 +80,8 @@ const EditPricingTierForm = () => {
             pricingTierSpecialDates: [],
         };
 
-        console.log(payload);
-
         try {
             const response = await updatePricingTier({ pricingTierID: pricingId, pricingTier: payload });
-            console.log(response);
 
             // go back to dashboard
             queryParams.set("state", stateFromState);
@@ -107,7 +102,6 @@ const EditPricingTierForm = () => {
         // existing delete logic here...
         try {
             const response = await deletePricingTier(pricingId);
-            console.log(response);
 
             queryParams.set("state", stateFromState);
             queryParams.set("region", regionFromState);
