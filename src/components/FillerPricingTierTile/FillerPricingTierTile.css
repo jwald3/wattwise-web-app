@@ -25,6 +25,13 @@
     text-decoration: none;
 }
 
+.disabled-link {
+    pointer-events: none;
+    display: none;
+    text-decoration: none;
+  }
+  
+
 .tile-content {
     display: flex;
     flex-direction: column;

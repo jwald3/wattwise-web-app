@@ -12,7 +12,7 @@ const FillerPricingTierTile = ({ pricingTierName, state, region }) => {
                 <Link
                     to={`/pricing-tier`}
                     state={{ tierName: pricingTierName, state: state, region: region }}
-                    className="add-link"
+                    className={ region ? "add-link" : "disabled-link" }
                 >
                     +
                 </Link>
