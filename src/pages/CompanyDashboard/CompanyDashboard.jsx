@@ -5,7 +5,6 @@ import DropdownMenu from "../../components/DropdownMenu/DropdownMenu";
 import PricingTierTile from "../../components/PricingTierTile/PricingTierTile";
 import {
 	fetchRegions,
-	fetchStates,
 	fetchTotalDailyEnergyConsumptionByCustomer,
 	fetchTotalMonthlyEnergyConsumptionByCustomer,
 	fetchTotalWeeklyEnergyConsumptionByCustomer,
@@ -23,17 +22,20 @@ import { setHousehold, setPeriod, setRegion, setState } from "../../redux/dashbo
 import { fetchPricingTiersByRegion } from "../../redux/pricingTiersSlice";
 import { fetchHouseholdsByRegion } from "../../redux/householdsSlice";
 import { fetchUsageData } from "../../redux/energyUsagesSlice";
+import { getStates } from "../../redux/statesSlice";
 
 const CompanyDashboard = () => {
 	const { state, region, household, period } = useSelector((state) => state.dashboard);
 	const pricingTiersFromRedux = useSelector(state => state.pricingTiers.pricingTiers);
 	const householdsFromRedux = useSelector(state => state.households.households);
 	const energyUsageFromRedux = useSelector(state => state.energyUsage.energyUsage);
+	const statesFromRedux = useSelector(state => state.states.states);
+
 	const { currentDate, currentYear, currentMonth, currentWeek } = useSelector(state => state.energyUsage);
 
  	const dispatch = useDispatch();
 
-	const [states, setStates] = React.useState([]);
+	
 	const [regions, setRegions] = React.useState([]);
 	
 	const [totalEnergyConsumption, setTotalEnergyConsumption] = React.useState(0);
@@ -126,16 +128,7 @@ const CompanyDashboard = () => {
 	};
 
 	useEffect(() => {
-		const fetchStatesData = async () => {
-			const states = await fetchStates();
-			let statesArray = states.map((state) => ({
-				value: state.state_id,
-				display: state.state_territory,
-			}));
-			setStates(statesArray);
-		};
-
-		fetchStatesData();
+		dispatch(getStates())
 	}, []);
 
 	useEffect(() => {
@@ -225,7 +218,11 @@ const CompanyDashboard = () => {
 								<DropdownMenu
 									label="State"
 									value={state}
-									options={states}
+									options={statesFromRedux.map((state) => ({
+										value: state.state_id,
+										display: state.state_territory,
+									}))	
+									}
 									handleChange={handleStateChange}
 									nullable={true}
 									// adapt minWidth based on screen size, reduce by .8 if on screen < 1200px
