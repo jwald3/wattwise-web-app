@@ -57,12 +57,12 @@ const UsageChart = () => {
             <ResponsiveContainer>
                 <LineChart
                     data={formattedDataArray}
-                    margin={{ top: 20, right: 20, bottom: 20, left: 20 }}
+                    margin={{ top: 20, right: window.innerWidth <= 1000 ? 0 : 20, bottom: 20, left: window.innerWidth <= 1000 ? 0 : 20 }}
                 >
                     <XAxis
                         dataKey={xAxisKey}
                         textAnchor="middle"
-                        interval={getInterval(period)}
+                        interval={window.innerWidth <= 1000 ? 2 * getInterval(period) : getInterval(period)}
                         height={60}
                         tickMargin={10}
                         /* Add style prop if you need to decrease fontSize for the label on smaller screens */
