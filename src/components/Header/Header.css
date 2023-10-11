@@ -52,6 +52,10 @@
     border-radius: 5px; /* Optional: rounded edges on hover */
 }
 
+.mobile-menu {
+    display: none;
+}
+
 @media (max-width: 768px) {
     .main-header {
         padding: 0 2%;
@@ -64,11 +68,12 @@
     .main-header-right {
         gap: 10px;
     }
-}
 
-@media (max-width: 700px) {
-    /* hide right side if too narrow */
-    .main-header-right {
+    .desktop-menu {
         display: none;
+    }   
+
+    .mobile-menu {
+        display: block;
     }
 }
