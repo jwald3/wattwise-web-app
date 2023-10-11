@@ -45,7 +45,7 @@ const PricingTierTile = ({ pricingData, state, region, regionName, isEdit }) => 
                     {weekDays.map((day, index) => (
                         <div
                             key={day}
-                            className={activeDays.includes(index + 1) ? "day active" : "day"}
+                            className={activeDays.includes(index) ? "day active" : "day"}
                         >
                             {day}
                         </div>
