@@ -1,7 +1,7 @@
 .stats-container {
     display: flex;
     justify-content: space-between;
-    padding: 2.5rem 0;
+    padding-top: 2.5rem;
     width: 90%;
     box-sizing: border-box;
     margin: auto;
@@ -68,6 +68,7 @@
 
     .stat-card {
         padding: 1.25rem 0.5rem;
+        margin: 0;
     }
 
     .value {
