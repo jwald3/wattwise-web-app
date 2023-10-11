@@ -8,6 +8,7 @@
     font-family: 'Roboto', 'SF Pro Icons', 'Helvetica Neue', Helvetica, Arial, sans-serif;
     box-sizing: border-box;
     max-width: 600px;
+    border: 1px solid #e6e6e6;  
 }
 
 .form-header {
