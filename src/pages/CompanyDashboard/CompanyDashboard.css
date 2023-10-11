@@ -79,6 +79,10 @@ html, body {
 }
 
 @media (max-width: 738px) {
+    .chartMenu {
+        padding: 5%;
+    }
+    
     .filterContainer {
         display: flex;
         flex-direction: column;
@@ -86,6 +90,10 @@ html, body {
         justify-content: space-between;
         /* Adjusts elements to take up equal space */
         margin: 2% 5%;
+    }
+
+    .content-container {
+        padding: 1% 2%;
     }
 
     .dropdownContainer {
@@ -106,6 +114,10 @@ html, body {
         align-items: center;
         justify-content: center;
         padding: 0.25rem 0;
+    }
+
+    .period-container {
+        width: 100%;
     }
 }
 

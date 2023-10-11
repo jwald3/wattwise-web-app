@@ -149,7 +149,7 @@ const QueryFilterTray = () => {
                     }))}
                     handleChange={handleStateChange}
                     nullable={true}
-                    minWidth={window.innerWidth <= 1200 ? 75 * 0.75 : 75}
+                    minWidth={150}
                 />
 
                 {state !== "" && (
@@ -162,7 +162,7 @@ const QueryFilterTray = () => {
                         }))}
                         handleChange={handleRegionChange}
                         nullable={true}
-                        minWidth={window.innerWidth <= 1200 ? 125 * 0.75 : 125}
+                        minWidth={150}
                     />
                 )}
 
@@ -176,18 +176,18 @@ const QueryFilterTray = () => {
                         }))}
                         handleChange={handleHouseholdChange}
                         nullable={true}
-                        minWidth={window.innerWidth <= 1200 ? 150 * 0.6 : 150}
+                        minWidth={150}
                     />
                 )}
             </div>
-            <div>
+            <div className="period-container">
                 <DropdownMenu
                     label="Period"
                     value={period}
                     options={periods}
                     handleChange={handlePeriodChange}
                     nullable={false}
-                    minWidth={window.innerWidth <= 1200 ? 125 * 0.6 : 125}
+                    minWidth={150}
                 />
             </div>
         </div>
