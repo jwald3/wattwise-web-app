@@ -99,3 +99,10 @@ button {
         padding: 0;
     }
 }
+
+@media (hover: none) {
+    .editButton:hover {
+        background-color: initial;
+        color: initial;
+    }
+}
