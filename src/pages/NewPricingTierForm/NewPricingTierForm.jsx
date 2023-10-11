@@ -78,7 +78,6 @@ const NewPricingTierForm = () => {
         }
     };
 
-    // days of the week as an array of objects, using single letter abbreviations and 1-indexed days
     const daysOfWeek = [
         { display: "S", value: 0 },
         { display: "M", value: 1 },

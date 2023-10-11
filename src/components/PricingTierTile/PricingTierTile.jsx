@@ -3,7 +3,7 @@ import "./PricingTierTile.css";
 import { Link } from "react-router-dom";
 
 const PricingTierTile = ({ pricingData, state, region, regionName, isEdit }) => {
-    const weekDays = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+    const weekDays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
     const {
         rate,

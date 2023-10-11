@@ -3,7 +3,7 @@ import "./FillerPricingTierTile.css"
 import { Link } from "react-router-dom";
 
 const FillerPricingTierTile = ({ pricingTierName, state, region }) => {
-    const weekDays = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+    const weekDays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
     
     return (
         <div className="tile">
