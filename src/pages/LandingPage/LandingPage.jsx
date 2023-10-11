@@ -20,7 +20,7 @@ const LandingPage = () => {
                                 <br />
                                 <span className="brand-color-main">Smart </span>
                                 <span className="brand-color-dark">
-                                    Savings
+                                    Savings.
                                 </span>
                             </div>
                         </div>

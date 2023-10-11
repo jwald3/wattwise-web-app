@@ -172,3 +172,9 @@
         justify-content: center;
     }
 }   
+
+@media (max-width: 768px) {
+    .landing-page-left-content {
+        gap: 1rem;
+    }
+}
