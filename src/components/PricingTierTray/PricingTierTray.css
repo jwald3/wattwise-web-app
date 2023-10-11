@@ -41,7 +41,7 @@
 }
 
 .editButton {
-    background-color: #EAEAEA;
+    background-color: #fff;
     color: #32C5A4;
     /* Dark Charcoal */
     padding: .3rem .6rem;
@@ -64,7 +64,6 @@
 }
 
 button {
-    background-color: #EAEAEA;
     border: none;
     padding: 0.3rem;
     margin: 0 0.3rem;
