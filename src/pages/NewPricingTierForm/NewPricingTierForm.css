@@ -1,12 +1,13 @@
 .form-container {
-    width: 40%;
+    width: 80%;
     background-color: #f5f5f5;
     border-radius: 12px;
     margin: auto;
-    padding: 2.75rem;
+    padding: 5%;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     font-family: 'Roboto', 'SF Pro Icons', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    min-width: 28rem;
+    box-sizing: border-box;
+    max-width: 600px;
 }
 
 .form-header {
@@ -21,8 +22,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 60%;
-    min-width: 22rem;
+    width: 80%;
     margin: 0 auto;
 }
 
@@ -109,6 +109,7 @@
     color: #32C5A4;
     border: 1px solid #32C5A4;
     margin-right: 10px;
+    text-decoration: none;
 }
 
 .cancel-button a {
@@ -134,4 +135,23 @@
 
 .MuiInputLabel-outlined.Mui-focused {
     color: #32C5A4 !important;
+}
+
+@media (max-width: 768px) {
+    .form-container {
+        width: 90%;  
+        box-sizing: border-box;  
+        margin: auto;
+        padding: 2%; 
+        min-width: 0;  
+    }
+
+    .form-header {
+        font-size: 1rem;
+    }
+
+    .form-body {
+        width: 100%;  
+        min-width: 0;       /* Takes up full width of its parent */
+    }
 }
