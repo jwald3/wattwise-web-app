@@ -149,7 +149,7 @@ const QueryFilterTray = () => {
                     }))}
                     handleChange={handleStateChange}
                     nullable={true}
-                    minWidth={window.innerWidth <= 1200 ? 75 * 0.6 : 75}
+                    minWidth={window.innerWidth <= 1200 ? 75 * 0.75 : 75}
                 />
 
                 {state !== "" && (
@@ -162,7 +162,7 @@ const QueryFilterTray = () => {
                         }))}
                         handleChange={handleRegionChange}
                         nullable={true}
-                        minWidth={window.innerWidth <= 1200 ? 125 * 0.6 : 125}
+                        minWidth={window.innerWidth <= 1200 ? 125 * 0.75 : 125}
                     />
                 )}
 
