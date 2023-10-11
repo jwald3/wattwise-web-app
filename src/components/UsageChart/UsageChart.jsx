@@ -57,8 +57,8 @@ const UsageChart = () => {
             <ResponsiveContainer>
                 <LineChart
                     data={formattedDataArray}
-                    margin={{ top: 20, right: window.innerWidth <= 1000 ? 0 : 20, bottom: 20, left: window.innerWidth <= 1000 ? 0 : 20 }}
-                >
+                    margin={{ top: 20, right: 20, bottom: 20, left: -20 }}
+                    >
                     <XAxis
                         dataKey={xAxisKey}
                         textAnchor="middle"
