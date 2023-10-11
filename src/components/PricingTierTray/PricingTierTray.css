@@ -85,3 +85,17 @@ button {
     }
 }
 
+@media (max-width: 738px) {
+    .pricingMenu {
+        padding: 5%;
+    }
+
+    .titleContainer {
+        width: 100%;
+        margin-bottom: 2.5%;
+    }
+
+    .pricingContent {
+        padding: 0;
+    }
+}
