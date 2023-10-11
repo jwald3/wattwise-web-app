@@ -79,6 +79,10 @@ html, body {
 }
 
 @media (max-width: 738px) {
+    .mainPage {
+        gap: 1.5rem;
+    }
+
     .chartMenu {
         padding: 5%;
         margin: 0;
