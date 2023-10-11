@@ -140,7 +140,7 @@
     .form-container {
         width: 90%;  
         box-sizing: border-box;  
-        margin: auto;
+        margin: 5% auto; 
         padding: 5%; 
         min-width: 0;  
     }
