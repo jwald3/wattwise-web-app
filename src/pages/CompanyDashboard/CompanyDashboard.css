@@ -81,6 +81,7 @@ html, body {
 @media (max-width: 738px) {
     .chartMenu {
         padding: 5%;
+        margin: 0;
     }
     
     .filterContainer {
