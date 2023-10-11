@@ -2,8 +2,9 @@ import { useEffect, useState } from "react";
 import PricingTierTile from "../PricingTierTile/PricingTierTile";
 import FillerPricingTierTile from "../FillerPricingTierTile/FillerPricingTierTile";
 import { useDispatch, useSelector } from "react-redux";
-import "./PricingTierTray.css";
 import { fetchPricingTiersByRegion } from "../../redux/pricingTiersSlice";
+import "./PricingTierTray.css";
+
 
 const PricingTierTray = () => {
 	const dispatch = useDispatch();
