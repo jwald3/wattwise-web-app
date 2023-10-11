@@ -4,6 +4,7 @@ import { useAuth0 } from '@auth0/auth0-react';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Button from '@mui/material/Button';
+import Hidden from '@mui/material/Hidden';
 import './Header.css';
 
 const Header = () => {
@@ -34,6 +35,24 @@ const Header = () => {
 				</div>
                 </div>
                 <div className="main-header-right">
+					<Hidden smDown>
+							{isAuthenticated ? (
+								<>
+									<Link to="/dashboard">Dashboard</Link>
+									<Link to="/privacy">Privacy</Link>
+									<Link to="/about-us">About</Link>
+									<Link to="https://twitter.com/WattwiseApp">Contact Us</Link>
+									<div onClick={() => logout({ returnTo: window.location.origin })} style={{ cursor: "pointer" }}>
+										Logout
+									</div>
+								</>
+							) : (
+								<div onClick={loginWithRedirect} style={{ cursor: "pointer" }}>
+									Login
+								</div>
+							)}
+                    </Hidden>
+					<Hidden smUp>
                     <Button onClick={handleClick} style={{ fontSize: 22}}>
                         ...
                     </Button>
@@ -51,10 +70,10 @@ const Header = () => {
                     >
                         {isAuthenticated ? (
                             <>
-                                <MenuItem onClick={handleClose}><Link to="/dashboard">Dashboard</Link></MenuItem>
-                                <MenuItem onClick={handleClose}><Link to="/privacy">Privacy</Link></MenuItem>
-                                <MenuItem onClick={handleClose}><Link to="/about-us">About</Link></MenuItem>
-                                <MenuItem onClick={handleClose}><Link to="https://twitter.com/WattwiseApp">Contact Us</Link></MenuItem>
+                                <MenuItem onClick={handleClose}><Link to="/dashboard" style={{ textDecoration: "none", color: "#000"}}>Dashboard</Link></MenuItem>
+                                <MenuItem onClick={handleClose}><Link to="/privacy" style={{ textDecoration: "none", color: "#000"}}>Privacy</Link></MenuItem>
+                                <MenuItem onClick={handleClose}><Link to="/about-us" style={{ textDecoration: "none", color: "#000"}}>About</Link></MenuItem>
+                                <MenuItem onClick={handleClose}><Link to="https://twitter.com/WattwiseApp" style={{ textDecoration: "none", color: "#000"}}>Contact Us</Link></MenuItem>
                                 <MenuItem onClick={() => {
                                     logout({ returnTo: window.location.origin });
                                     handleClose();
@@ -71,6 +90,7 @@ const Header = () => {
                             </MenuItem>
                         )}
                     </Menu>
+					</Hidden>
                 </div>
             </div>
         </div>
