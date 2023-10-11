@@ -25,7 +25,7 @@ const PricingTierTray = () => {
             <div className="titleContainer">
                 <div className="headerText">Pricing Tiers</div>
                 <button
-                    className={`editButton ${isEdit ? "active-edit" : ""}`}
+                    className={`${isEdit ? "active-edit" : "editButton"}`}
                     onClick={() => setIsEdit(!isEdit)}
                 >
                     Edit

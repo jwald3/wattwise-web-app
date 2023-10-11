@@ -53,14 +53,17 @@
     transition: background-color 0.3s, color 0.3s;
 }
 
-.editButton:hover {
-    background-color: #32C5A4;
-    color: #FFFFFF;
-}
-
 .active-edit {
     background-color: #32C5A4;
     color: #FFFFFF;
+    /* Dark Charcoal */
+    padding: .3rem .6rem;
+    border: 1px solid #32C5A4;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: 'Roboto', sans-serif;
+    font-size: 1rem;
+    transition: background-color 0.3s, color 0.3s;
 }
 
 button {
@@ -100,9 +103,7 @@ button {
     }
 }
 
-@media (hover: none) {
-    .editButton:hover {
-        background-color: initial;
-        color: initial;
-    }
+.editButton.active-edit {
+    background-color: #32C5A4;
+    color: #FFFFFF;
 }
