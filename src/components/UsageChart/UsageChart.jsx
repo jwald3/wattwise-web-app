@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { CartesianGrid, Line, LineChart, XAxis, YAxis, ResponsiveContainer } from "recharts";
+import { CartesianGrid, Line, LineChart, XAxis, YAxis, ResponsiveContainer, Label, ReferenceArea } from "recharts";
 import "./UsageChart.css";
 import { useSelector } from "react-redux";
 
@@ -65,10 +65,11 @@ const UsageChart = () => {
                         interval={window.innerWidth <= 1000 ? 2 * getInterval(period) : getInterval(period)}
                         height={60}
                         tickMargin={10}
-                        /* Add style prop if you need to decrease fontSize for the label on smaller screens */
                         style={{ fontSize: window.innerWidth <= 1000 ? '10px' : '12px' }}
                     />
-                    <YAxis domain={["auto", "auto"]} style={{ fontSize: window.innerWidth <= 1000 ? '10px' : '12px' }} />
+                    <YAxis domain={["auto", "auto"]} style={{ fontSize: window.innerWidth <= 1000 ? '10px' : '12px' }} >
+                        <Label value="Energy Usage (kWh)" angle={-90} position="insideLeft" offset={-10} style={{ textAnchor: 'middle' }} />
+                    </YAxis>
                     <CartesianGrid className="cartesian-grid-stroke" />
                     <Line
                         type="monotone"
@@ -76,6 +77,7 @@ const UsageChart = () => {
                         className="line-stroke"
                         dot={false}
                         isAnimationActive={false}
+                        activeDot={{ r: 8, fill: '#32C5A4' }}
                     />
                 </LineChart>
             </ResponsiveContainer>

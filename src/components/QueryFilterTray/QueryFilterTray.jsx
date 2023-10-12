@@ -149,7 +149,7 @@ const QueryFilterTray = () => {
                     }))}
                     handleChange={handleStateChange}
                     nullable={true}
-                    minWidth={150}
+                    minWidth={140}
                 />
 
                 {state !== "" && (
@@ -162,7 +162,7 @@ const QueryFilterTray = () => {
                         }))}
                         handleChange={handleRegionChange}
                         nullable={true}
-                        minWidth={150}
+                        minWidth={140}
                     />
                 )}
 
@@ -176,7 +176,7 @@ const QueryFilterTray = () => {
                         }))}
                         handleChange={handleHouseholdChange}
                         nullable={true}
-                        minWidth={150}
+                        minWidth={140}
                     />
                 )}
             </div>
@@ -187,7 +187,7 @@ const QueryFilterTray = () => {
                     options={periods}
                     handleChange={handlePeriodChange}
                     nullable={false}
-                    minWidth={150}
+                    minWidth={140}
                 />
             </div>
         </div>
