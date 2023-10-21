@@ -35,7 +35,7 @@ const Header = () => {
 				</div>
                 </div>
                 <div className="main-header-right">
-					<Hidden smDown>
+					<Hidden mdDown>
 							{isAuthenticated ? (
 								<>
 									<Link to="/dashboard">Dashboard</Link>
@@ -52,7 +52,7 @@ const Header = () => {
 								</div>
 							)}
                     </Hidden>
-					<Hidden smUp>
+					<Hidden mdUp>
                     <Button onClick={handleClick} style={{ fontSize: 22}}>
                         ...
                     </Button>
