@@ -48,7 +48,7 @@ const UsageChart = () => {
             case 'Daily': return 2;
             case 'Weekly': return 24;
             case 'Monthly': return 6;
-            case 'Yearly': return 30;
+            case 'Yearly': return 60;
             default: return 12;
         }
     };
