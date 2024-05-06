@@ -53,6 +53,11 @@ const UsageChart = () => {
         }
     };
 
+    const tooltipFormatter = (value) => {
+        // Assuming value is a number and exists
+        return value.toFixed(3); // Round to 3 significant digits
+    };
+
     return (
         <div className="usage-chart-container">
             <ResponsiveContainer>
@@ -92,7 +97,7 @@ const UsageChart = () => {
                         isAnimationActive={false}
                         activeDot={{ r: 4, fill: '#32C5A4' }}
                     />
-                    <Tooltip />
+                    <Tooltip formatter={tooltipFormatter} />
                 </LineChart>
             </ResponsiveContainer>
         </div>
